@@ -1,0 +1,27 @@
+@charset "ISO-8859-1";
+
+html,body{
+	margin: 0px;
+	padding: 0px;
+}
+.container-item, .ques, .formpart{
+	box-shadow: 0 0 13px 0 rgb(82 63 105 / 5%);
+    background-color: #fafafa;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    padding: 20px;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,0.125);
+}
+.questionbox{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.address-group{
+	margin-top: 20px;
+	margin-bottom: 0px;
+}
+.button-group{
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
