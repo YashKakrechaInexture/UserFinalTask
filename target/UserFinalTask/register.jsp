@@ -26,7 +26,7 @@
 </head>
 <body>
 	<div class="container">
-		<form>
+		<form enctype="multipart/form-data" method="post" action="RegisterServlet">
 			<div class="formpart">
 				<div class="row">
 					<div class="col-md-6">
@@ -120,15 +120,15 @@
 						<div class="form-group">
 							<label>Hobby</label>
 							<div class="hobby-group">
-								<input type="checkbox" id="Movies" name="Movies" class="hobby" value="Movies" required>
+								<input type="checkbox" id="Movies" name="hobby" class="hobby" value="Movies" required>
 								<label for="Movies">Movies </label>
-								<input type="checkbox" id="Cricket" name="Cricket" class="hobby" value="Cricket">
+								<input type="checkbox" id="Cricket" name="hobby" class="hobby" value="Cricket">
 								<label for="Cricket">Cricket </label>
-								<input type="checkbox" id="VideoGame" name="VideoGame" class="hobby" value="VideoGame">
+								<input type="checkbox" id="VideoGame" name="hobby" class="hobby" value="VideoGame">
 								<label for="VideoGame">VideoGame </label>
-								<input type="checkbox" id="Song" name="Song" class="hobby" value="Song">
+								<input type="checkbox" id="Song" name="hobby" class="hobby" value="Song">
 								<label for="Song">Song </label>
-								<input type="checkbox" id="Dance" name="Dance" class="hobby" value="Dance">
+								<input type="checkbox" id="Dance" name="hobby" class="hobby" value="Dance">
 								<label for="Dance">Dance </label>
 							</div>
 						</div>
@@ -183,7 +183,7 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="home">Home Address</label>
-										<input type="text" name="home" class="form-control" id="home" placeholder="123B,ABC Street" required>
+										<input type="text" name="home" class="form-control" id="home" placeholder="123B, ABC Street" required>
 									</div>
 								</div>
 								<div class="col-md-6">
