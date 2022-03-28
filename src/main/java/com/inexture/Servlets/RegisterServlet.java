@@ -6,8 +6,10 @@ import java.io.PrintWriter;
 
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +24,7 @@ import com.inexture.Services.RegisterService;
  * Servlet implementation class RegisterServlet
  */
 @MultipartConfig
+@WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -68,63 +71,44 @@ public class RegisterServlet extends HttpServlet {
 		String state[] = request.getParameterValues("state");
 		String country[] = request.getParameterValues("country");
 		String pincode[] = request.getParameterValues("pincode");
+		
 		ArrayList<AddressBean> address = new ArrayList<AddressBean>();
 		for(int i=0 ; i<home.length ; i++) {
 			AddressBean a = new AddressBean(home[i],city[i],state[i],country[i],pincode[i]);
 			address.add(a);
 		}
 		
-		UserBean u = new UserBean(fname,lname,email,phone,password1,password2,gender,birthdate,hobby,que1,que2,que3,address,inputStream);
+		RequestDispatcher rd = null;
 		
-		HttpSession session=request.getSession(false);  
-		
-		if(session==null || session.getAttribute("email")==null) {
-			RegisterService rs = new RegisterService();
-			rs.RegisterUser(u);
-			
-			response.sendRedirect("index.jsp");
+		if(fname=="" || lname=="" || email=="" || phone==0 || password1=="" || password2=="" || !(password1.equals(password2)) || gender=="" || birthdate=="" || hobby=="" || que1=="" || que2=="" || que3=="" || home.length==0 || city.length==0 || state.length==0 || country.length==0 || pincode.length==0) {
+			out.print("Input Field is empty");
+			rd = request.getRequestDispatcher("register.jsp");
+			rd.include(request, response);
 		}else {
-			response.sendRedirect("register.jsp");
+			
+			UserBean u = new UserBean(fname,lname,email,phone,password1,gender,birthdate,hobby,que1,que2,que3,address,inputStream);
+			
+			HttpSession session=request.getSession(false);  
+			
+			if(session==null || session.getAttribute("email")==null) {
+				
+				RegisterService rs = new RegisterService();
+				rs.RegisterUser(u);
+				
+				rd = request.getRequestDispatcher("index.jsp");
+				rd.forward(request, response);
+				
+				//response.sendRedirect("index.jsp");
+				
+			}else {
+				
+				rd = request.getRequestDispatcher("register.jsp");
+				rd.forward(request, response);
+				
+				//response.sendRedirect("register.jsp");
+			}
+			
 		}
-		
-		
-//		u.setFname(fname);
-//		u.setLname(lname);
-//		u.setEmail(email);
-//		u.setPhone(phone);
-//		u.setPassword1(password1);
-//		u.setPassword2(password2);
-//		u.setGender(gender);
-//		u.setBirthdate(birthdate);
-//		u.setHobby(hobby);
-//		u.setQue1(que1);
-//		u.setQue2(que2);
-//		u.setQue3(que3);
-//		u.setAddress(address);
-//		u.setInputStream(inputStream);
-		
-//		out.print("<br>Fname : "+fname);
-//		out.print("<br>Lname : "+lname);
-//		out.print("<br>email : "+email);
-//		out.print("<br>sphone : "+sphone);
-//		out.print("<br>phone : "+phone);
-//		out.print("<br>password1 : "+password1);
-//		out.print("<br>password2 : "+password2);
-//		out.print("<br>gender : "+gender);
-//		out.print("<br>birthdate : "+birthdate);
-//		out.print("<br>hobby : "+hobby);
-//		out.print("<br>que1 : "+que1);
-//		out.print("<br>que2 : "+que2);
-//		out.print("<br>que3 : "+que3);
-//		out.print("<br>home : "+home);
-//		out.print("<br>city : "+city);
-//		out.print("<br>state : "+state);
-//		out.print("<br>country : "+country);
-//		out.print("<br>pincode : "+pincode);
-//		out.print("<br>part : "+filePart);
-//		out.print("<br>input stream : "+inputStream);
-		
-		
 	}
 
 	/**

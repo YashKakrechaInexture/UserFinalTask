@@ -4,12 +4,12 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 public class UserBean {
+	private int uid;
 	private String fname;
 	private String lname;
 	private String email;
 	private long phone;
-	private String password1;
-	private String password2;
+	private String password;
 	private String gender;
 	private String birthdate;
 	private String hobby;
@@ -19,13 +19,12 @@ public class UserBean {
 	private ArrayList<AddressBean> address;
 	private InputStream inputStream;
 	
-	public UserBean(String fname,String lname,String email,long phone,String password1,String password2,String gender,String birthdate,String hobby,String que1,String que2,String que3,ArrayList<AddressBean> address,InputStream inputStream){
+	public UserBean(String fname,String lname,String email,long phone,String password,String gender,String birthdate,String hobby,String que1,String que2,String que3,ArrayList<AddressBean> address,InputStream inputStream){
 		this.fname = fname;
 		this.lname = lname;
 		this.email = email;
 		this.phone = phone;
-		this.password1 = password1;
-		this.password2 = password2;
+		this.password = password;
 		this.gender = gender;
 		this.birthdate = birthdate;
 		this.hobby = hobby;
@@ -35,7 +34,24 @@ public class UserBean {
 		this.address = address;
 		this.inputStream = inputStream;
 	}
+	public UserBean(String email,String password) {
+		this.email = email;
+		this.password = password;
+	}
+	public UserBean(int uid,String fname,String lname,String email,long phone,String gender,String birthdate,String hobby){
+		this.uid = uid;
+		this.fname = fname;
+		this.lname = lname;
+		this.email = email;
+		this.phone = phone;
+		this.gender = gender;
+		this.birthdate = birthdate;
+		this.hobby = hobby;
+	}
 	
+	public void setUid(int uid) {
+		this.uid = uid;
+	}
 	public void setFname(String fname) {
 		this.fname = fname;
 	}
@@ -48,11 +64,8 @@ public class UserBean {
 	public void setPhone(long phone) {
 		this.phone = phone;
 	}
-	public void setPassword1(String password1) {
-		this.password1 = password1;
-	}
-	public void setPassword2(String password2) {
-		this.password2 = password2;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public void setGender(String gender) {
 		this.gender = gender;
@@ -79,6 +92,9 @@ public class UserBean {
 		this.inputStream = inputStream;
 	}
 	
+	public int getUid() {
+		return this.uid;
+	}
 	public String getFname() {
 		return this.fname;
 	}
@@ -91,11 +107,8 @@ public class UserBean {
 	public long getPhone() {
 		return this.phone;
 	}
-	public String getPassword1() {
-		return this.password1;
-	}
-	public String getPassword2() {
-		return this.password2;
+	public String getPassword() {
+		return this.password;
 	}
 	public String getGender() {
 		return this.gender;

@@ -21,7 +21,7 @@
 </head>
 <body>
 	<div class="container">
-		<form>
+		<form action="LoginServlet" method="post">
 			<div class="outer-box">
 				<div class="row">
 					<div class="col-md-4 col-md-offset-4">
@@ -39,7 +39,7 @@
 									<span class="input-group-addon" id="basic-addon2">
 										<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
 									</span>
-									<input type="password" name="password1" class="form-control" id="password1" placeholder="JohnDoe@123" aria-describedby="basic-addon2" required>
+									<input type="password" name="password" class="form-control" id="password" placeholder="JohnDoe@123" aria-describedby="basic-addon2" required>
 								</div>
 							</div>
 							<div class="btn-groups">
@@ -48,9 +48,6 @@
 								<a id="forgotpass-link" href="#">Forgot Password</a>
 							</div>
 						</div>
-					</div>
-					<div class="col-md-12">
-						
 					</div>
 				</div>
 			</div>

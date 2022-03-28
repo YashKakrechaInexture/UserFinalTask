@@ -3,6 +3,7 @@ package com.inexture.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 
 import com.inexture.Beans.AddressBean;
 import com.inexture.Beans.UserBean;
@@ -54,7 +55,7 @@ public class DaoMethods {
 			st.setString(2, u.getLname());
 			st.setString(3, u.getEmail());
 			st.setLong(4, u.getPhone());
-			st.setString(5, u.getPassword1());
+			st.setString(5, u.getPassword());
 			st.setString(6, u.getGender());
 			st.setString(7, u.getBirthdate());
 			st.setString(8, u.getHobby());
@@ -129,6 +130,65 @@ public class DaoMethods {
 			st.executeUpdate();
 			
 			System.out.println("Submitted data in table");
+			
+		}catch(Exception e) {
+			System.out.println("Exception : "+e);
+		}finally {
+			try{
+				if(st != null){
+					st.close();
+				}
+			}catch(Exception ep){
+				System.out.println("Exception2 : "+ep);
+			}
+		}
+	}
+	public int AuthUser(UserBean u){
+		Connection conn = DaoConnectionClass.getConnection();
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			
+			st = conn.prepareStatement("select type from users where email=? and password=?;");
+			
+			st.setString(1, u.getEmail() );
+			st.setString(2, u.getPassword() );
+			
+			rs = st.executeQuery();
+			
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+			
+		}catch(Exception e) {
+			System.out.println("Exception : "+e);
+		}finally {
+			try{
+				if(st != null){
+					st.close();
+				}
+			}catch(Exception ep){
+				System.out.println("Exception2 : "+ep);
+			}
+		}
+		return 2;
+	}
+	public void showUserData(List<UserBean> list) {
+		Connection conn = DaoConnectionClass.getConnection();
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			
+			st = conn.prepareStatement("select uid,firstname,lastname,email,phone,gender,birthdate,hobby from users where type=?;");
+			
+			//type=1 ,i.e. Users. (0=admin,1=users)
+			st.setInt(1, 1);
+
+			rs = st.executeQuery();
+			
+			while(rs.next()) {
+				list.add( new UserBean(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getString(8)) );
+			}
 			
 		}catch(Exception e) {
 			System.out.println("Exception : "+e);

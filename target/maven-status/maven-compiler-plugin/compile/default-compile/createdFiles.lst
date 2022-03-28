@@ -1,6 +1,11 @@
 com\inexture\Services\RegisterService.class
+com\inexture\Servlets\LoginServlet.class
+com\inexture\Beans\UserBean.class
+com\inexture\Services\LoginService.class
+com\inexture\Servlets\RegisterServlet.class
+com\inexture\Utilities\ShaEncryption.class
+com\inexture\Services\AdminService.class
 com\inexture\DAO\DaoMethods.class
 com\inexture\Beans\AddressBean.class
-com\inexture\Beans\UserBean.class
 com\inexture\DAO\DaoConnectionClass.class
-com\inexture\Servlets\RegisterServlet.class
+com\inexture\Servlets\AdminServlet.class
