@@ -202,4 +202,42 @@ public class DaoMethods {
 			}
 		}
 	}
+	public void GetUserInfo(UserBean u) {
+		Connection conn = DaoConnectionClass.getConnection();
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			st = conn.prepareStatement("select firstname,lastname,phone,gender,birthdate,hobby,ans1,ans2,ans3,image from users where email=?;");
+			
+			st.setString(1, u.getEmail());
+
+			rs = st.executeQuery();
+			
+			if(rs.next()) {
+				u.setFname(rs.getString(1));
+				u.setLname(rs.getString(2));
+				u.setPhone( Long.parseLong(rs.getString(3)) );
+				u.setGender(rs.getString(4));
+				u.setBirthdate(rs.getString(5));
+				u.setHobby(rs.getString(6));
+				u.setQue1(rs.getString(7));
+				u.setQue2(rs.getString(8));
+				u.setQue3(rs.getString(9));
+				u.setInputStream(rs.getBlob(10).getBinaryStream());
+			}
+			
+		}catch(Exception e) {
+			System.out.println("Exception : "+e);
+		}finally {
+			try{
+				if(st != null){
+					st.close();
+				}
+			}catch(Exception ep){
+				System.out.println("Exception2 : "+ep);
+			}
+		}
+	}
 }

@@ -6,42 +6,41 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 	<meta charset="ISO-8859-1">
-	<title>Insert title here</title>
-	
-	<!-- jquery cdn -->
-	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+	<title>User Data Table</title>
 	
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+	<!-- Datatable css -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+	
+	<!-- jquery cdn -->
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+	
 	<!-- Bootstrap JavaScript -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	
-	<!-- Datatable css -->
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
-	
-	<!-- Datatable js -->
+	<!-- Datatable js plugin -->
 	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
-	
-	<!-- export pdf plugin -->
-	<script type="text/javascript" src="lib/plugin/exportPdf/tableExport.js"></script>
-	<script type="text/javascript" src="lib/plugin/exportPdf/jquery.base64.js"></script>
-	<script type="text/javascript" src="lib/plugin/exportPdf/jspdf/jspdf.js"></script>
-	<script type="text/javascript" src="lib/plugin/exportPdf/jspdf/libs/sprintf.js"></script>
-	<script type="text/javascript" src="lib/plugin/exportPdf/jspdf/libs/base64.js"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
 	
 	<!-- custom css -->
 	<link rel="stylesheet" href="lib/css/admin.css">
-	
-	<!-- custom js -->
-	<script type="text/javascript" src="lib/js/DataTablePlugin.js"></script>
-	<script type="text/javascript" src="lib/js/ExportPdfPlugin.js"></script>
 	
 </head>
 <body>
 	
 	<h4>Welcome Admin, ${sessionScope.email}.</h4>
+	
+	<a href="LogoutServlet" class="btn btn-danger" id="logout-btn">Logout</a><br>
 	
 	<h2>User Data</h2>
 	
@@ -73,6 +72,9 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	<button class="btn btn-default" id="export-pdf-btn">Export as PDF</button>
+	
+	<!-- custom js -->
+	<script type="text/javascript" src="lib/js/DataTablePlugin.js"></script>
+	
 </body>
 </html>

@@ -1,8 +1,6 @@
 package com.inexture.Servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.inexture.Beans.UserBean;
 import com.inexture.Services.AdminService;
 
 /**
@@ -28,12 +25,9 @@ public class AdminServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		List<UserBean> list = new ArrayList<UserBean>();
-		
 		AdminService as = new AdminService();
-		as.showUsers(list);
 		
-		request.setAttribute("data", list);
+		request.setAttribute("data", as.showUsers());
 		
 		RequestDispatcher rd = request.getRequestDispatcher("admin.jsp");
 		rd.forward(request, response);

@@ -4,7 +4,37 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>ImageServlet</servlet-name>
+  	<display-name>ImageServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.inexture.Servlets.ImageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ImageServlet</servlet-name>
+  	<url-pattern>/ImageServlet</url-pattern>
+  </servlet-mapping>
   <!-- <servlet>
+  	<servlet-name>EditServlet</servlet-name>
+  	<display-name>EditServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.inexture.Servlets.EditServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>EditServlet</servlet-name>
+  	<url-pattern>/EditServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>LogoutServlet</servlet-name>
+  	<display-name>LogoutServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.inexture.Servlets.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>LogoutServlet</servlet-name>
+  	<url-pattern>/LogoutServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
   	<servlet-name>LoginServlet</servlet-name>
   	<display-name>LoginServlet</display-name>
   	<description></description>

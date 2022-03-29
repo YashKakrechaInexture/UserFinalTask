@@ -18,6 +18,7 @@ public class UserBean {
 	private String que3;
 	private ArrayList<AddressBean> address;
 	private InputStream inputStream;
+	private String base64Image;
 	
 	public UserBean(String fname,String lname,String email,long phone,String password,String gender,String birthdate,String hobby,String que1,String que2,String que3,ArrayList<AddressBean> address,InputStream inputStream){
 		this.fname = fname;
@@ -33,6 +34,9 @@ public class UserBean {
 		this.que3 = que3;
 		this.address = address;
 		this.inputStream = inputStream;
+	}
+	public UserBean(String email) {
+		this.email = email;
 	}
 	public UserBean(String email,String password) {
 		this.email = email;
@@ -91,6 +95,9 @@ public class UserBean {
 	public void setInputStream(InputStream inputStream) {
 		this.inputStream = inputStream;
 	}
+	public void setBase64Image(String base64Image) {
+		this.base64Image = base64Image;
+	}
 	
 	public int getUid() {
 		return this.uid;
@@ -133,5 +140,8 @@ public class UserBean {
 	}
 	public InputStream getInputStream() {
 		return this.inputStream;
+	}
+	public String getBase64Image() {
+		return this.base64Image;
 	}
 }

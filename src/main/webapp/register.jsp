@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page isELIgnored="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +36,7 @@
 							<label for="fname">First Name</label>
 							<div class="input-group">
 								<span class="input-group-addon" id="basic-addon4">Ab</span>
-								<input type="text" name="fname" class="form-control" id="fname" placeholder="John" aria-describedby="basic-addon4" required>
+								<input type="text" name="fname" class="form-control" id="fname" placeholder="John" aria-describedby="basic-addon4" value="${requestScope.user.fname}" required>
 							</div>
 						</div>
 					</div>
@@ -43,7 +45,7 @@
 							<label for="lname">Last Name</label>
 							<div class="input-group">
 								<span class="input-group-addon" id="basic-addon5">Ab</span>
-								<input type="text" name="lname" class="form-control" id="lname" placeholder="Doe" aria-describedby="basic-addon5" required>
+								<input type="text" name="lname" class="form-control" id="lname" placeholder="Doe" aria-describedby="basic-addon5" value="${requestScope.user.lname}" required>
 							</div>
 						</div>
 					</div>
@@ -54,7 +56,7 @@
 							<label for="email">Email Address</label>
 							<div class="input-group">
 								<span class="input-group-addon" id="basic-addon1">@</span>
-								<input type="email" name="email" class="form-control" id="email" placeholder="name@example.com" aria-describedby="basic-addon1" required>
+								<input type="email" name="email" class="form-control" id="email" placeholder="name@example.com" aria-describedby="basic-addon1" value="${requestScope.user.email}" required>
 							</div>
 						</div>
 					</div>
@@ -65,7 +67,7 @@
 								<span class="input-group-addon" id="basic-addon0">
 									<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
 								</span>
-								<input type="number" name="phone" class="form-control" id="phone" placeholder="1234567890" aria-describedby="basic-addon0" required>
+								<input type="number" name="phone" class="form-control" id="phone" placeholder="1234567890" aria-describedby="basic-addon0" value="${requestScope.user.phone}" required>
 							</div>
 						</div>
 					</div>
@@ -78,7 +80,7 @@
 								<span class="input-group-addon" id="basic-addon2">
 									<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
 								</span>
-								<input type="password" name="password1" class="form-control" id="password1" placeholder="JohnDoe@123" aria-describedby="basic-addon2" required>
+								<input type="password" name="password1" class="form-control" id="password1" placeholder="JohnDoe@123" autocomplete="on" aria-describedby="basic-addon2" required>
 							</div>
 						</div>
 					</div>
@@ -89,7 +91,7 @@
 								<span class="input-group-addon" id="basic-addon3">
 									<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
 								</span>
-								<input type="password" name="password2" class="form-control" id="password2" placeholder="JohnDoe@123" aria-describedby="basic-addon3" required>
+								<input type="password" name="password2" class="form-control" id="password2" placeholder="JohnDoe@123" autocomplete="on" aria-describedby="basic-addon3" required>
 							</div>
 						</div>
 					</div>
@@ -111,7 +113,7 @@
 					<div class="col-md-6">
 						<div class="form-group">
 							<label for="birthdate">Birthdate</label>
-							<input type="date" class="form-control" name="birthdate" id="birthdate" required>
+							<input type="date" class="form-control" name="birthdate" id="birthdate" value="${requestScope.user.birthdate}" required>
 						</div>
 					</div>
 				</div>
@@ -120,7 +122,7 @@
 						<div class="form-group">
 							<label>Hobby</label>
 							<div class="hobby-group">
-								<input type="checkbox" id="Movies" name="hobby" class="hobby" value="Movies" required>
+								<input type="checkbox" id="Movies" name="hobby" class="hobby" value="Movies">
 								<label for="Movies">Movies </label>
 								<input type="checkbox" id="Cricket" name="hobby" class="hobby" value="Cricket">
 								<label for="Cricket">Cricket </label>
@@ -136,7 +138,8 @@
 					<div class="col-md-6">
 						<div class="form-group">
 							<label for="profilepic">Profile Pic</label>
-							<input type="file" id="profilepic" name="profilepic" required>
+							<input type="file" id="profilepic" name="profilepic" value="${requestScope.user.inputStream}" required>
+							<img src="data:image/jpg;base64,${requestScope.user.base64Image}" id="imgPreview" width="200" height="200"/>
 						</div>
 					</div>
 				</div>
@@ -149,7 +152,7 @@
 							<label for="que1">1. In What City Were You Born?</label>
 						</div>
 						<div class="col-md-4">
-							<input type="text" name="que1" class="form-control" id="que1" placeholder="Ex. Ahmedabad" required>
+							<input type="text" name="que1" class="form-control" id="que1" placeholder="Ex. Ahmedabad" value="${requestScope.user.que1}" required>
 						</div>
 					</div>
 				</div>
@@ -159,7 +162,7 @@
 							<label for="que2">2. What Is The Name Of Your Favourite Pet?</label>
 						</div>
 						<div class="col-md-4">
-							<input type="text" name="que2" class="form-control" id="que2" placeholder="Ex. Dog" required>
+							<input type="text" name="que2" class="form-control" id="que2" placeholder="Ex. Dog" value="${requestScope.user.que2}" required>
 						</div>
 					</div>
 				</div>
@@ -169,7 +172,7 @@
 							<label for="que3">3. What Is The Name Of Your First School?</label>
 						</div>
 						<div class="col-md-4">
-							<input type="text" name="que3" class="form-control" id="que3" placeholder="Ex. Hogwarts School" required>
+							<input type="text" name="que3" class="form-control" id="que3" placeholder="Ex. Hogwarts School" value="${requestScope.user.que3}" required>
 						</div>
 					</div>
 				</div>
@@ -235,5 +238,9 @@
 			<a class="btn btn-primary" id="login-btn" href="index.jsp" role="button">Login</a>
 		</div>
 	</div>
+	
+	<!-- custom js -->
+	<script type="text/javascript" src="lib/js/Register.js"></script>
+	
 </body>
 </html>
