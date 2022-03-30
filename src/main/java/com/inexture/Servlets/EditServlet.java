@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.inexture.Beans.AddressBean;
 import com.inexture.Beans.UserBean;
 import com.inexture.Services.EditService;
 

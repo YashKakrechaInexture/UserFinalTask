@@ -3,6 +3,7 @@ package com.inexture.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.inexture.Beans.AddressBean;
@@ -209,24 +210,127 @@ public class DaoMethods {
 		
 		try {
 			
-			st = conn.prepareStatement("select firstname,lastname,phone,gender,birthdate,hobby,ans1,ans2,ans3,image from users where email=?;");
+			st = conn.prepareStatement("select uid,firstname,lastname,phone,gender,birthdate,hobby,ans1,ans2,ans3,image from users where email=?;");
 			
 			st.setString(1, u.getEmail());
 
 			rs = st.executeQuery();
 			
 			if(rs.next()) {
-				u.setFname(rs.getString(1));
-				u.setLname(rs.getString(2));
-				u.setPhone( Long.parseLong(rs.getString(3)) );
-				u.setGender(rs.getString(4));
-				u.setBirthdate(rs.getString(5));
-				u.setHobby(rs.getString(6));
-				u.setQue1(rs.getString(7));
-				u.setQue2(rs.getString(8));
-				u.setQue3(rs.getString(9));
-				u.setInputStream(rs.getBlob(10).getBinaryStream());
+				u.setUid(rs.getInt("uid"));
+				u.setFname(rs.getString("firstname"));
+				u.setLname(rs.getString("lastname"));
+				u.setPhone( Long.parseLong(rs.getString("phone")) );
+				u.setGender(rs.getString("gender"));
+				u.setBirthdate(rs.getString("birthdate"));
+				u.setHobby(rs.getString("hobby"));
+				u.setQue1(rs.getString("ans1"));
+				u.setQue2(rs.getString("ans2"));
+				u.setQue3(rs.getString("ans3"));
+				u.setInputStream(rs.getBlob("image").getBinaryStream());
 			}
+			
+		}catch(Exception e) {
+			System.out.println("Exception : "+e);
+		}finally {
+			try{
+				if(st != null){
+					st.close();
+				}
+			}catch(Exception ep){
+				System.out.println("Exception2 : "+ep);
+			}
+		}
+	}
+	public void GetAddressInfo(UserBean u) {
+		Connection conn = DaoConnectionClass.getConnection();
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			st = conn.prepareStatement("select home,city,state,country,pincode from addresses where uid=?;");
+			
+			st.setInt(1, u.getUid());
+
+			rs = st.executeQuery();
+			
+			ArrayList<AddressBean> list = new ArrayList<AddressBean>();
+			
+			while(rs.next()) {
+				list.add( new AddressBean( rs.getString("home"),rs.getString("city"),rs.getString("state"),rs.getString("country"),rs.getString("pincode") ) );
+			}
+			
+			u.setAddress(list);
+			
+		}catch(Exception e) {
+			System.out.println("Exception : "+e);
+		}finally {
+			try{
+				if(st != null){
+					st.close();
+				}
+			}catch(Exception ep){
+				System.out.println("Exception2 : "+ep);
+			}
+		}
+	}
+	public void UpdateWithPic(UserBean u) {
+		Connection conn = DaoConnectionClass.getConnection();
+		PreparedStatement st = null;
+		
+		try {
+			
+			st = conn.prepareStatement("update users set firstname=?,lastname=?,email=?,phone=?,gender=?,birthdate=?,hobby=?,ans1=?,ans2=?,ans3=?,image=? where email=?");
+			
+			st.setString(1, u.getFname());
+			st.setString(2, u.getLname());
+			st.setString(3, u.getEmail());
+			st.setLong(4, u.getPhone());
+			st.setString(5, u.getGender());
+			st.setString(6, u.getBirthdate());
+			st.setString(7, u.getHobby());
+			st.setString(8, u.getQue1());
+			st.setString(9, u.getQue2());
+			st.setString(10, u.getQue3());
+			st.setBlob(11, u.getInputStream());
+			st.setString(12, u.getEmail());
+			
+			st.executeUpdate();
+			
+		}catch(Exception e) {
+			System.out.println("Exception : "+e);
+		}finally {
+			try{
+				if(st != null){
+					st.close();
+				}
+			}catch(Exception ep){
+				System.out.println("Exception2 : "+ep);
+			}
+		}
+	}
+	public void UpdateWithoutPic(UserBean u) {
+		Connection conn = DaoConnectionClass.getConnection();
+		PreparedStatement st = null;
+		
+		try {
+			
+			st = conn.prepareStatement("update users set firstname=?,lastname=?,email=?,phone=?,gender=?,birthdate=?,hobby=?,ans1=?,ans2=?,ans3=? where email=?");
+			
+			st.setString(1, u.getFname());
+			st.setString(2, u.getLname());
+			st.setString(3, u.getEmail());
+			st.setLong(4, u.getPhone());
+			st.setString(5, u.getGender());
+			st.setString(6, u.getBirthdate());
+			st.setString(7, u.getHobby());
+			st.setString(8, u.getQue1());
+			st.setString(9, u.getQue2());
+			st.setString(10, u.getQue3());
+			st.setString(11, u.getEmail());
+			
+			st.executeUpdate();
 			
 		}catch(Exception e) {
 			System.out.println("Exception : "+e);

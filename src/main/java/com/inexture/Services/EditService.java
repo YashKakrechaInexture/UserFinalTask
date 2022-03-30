@@ -11,6 +11,7 @@ public class EditService {
 	public void EditProfile(UserBean u) {
 		DaoMethods dm = new DaoMethods();
 		dm.GetUserInfo(u);
+		dm.GetAddressInfo(u);
 		
 		InputStream inputStream = u.getInputStream();
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

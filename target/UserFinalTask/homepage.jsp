@@ -19,8 +19,6 @@
 	
 	<h4>Welcome, ${sessionScope.email}.</h4>
 	
-	<jsp:include page="ImageServlet"></jsp:include>
-	
 	<a href="EditServlet">Edit</a>
 	
 	<a href="LogoutServlet" class="btn btn-danger" id="logout-btn">Logout</a><br>
