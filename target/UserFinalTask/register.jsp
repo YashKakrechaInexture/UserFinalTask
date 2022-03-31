@@ -34,7 +34,7 @@
 				<form enctype="multipart/form-data" method="post" action="RegisterServlet">
 			</c:when>
 			<c:otherwise>
-				<form enctype="multipart/form-data" method="post" action="UpdateServlet">
+				<form enctype="multipart/form-data" method="post" action="UpdateServlet?email=${requestScope.user.email}">
 			</c:otherwise>
 		</c:choose>
 			<div class="formpart">
@@ -239,8 +239,7 @@
 									<img src="" id="imgPreview" width="200" height="200"/>
 								</c:when>
 								<c:otherwise>
-									<input type="file" id="profilepic" name="profilepic">
-									<!-- <button data-target="#myModal" data-toggle="modal" type="button" class="btn btn-default">Change Pic</button> -->
+									<input type="file" id="profilepic" name="profilepic" value="${requestScope.user.inputStream}">
 									<img src="data:image/jpg;base64,${requestScope.user.base64Image}" id="imgPreview" width="200" height="200"/>
 								</c:otherwise>
 							</c:choose>
@@ -375,7 +374,7 @@
 										</div>
 										<div class="row">
 											<div class="col-md-6">
-												<a href="javascript:void(0)" class="remove-item btn btn-danger">Remove</a>
+												<a href="DeleteAddressServlet?aid=${address.aid}&email=${requestScope.user.email}" class="remove-item btn btn-danger">Remove</a>
 											</div>
 										</div>
 									</div>
@@ -396,26 +395,6 @@
 			<a class="btn btn-primary" id="login-btn" href="index.jsp" role="button">Login</a>
 		</div>
 	</div>
-	<!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Image Upload</h4>
-				</div>
-				<div class="modal-body">
-					<form enctype="multipart/form-data" method="post" action="ImageUploadServlet">
-						<input type="file" id="profilepic2" name="profilepic2" required>
-						<img src="" id="imgPreview2" width="200" height="200"/>
-						<button type="submit" class="btn btn-success">Submit</button>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>/.modal-content
-		</div>/.modal-dialog
-	</div>/.modal -->
 	
 	<!-- custom js -->
 	<script type="text/javascript" src="lib/js/Register.js"></script>

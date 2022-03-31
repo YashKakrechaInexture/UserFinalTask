@@ -4,18 +4,20 @@ import com.inexture.Beans.UserBean;
 import com.inexture.DAO.DaoMethods;
 import com.inexture.Utilities.ShaEncryption;
 
-public class LoginService {
-	public int checkUser(UserBean u) {
+public class LoginService implements LoginInterface{
+	@Override
+	public UserBean checkUser(String email,String password) {
 		
 		//encrypting password
 		ShaEncryption sha = new ShaEncryption();
-		u.setPassword( sha.passwordEncryption( u.getPassword() ) );
+		password = sha.passwordEncryption(password);
 		
 		//checking if user/admin exist
 		DaoMethods dm = new DaoMethods();
-		int type = dm.AuthUser(u);
+		UserBean u = dm.AuthUser(email,password);
 		
-		//returns type : 0-user/1-admin
-		return type;
+		
+		return u;
+		
 	}
 }

@@ -9,7 +9,8 @@ import java.util.List;
 import com.inexture.Beans.AddressBean;
 import com.inexture.Beans.UserBean;
 
-public class DaoMethods {
+public class DaoMethods implements DaoInterface{
+	@Override
 	public boolean CheckUser(String email) {
 		Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
@@ -44,6 +45,7 @@ public class DaoMethods {
 		
 		return false;
 	}
+	@Override
 	public void Register(UserBean u) {
 		Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
@@ -63,7 +65,7 @@ public class DaoMethods {
 			st.setString(9, u.getQue1());
 			st.setString(10, u.getQue2());
 			st.setString(11, u.getQue3());
-			st.setInt(12, 1);
+			st.setString(12, "user");
 			st.setBlob(13, u.getInputStream());
 			
 			st.executeUpdate();
@@ -82,6 +84,7 @@ public class DaoMethods {
 			}
 		}
 	}
+	@Override
 	public int GetUid(String email) {
 		Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
@@ -114,6 +117,7 @@ public class DaoMethods {
 		
 		return 0;
 	}
+	@Override
 	public void AddAddress(AddressBean a,int uid) {
 		Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
@@ -144,21 +148,38 @@ public class DaoMethods {
 			}
 		}
 	}
-	public int AuthUser(UserBean u){
+	@Override
+	public UserBean AuthUser(String email,String password){
 		Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
 			
-			st = conn.prepareStatement("select type from users where email=? and password=?;");
+			st = conn.prepareStatement("select * from users where email=? and password=?;");
 			
-			st.setString(1, u.getEmail() );
-			st.setString(2, u.getPassword() );
+			st.setString(1, email );
+			st.setString(2, password );
 			
 			rs = st.executeQuery();
 			
 			if(rs.next()) {
-				return rs.getInt(1);
+				UserBean u = new UserBean(email);
+				u.setFname(rs.getString("firstname"));
+				u.setLname(rs.getString("lastname"));
+				u.setEmail(rs.getString("email"));
+				u.setPhone(rs.getInt("phone"));
+				u.setGender(rs.getString("gender"));
+				u.setBirthdate(rs.getString("birthdate"));
+				u.setHobby(rs.getString("hobby"));
+				u.setQue1(rs.getString("ans1"));
+				u.setQue2(rs.getString("ans2"));
+				u.setQue3(rs.getString("ans3"));
+				u.setType(rs.getString("type"));
+				u.setInputStream(rs.getBlob("image").getBinaryStream());
+				
+				return u;
+			}else {
+				return null;
 			}
 			
 		}catch(Exception e) {
@@ -172,9 +193,10 @@ public class DaoMethods {
 				System.out.println("Exception2 : "+ep);
 			}
 		}
-		return 2;
+		return null;
 	}
-	public void showUserData(List<UserBean> list) {
+	@Override
+	public void showUserData(List<UserBean> list,String type) {
 		Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
 		ResultSet rs = null;
@@ -182,8 +204,7 @@ public class DaoMethods {
 			
 			st = conn.prepareStatement("select uid,firstname,lastname,email,phone,gender,birthdate,hobby from users where type=?;");
 			
-			//type=1 ,i.e. Users. (0=admin,1=users)
-			st.setInt(1, 1);
+			st.setString(1, type);
 
 			rs = st.executeQuery();
 			
@@ -203,6 +224,7 @@ public class DaoMethods {
 			}
 		}
 	}
+	@Override
 	public void GetUserInfo(UserBean u) {
 		Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
@@ -242,6 +264,7 @@ public class DaoMethods {
 			}
 		}
 	}
+	@Override
 	public void GetAddressInfo(UserBean u) {
 		Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
@@ -249,7 +272,7 @@ public class DaoMethods {
 		
 		try {
 			
-			st = conn.prepareStatement("select home,city,state,country,pincode from addresses where uid=?;");
+			st = conn.prepareStatement("select aid,home,city,state,country,pincode from addresses where uid=?;");
 			
 			st.setInt(1, u.getUid());
 
@@ -258,7 +281,7 @@ public class DaoMethods {
 			ArrayList<AddressBean> list = new ArrayList<AddressBean>();
 			
 			while(rs.next()) {
-				list.add( new AddressBean( rs.getString("home"),rs.getString("city"),rs.getString("state"),rs.getString("country"),rs.getString("pincode") ) );
+				list.add( new AddressBean( rs.getInt("aid"),rs.getString("home"),rs.getString("city"),rs.getString("state"),rs.getString("country"),rs.getString("pincode") ) );
 			}
 			
 			u.setAddress(list);
@@ -275,26 +298,17 @@ public class DaoMethods {
 			}
 		}
 	}
-	public void UpdateWithPic(UserBean u) {
+	@Override
+	public void UpdateImage(UserBean u) {
 		Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
 		
 		try {
 			
-			st = conn.prepareStatement("update users set firstname=?,lastname=?,email=?,phone=?,gender=?,birthdate=?,hobby=?,ans1=?,ans2=?,ans3=?,image=? where email=?");
+			st = conn.prepareStatement("update users set image=? where email=?");
 			
-			st.setString(1, u.getFname());
-			st.setString(2, u.getLname());
-			st.setString(3, u.getEmail());
-			st.setLong(4, u.getPhone());
-			st.setString(5, u.getGender());
-			st.setString(6, u.getBirthdate());
-			st.setString(7, u.getHobby());
-			st.setString(8, u.getQue1());
-			st.setString(9, u.getQue2());
-			st.setString(10, u.getQue3());
-			st.setBlob(11, u.getInputStream());
-			st.setString(12, u.getEmail());
+			st.setBlob(1, u.getInputStream());
+			st.setString(2, u.getEmail());
 			
 			st.executeUpdate();
 			
@@ -310,14 +324,15 @@ public class DaoMethods {
 			}
 		}
 	}
-	public void UpdateWithoutPic(UserBean u) {
+	@Override
+	public void UpdateUserDetail(UserBean u) {
 		Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
-		
+
 		try {
-			
+
 			st = conn.prepareStatement("update users set firstname=?,lastname=?,email=?,phone=?,gender=?,birthdate=?,hobby=?,ans1=?,ans2=?,ans3=? where email=?");
-			
+
 			st.setString(1, u.getFname());
 			st.setString(2, u.getLname());
 			st.setString(3, u.getEmail());
@@ -329,9 +344,59 @@ public class DaoMethods {
 			st.setString(9, u.getQue2());
 			st.setString(10, u.getQue3());
 			st.setString(11, u.getEmail());
-			
+
 			st.executeUpdate();
-			
+
+		}catch(Exception e) {
+			System.out.println("Exception : "+e);
+		}finally {
+			try{
+				if(st != null){
+					st.close();
+				}
+			}catch(Exception ep){
+				System.out.println("Exception2 : "+ep);
+			}
+		}
+	}
+	@Override
+	public void DeleteAddress(int aid) {
+		Connection conn = DaoConnectionClass.getConnection();
+		PreparedStatement st = null;
+
+		try {
+
+			st = conn.prepareStatement("delete from addresses where aid=?");
+
+			st.setInt(1, aid);
+
+			st.executeUpdate();
+
+		}catch(Exception e) {
+			System.out.println("Exception : "+e);
+		}finally {
+			try{
+				if(st != null){
+					st.close();
+				}
+			}catch(Exception ep){
+				System.out.println("Exception2 : "+ep);
+			}
+		}
+	}
+	@Override
+	public void DeleteUser(int uid) {
+		Connection conn = DaoConnectionClass.getConnection();
+		PreparedStatement st = null;
+
+		try {
+
+			st = conn.prepareStatement("delete from users where uid=?");
+
+			st.setInt(1, uid);
+
+			st.executeUpdate();
+
 		}catch(Exception e) {
 			System.out.println("Exception : "+e);
 		}finally {

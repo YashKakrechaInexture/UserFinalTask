@@ -7,7 +7,8 @@ import java.util.Base64;
 import com.inexture.Beans.UserBean;
 import com.inexture.DAO.DaoMethods;
 
-public class EditService {
+public class EditService implements EditInterface{
+	@Override
 	public void EditProfile(UserBean u) {
 		DaoMethods dm = new DaoMethods();
 		dm.GetUserInfo(u);

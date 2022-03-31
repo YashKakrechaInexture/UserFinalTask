@@ -31,6 +31,7 @@
 	<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
 	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.colVis.min.js"></script>
 	
 	<!-- custom css -->
 	<link rel="stylesheet" href="lib/css/admin.css">
@@ -55,6 +56,8 @@
 				<th>Gender</th>
 				<th>Birthdate</th>
 				<th>Hobby</th>
+				<th>Edit User</th>
+				<th>Delete User</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -68,6 +71,12 @@
 					<td>${user.gender}</td>
 					<td>${user.birthdate}</td>
 					<td>${user.hobby}</td>
+					<td>
+						<a class="btn btn-primary" id="edit-btn" href="EditServlet?email=${user.email}" role="button">Edit</a>
+					</td>
+					<td>
+						<a class="btn btn-danger" id="delete-btn" href="DeleteServlet?uid=${user.uid}" role="button">Delete</a>
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>

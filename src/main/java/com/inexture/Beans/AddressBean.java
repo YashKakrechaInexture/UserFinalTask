@@ -1,12 +1,21 @@
 package com.inexture.Beans;
 
 public class AddressBean {
+	private int aid;
 	private String home;
 	private String city;
 	private String state;
 	private String country;
 	private String pincode;
 	
+	public AddressBean(int aid,String home, String city, String state, String country, String pincode) {
+		this.aid = aid;
+		this.home = home;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+		this.pincode = pincode;
+	}
 	public AddressBean(String home, String city, String state, String country, String pincode) {
 		this.home = home;
 		this.city = city;
@@ -15,6 +24,9 @@ public class AddressBean {
 		this.pincode = pincode;
 	}
 	
+	public void setAid(int aid) {
+		this.aid = aid;
+	}
 	public void setHome(String home) {
 		this.home = home;
 	}
@@ -31,6 +43,9 @@ public class AddressBean {
 		this.pincode = pincode;
 	}
 	
+	public int getAid() {
+		return this.aid;
+	}
 	public String getHome() {
 		return this.home;
 	}

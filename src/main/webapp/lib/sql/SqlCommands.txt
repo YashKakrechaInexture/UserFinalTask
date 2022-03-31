@@ -29,3 +29,21 @@ CREATE TABLE addresses (
 	PRIMARY KEY (aid), 
 	FOREIGN KEY (uid) REFERENCES users(uid)
 );
+
+//Changing user type
+ALTER TABLE users MODIFY COLUMN type varchar(50);
+
+//Changing values from type column
+UPDATE users SET type="admin" WHERE type="0";
+UPDATE users SET type="user" WHERE type="1";
+
+//Creating trigger
+DELIMITER $$
+CREATE TRIGGER address_delete_on_user_delete 
+BEFORE DELETE 
+ON users FOR EACH ROW
+BEGIN
+	DELETE FROM addresses WHERE uid=OLD.uid;
+END$$
+DELIMITER ;
+

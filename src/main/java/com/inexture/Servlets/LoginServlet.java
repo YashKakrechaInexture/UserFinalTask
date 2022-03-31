@@ -30,10 +30,8 @@ public class LoginServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		UserBean u = new UserBean(email,password);
-		
 		LoginService ls = new LoginService();
-		int type = ls.checkUser(u);
+		UserBean u = ls.checkUser(email,password);
 		
 		RequestDispatcher rd = null;
 		
@@ -41,31 +39,19 @@ public class LoginServlet extends HttpServlet {
 		
 		response.setContentType("text/html");
 		
-		if(type==0) {
-			//admin
+		if(u != null) {
 			HttpSession session=request.getSession();  
-			session.setAttribute("email",email);  
-			session.setAttribute("admin","true");
+			session.setAttribute("email",u.getEmail());  
+			session.setAttribute("user", u);
 			
-			/*
-			 * rd = request.getRequestDispatcher("admin.jsp"); rd.include(request,
-			 * response);
-			 */
+			if(u.getType().equals("admin")) {
+				session.setAttribute("admin","true");
+				response.sendRedirect("AdminServlet");
+			}else {
+				response.sendRedirect("homepage.jsp");
+			}
 			
-			response.sendRedirect("AdminServlet");
-			
-		}else if(type==1) {
-			//user
-			HttpSession session=request.getSession();  
-			session.setAttribute("email",email);  
-			
-			/*
-			 * rd = request.getRequestDispatcher("homepage.jsp"); rd.include(request,
-			 * response);
-			 */
-			response.sendRedirect("homepage.jsp");
-			
-		}else {
+		}else{
 			//index
 			out.print("Enter Correct Details");
 			rd = request.getRequestDispatcher("index.jsp");

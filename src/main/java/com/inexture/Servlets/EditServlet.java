@@ -29,7 +29,9 @@ public class EditServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);  
 		
 		if(session != null) {
-			String email = (String)session.getAttribute("email");
+			
+			
+			String email = request.getParameter("email");
 			
 			UserBean u = new UserBean(email);
 			
@@ -42,7 +44,15 @@ public class EditServlet extends HttpServlet {
 			
 	        request.setAttribute("user", u);
 			
-			request.getRequestDispatcher("register.jsp").forward(request, response);
+	        request.getRequestDispatcher("register.jsp").forward(request, response);
+	        
+	        
+//	        if(session.getAttribute("admin").equals("true")) {
+//	        	
+//	        }else {
+//	        	
+//	        }
+			
 		}else {
 			response.sendRedirect("index.html");
 		}

@@ -27,7 +27,7 @@ public class AdminServlet extends HttpServlet {
 		
 		AdminService as = new AdminService();
 		
-		request.setAttribute("data", as.showUsers());
+		request.setAttribute("data", as.showUsers("user"));
 		
 		RequestDispatcher rd = request.getRequestDispatcher("admin.jsp");
 		rd.forward(request, response);

@@ -19,6 +19,7 @@ public class UserBean {
 	private ArrayList<AddressBean> address;
 	private InputStream inputStream;
 	private String base64Image;
+	private String type;
 	
 	public UserBean(String fname,String lname,String email,long phone,String password,String gender,String birthdate,String hobby,String que1,String que2,String que3,ArrayList<AddressBean> address,InputStream inputStream){
 		this.fname = fname;
@@ -98,6 +99,9 @@ public class UserBean {
 	public void setBase64Image(String base64Image) {
 		this.base64Image = base64Image;
 	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	
 	public int getUid() {
 		return this.uid;
@@ -143,5 +147,8 @@ public class UserBean {
 	}
 	public String getBase64Image() {
 		return this.base64Image;
+	}
+	public String getType() {
+		return this.type;
 	}
 }

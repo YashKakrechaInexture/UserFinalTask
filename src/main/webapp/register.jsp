@@ -34,7 +34,7 @@
 				<form enctype="multipart/form-data" method="post" action="RegisterServlet">
 			</c:when>
 			<c:otherwise>
-				<form enctype="multipart/form-data" method="post" action="UpdateServlet">
+				<form enctype="multipart/form-data" method="post" action="UpdateServlet?email=${requestScope.user.email}">
 			</c:otherwise>
 		</c:choose>
 			<div class="formpart">
@@ -239,7 +239,7 @@
 									<img src="" id="imgPreview" width="200" height="200"/>
 								</c:when>
 								<c:otherwise>
-									<input type="file" id="profilepic" name="profilepic">
+									<input type="file" id="profilepic" name="profilepic" value="${requestScope.user.inputStream}">
 									<img src="data:image/jpg;base64,${requestScope.user.base64Image}" id="imgPreview" width="200" height="200"/>
 								</c:otherwise>
 							</c:choose>
@@ -374,7 +374,7 @@
 										</div>
 										<div class="row">
 											<div class="col-md-6">
-												<a href="javascript:void(0)" class="remove-item btn btn-danger">Remove</a>
+												<a href="DeleteAddressServlet?aid=${address.aid}&email=${requestScope.user.email}" class="remove-item btn btn-danger">Remove</a>
 											</div>
 										</div>
 									</div>

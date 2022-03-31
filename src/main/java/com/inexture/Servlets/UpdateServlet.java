@@ -3,6 +3,7 @@ package com.inexture.Servlets;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 
@@ -41,7 +42,7 @@ public class UpdateServlet extends HttpServlet {
 		String fname = request.getParameter("fname");
 		String lname = request.getParameter("lname");
 		String sphone = request.getParameter("phone");
-		
+		String email = request.getParameter("email");
 		long phone = 0;
 		try {
 			phone = Integer.parseInt(sphone);
@@ -56,11 +57,19 @@ public class UpdateServlet extends HttpServlet {
 		String birthdate = request.getParameter("birthdate");
 		String hobbyArray[] = request.getParameterValues("hobby");
 		String hobby = String.join(",", hobbyArray);
-		Part filePart = request.getPart("profilepic");
+		Part filePart = null;
 		InputStream inputStream = null;
-		if(filePart != null) {
-			inputStream = filePart.getInputStream();
+		String fileName = null;
+		try {
+			filePart = request.getPart("profilepic");
+			fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); 
+			if(!fileName.equals("")){
+				inputStream = filePart.getInputStream();
+			}
+		}catch(Exception e) {
+			
 		}
+		
 		String que1 = request.getParameter("que1");
 		String que2 = request.getParameter("que2");
 		String que3 = request.getParameter("que3");
@@ -87,18 +96,21 @@ public class UpdateServlet extends HttpServlet {
 			
 			HttpSession session=request.getSession(false);  
 			
-			UserBean u = new UserBean(fname,lname,(String)session.getAttribute("email"),phone,password,gender,birthdate,hobby,que1,que2,que3,address,inputStream);
+			UserBean u = new UserBean(fname,lname,email,phone,password,gender,birthdate,hobby,que1,que2,que3,address,inputStream);
 			
 			UpdateService us = new UpdateService();
 			
-			if(filePart==null) {
-				us.updateUserWithoutPic(u);
-			}else {
-				us.updateUser(u);
-			}
+			us.updateUser(u,fileName);
+			
 			out.print("Updated Successfully");
-			rd = request.getRequestDispatcher("homepage.jsp");
-			rd.include(request, response);
+			
+			UserBean user = (UserBean)session.getAttribute("user");
+			
+			if(user.getType().equals("user")) {
+				response.sendRedirect("homepage.jsp");
+	        }else if(user.getType().equals("admin")){
+	        	response.sendRedirect("AdminServlet");
+	        }
 			
 		}
 	}

@@ -5,7 +5,8 @@ import com.inexture.Beans.UserBean;
 import com.inexture.DAO.DaoMethods;
 import com.inexture.Utilities.ShaEncryption;
 
-public class RegisterService {
+public class RegisterService implements RegisterInterface{
+	@Override
 	public void RegisterUser(UserBean u) {
 		
 		DaoMethods dm = new DaoMethods();

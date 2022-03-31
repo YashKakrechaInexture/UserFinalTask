@@ -5,6 +5,36 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
   <!-- <servlet>
+  	<servlet-name>DeleteServlet</servlet-name>
+  	<display-name>DeleteServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.inexture.Servlets.DeleteServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>DeleteServlet</servlet-name>
+  	<url-pattern>/DeleteServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>DeleteServlet</servlet-name>
+  	<display-name>DeleteServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.inexture.Servlets.DeleteServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>DeleteAddressServlet</servlet-name>
+  	<display-name>DeleteAddressServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.inexture.Servlets.DeleteAddressServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>DeleteServlet</servlet-name>
+  	<url-pattern>/DeleteServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>DeleteAddressServlet</servlet-name>
+  	<url-pattern>/DeleteAddressServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
   	<servlet-name>ImageServlet</servlet-name>
   	<display-name>ImageServlet</display-name>
   	<description></description>
