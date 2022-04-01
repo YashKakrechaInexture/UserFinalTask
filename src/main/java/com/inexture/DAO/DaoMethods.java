@@ -35,6 +35,9 @@ public class DaoMethods implements DaoInterface{
 			System.out.println("Exception : "+e);
 		}finally {
 			try{
+				if(rs != null) {
+					rs.close();
+				}
 				if(st != null){
 					st.close();
 				}
@@ -107,6 +110,9 @@ public class DaoMethods implements DaoInterface{
 			System.out.println("Exception : "+e);
 		}finally {
 			try{
+				if(rs != null) {
+					rs.close();
+				}
 				if(st != null){
 					st.close();
 				}
@@ -164,6 +170,7 @@ public class DaoMethods implements DaoInterface{
 			
 			if(rs.next()) {
 				UserBean u = new UserBean(email);
+				u.setUid(rs.getInt("uid"));
 				u.setFname(rs.getString("firstname"));
 				u.setLname(rs.getString("lastname"));
 				u.setEmail(rs.getString("email"));
@@ -186,6 +193,9 @@ public class DaoMethods implements DaoInterface{
 			System.out.println("Exception : "+e);
 		}finally {
 			try{
+				if(rs != null) {
+					rs.close();
+				}
 				if(st != null){
 					st.close();
 				}
@@ -216,6 +226,9 @@ public class DaoMethods implements DaoInterface{
 			System.out.println("Exception : "+e);
 		}finally {
 			try{
+				if(rs != null) {
+					rs.close();
+				}
 				if(st != null){
 					st.close();
 				}
@@ -256,6 +269,9 @@ public class DaoMethods implements DaoInterface{
 			System.out.println("Exception : "+e);
 		}finally {
 			try{
+				if(rs != null) {
+					rs.close();
+				}
 				if(st != null){
 					st.close();
 				}
@@ -290,6 +306,9 @@ public class DaoMethods implements DaoInterface{
 			System.out.println("Exception : "+e);
 		}finally {
 			try{
+				if(rs != null) {
+					rs.close();
+				}
 				if(st != null){
 					st.close();
 				}
@@ -359,6 +378,76 @@ public class DaoMethods implements DaoInterface{
 			}
 		}
 	}
+	@Override
+	public List<Integer> GetAid(int uid) {
+		Connection conn = DaoConnectionClass.getConnection();
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			st = conn.prepareStatement("select aid from addresses where uid=?;");
+			
+			st.setInt(1, uid);
+
+			rs = st.executeQuery();
+			
+			List<Integer> list = new ArrayList<Integer>();
+			
+			while(rs.next()) {
+				list.add( rs.getInt("aid") );
+			}
+			
+			return list;
+			
+		}catch(Exception e) {
+			System.out.println("Exception : "+e);
+		}finally {
+			try{
+				if(rs != null) {
+					rs.close();
+				}
+				if(st != null){
+					st.close();
+				}
+			}catch(Exception ep){
+				System.out.println("Exception2 : "+ep);
+			}
+		}
+		return null;
+	}
+	@Override
+	public void UpdateAddress(AddressBean a,int aid) {
+		Connection conn = DaoConnectionClass.getConnection();
+		PreparedStatement st = null;
+		
+		try {
+			
+			st = conn.prepareStatement("update addresses set home=?,city=?,state=?,country=?,pincode=? where aid=?;");
+			
+			st.setString(1, a.getHome());
+			st.setString(2, a.getCity());
+			st.setString(3, a.getState());
+			st.setString(4, a.getCountry());
+			st.setString(5, a.getPincode());
+			st.setInt(6, aid);
+			
+			st.executeUpdate();
+			
+			
+		}catch(Exception e) {
+			System.out.println("Exception : "+e);
+		}finally {
+			try{
+				if(st != null){
+					st.close();
+				}
+			}catch(Exception ep){
+				System.out.println("Exception2 : "+ep);
+			}
+		}
+	}
+	
 	@Override
 	public void DeleteAddress(int aid) {
 		Connection conn = DaoConnectionClass.getConnection();

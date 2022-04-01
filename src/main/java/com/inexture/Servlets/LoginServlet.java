@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.PropertyConfigurator;
+import org.apache.logging.log4j.*;
+
 import com.inexture.Beans.UserBean;
 import com.inexture.Services.LoginService;
 
@@ -20,13 +23,23 @@ import com.inexture.Services.LoginService;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	static Logger log = LogManager.getLogger(LoginServlet.class);
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		PropertyConfigurator.configure("log4j.xml");
+		
+//		log.trace("My Trace Log");
+//		log.debug("My Debug Log");
+		log.info("My Info Log");
+//		log.warn("My Warn Log");
+//		log.error("My error log");
+//		log.fatal("My fatal log");
+		
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		

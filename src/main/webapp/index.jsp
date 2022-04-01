@@ -21,6 +21,9 @@
 </head>
 <body>
 	<div class="container">
+		<div>
+			<h1 class="heading text-center">Login Page</h1>
+		</div>
 		<form action="LoginServlet" method="post">
 			<div class="outer-box">
 				<div class="row">
@@ -45,7 +48,7 @@
 							<div class="btn-groups">
 								<button type="submit" class="btn btn-success form-control login-btn">Login</button>
 								<a id="signup-link" href="register.jsp">Don't have account?</a>
-								<a id="forgotpass-link" href="#">Forgot Password</a>
+								<a id="forgotpass-link" href="resetPassword.jsp">Forgot Password</a>
 							</div>
 						</div>
 					</div>

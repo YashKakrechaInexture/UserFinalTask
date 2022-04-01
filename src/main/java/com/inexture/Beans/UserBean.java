@@ -53,6 +53,13 @@ public class UserBean {
 		this.birthdate = birthdate;
 		this.hobby = hobby;
 	}
+	public UserBean(String email,String birthdate,String que1,String que2,String que3) {
+		this.email = email;
+		this.birthdate = birthdate;
+		this.que1 = que1;
+		this.que2 = que2;
+		this.que3 = que3;
+	}
 	
 	public void setUid(int uid) {
 		this.uid = uid;

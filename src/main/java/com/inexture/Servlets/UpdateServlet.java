@@ -39,6 +39,9 @@ public class UpdateServlet extends HttpServlet {
 		
 		response.setContentType("text/html");
 		
+		String suid = request.getParameter("uid");
+		int uid = Integer.parseInt(suid);
+		
 		String fname = request.getParameter("fname");
 		String lname = request.getParameter("lname");
 		String sphone = request.getParameter("phone");
@@ -97,7 +100,7 @@ public class UpdateServlet extends HttpServlet {
 			HttpSession session=request.getSession(false);  
 			
 			UserBean u = new UserBean(fname,lname,email,phone,password,gender,birthdate,hobby,que1,que2,que3,address,inputStream);
-			
+			u.setUid(uid);
 			UpdateService us = new UpdateService();
 			
 			us.updateUser(u,fileName);

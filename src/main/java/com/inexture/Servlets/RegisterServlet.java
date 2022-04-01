@@ -90,22 +90,33 @@ public class RegisterServlet extends HttpServlet {
 			
 			HttpSession session=request.getSession(false);  
 			
-			if(session==null || session.getAttribute("email")==null) {
-				
-				RegisterService rs = new RegisterService();
-				rs.RegisterUser(u);
-				
-				rd = request.getRequestDispatcher("index.jsp");
-				rd.forward(request, response);
-				
-				//response.sendRedirect("index.jsp");
-				
-			}else {
-				
-				rd = request.getRequestDispatcher("register.jsp");
-				rd.forward(request, response);
-				
-				//response.sendRedirect("register.jsp");
+//			if(session==null || session.getAttribute("email")==null) {
+//				
+//				RegisterService rs = new RegisterService();
+//				rs.RegisterUser(u);
+//				
+//				rd = request.getRequestDispatcher("index.jsp");
+//				rd.forward(request, response);
+//				
+//				//response.sendRedirect("index.jsp");
+//				
+//			}else {
+//				
+//				rd = request.getRequestDispatcher("register.jsp");
+//				rd.forward(request, response);
+//				
+//				//response.sendRedirect("register.jsp");
+//			}
+			RegisterService rs = new RegisterService();
+			rs.RegisterUser(u);
+			
+			if(session!=null){
+				UserBean user = (UserBean)session.getAttribute("user");
+				if(user.getType().equals("admin")) {
+					response.sendRedirect("AdminServlet");
+				}else {
+					response.sendRedirect("register.jsp");
+				}
 			}
 			
 		}

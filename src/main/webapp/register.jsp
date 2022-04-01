@@ -31,10 +31,16 @@
 	<div class="container">
 		<c:choose>
 			<c:when test="${empty requestScope.user}">
+				<div>
+					<h1 class="heading text-center">Registration Page</h1>
+				</div>
 				<form enctype="multipart/form-data" method="post" action="RegisterServlet">
 			</c:when>
 			<c:otherwise>
-				<form enctype="multipart/form-data" method="post" action="UpdateServlet?email=${requestScope.user.email}">
+				<div>
+					<h1 class="heading text-center">Edit Page</h1>
+				</div>
+				<form enctype="multipart/form-data" method="post" action="UpdateServlet?email=${requestScope.user.email}&uid=${requestScope.user.uid}">
 			</c:otherwise>
 		</c:choose>
 			<div class="formpart">
@@ -374,7 +380,7 @@
 										</div>
 										<div class="row">
 											<div class="col-md-6">
-												<a href="DeleteAddressServlet?aid=${address.aid}&email=${requestScope.user.email}" class="remove-item btn btn-danger">Remove</a>
+												<a href="javascript:void(0)" class="remove-item btn btn-danger">Remove</a>
 											</div>
 										</div>
 									</div>
@@ -391,9 +397,13 @@
 				<button type="submit" class="btn btn-success">Submit</button>
 			</div>
 		</form>
-		<div>
-			<a class="btn btn-primary" id="login-btn" href="index.jsp" role="button">Login</a>
-		</div>
+		
+		<c:if test="${empty requestScope.user}">
+			<div>
+				<a class="btn btn-primary" id="login-btn" href="index.jsp" role="button">Login</a>
+			</div>
+		</c:if>
+		
 	</div>
 	
 	<!-- custom js -->

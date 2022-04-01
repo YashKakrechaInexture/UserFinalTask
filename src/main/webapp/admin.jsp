@@ -82,6 +82,10 @@
 		</tbody>
 	</table>
 	
+	<div>
+		<a class="btn btn-success" id="add-btn" href="register.jsp" role="button">Add User</a>
+	</div>
+	
 	<!-- custom js -->
 	<script type="text/javascript" src="lib/js/DataTablePlugin.js"></script>
 	

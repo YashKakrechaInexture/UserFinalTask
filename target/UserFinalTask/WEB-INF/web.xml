@@ -4,7 +4,37 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-  <!-- <servlet>
+  <!-- <filter>
+  	<filter-name>AdminFilter</filter-name>
+  	<display-name>AdminFilter</display-name>
+  	<description></description>
+  	<filter-class>com.inexture.Filters.AdminFilter</filter-class>
+  </filter>
+  <filter>
+  	<filter-name>UserFilter</filter-name>
+  	<display-name>UserFilter</display-name>
+  	<description></description>
+  	<filter-class>com.inexture.Filters.UserFilter</filter-class>
+  </filter>
+  <filter>
+  	<filter-name>LoginFilter</filter-name>
+  	<display-name>LoginFilter</display-name>
+  	<description></description>
+  	<filter-class>com.inexture.Filters.LoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>AdminFilter</filter-name>
+  	<url-pattern>/AdminFilter</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+  	<filter-name>UserFilter</filter-name>
+  	<url-pattern>/UserFilter</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+  	<filter-name>LoginFilter</filter-name>
+  	<url-pattern>/LoginFilter</url-pattern>
+  </filter-mapping>
+  <servlet>
   	<servlet-name>DeleteServlet</servlet-name>
   	<display-name>DeleteServlet</display-name>
   	<description></description>

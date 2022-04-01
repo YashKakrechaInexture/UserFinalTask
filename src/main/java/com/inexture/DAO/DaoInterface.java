@@ -16,6 +16,8 @@ public interface DaoInterface {
 	public void GetAddressInfo(UserBean u);
 	public void UpdateImage(UserBean u);
 	public void UpdateUserDetail(UserBean u);
+	public List<Integer> GetAid(int uid);
+	public void UpdateAddress(AddressBean a,int aid);
 	public void DeleteAddress(int aid);
 	public void DeleteUser(int uid);
 }

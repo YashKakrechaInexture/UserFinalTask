@@ -1,19 +1,20 @@
 package com.inexture.Servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.inexture.Services.DeleteService;
+import com.inexture.Beans.UserBean;
+import com.inexture.Services.FindUserService;
 
 /**
- * Servlet implementation class DeleteAddressServlet
+ * Servlet implementation class ResetPasswordServlet
  */
-@WebServlet("/DeleteAddressServlet")
-public class DeleteAddressServlet extends HttpServlet {
+public class ResetPasswordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -22,15 +23,27 @@ public class DeleteAddressServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
 		
-		String said = request.getParameter("aid");
-		int aid = Integer.parseInt(said);
 		String email = request.getParameter("email");
+		String birthdate = request.getParameter("birthdate");
 		
-		DeleteService ds = new DeleteService();
-		ds.DeleteAddress(aid);
+		String que1 = request.getParameter("que1");
+		String que2 = request.getParameter("que2");
+		String que3 = request.getParameter("que3");
 		
-		request.getRequestDispatcher("EditServlet?email="+email).forward(request, response);
+		UserBean u = new UserBean(email,birthdate,que1,que2,que3);
+		
+		FindUserService fu = new FindUserService();
+		int uid = fu.FindUser(u);
+		if(uid == 0) {
+			out.print("No user found");
+			request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
+		}else {
+			request.getRequestDispatcher("newPassword.jsp").include(request, response);
+		}
+		
 	}
 
 	/**
