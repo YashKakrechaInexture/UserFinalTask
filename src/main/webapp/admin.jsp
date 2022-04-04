@@ -39,6 +39,8 @@
 </head>
 <body>
 	
+	<jsp:include page="header.jsp"></jsp:include>
+	
 	<h4>Welcome Admin, ${sessionScope.email}.</h4>
 	
 	<a href="LogoutServlet" class="btn btn-danger" id="logout-btn">Logout</a><br>

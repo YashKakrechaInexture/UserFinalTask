@@ -17,14 +17,25 @@
 	<!-- Bootstrap JavaScript -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	
+	<!-- custom css -->
+	<link rel="stylesheet" href="lib/css/homepage.css">
+	
 </head>
 <body>
 	
-	<h4>Welcome, ${sessionScope.email}.</h4>
+	<jsp:include page="header.jsp"></jsp:include>
 	
-	<a href="EditServlet?email=${sessionScope.email}">Edit</a>
-	
-	<a href="LogoutServlet" class="btn btn-danger" id="logout-btn">Logout</a><br>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				
+				<h4>Welcome, ${sessionScope.email}.</h4>
+				
+				<a href="EditServlet?email=${sessionScope.email}" class="btn btn-default">Edit</a>
+							
+			</div>
+		</div>		
+	</div>
 	
 </body>
 </html>

@@ -24,7 +24,7 @@
 			<h1 class="heading text-center">Find Your Account</h1>
 		</div>
 		<form action="ResetPasswordServlet" method="post">
-			<div class="outer-box">
+			<div class="outer-box login-box">
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
@@ -76,7 +76,7 @@
 					</div>
 				</div>	
 				<div class="btn-groups">
-					<button type="submit" class="btn btn-success form-control login-btn">Reset Password</button>
+					<button type="submit" class="btn btn-success form-control login-btn" id="reset-pass">Reset Password</button>
 				</div>
 			</div>
 		</form>

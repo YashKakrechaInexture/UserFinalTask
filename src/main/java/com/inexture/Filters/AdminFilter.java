@@ -17,7 +17,7 @@ import com.inexture.Beans.UserBean;
 /**
  * Servlet Filter implementation class AdminFilter
  */
-//@WebFilter(urlPatterns = {"/admin.jsp","/AdminServlet","/DeleteServlet"})
+@WebFilter(urlPatterns = {"/admin.jsp","/AdminServlet","/DeleteServlet"})
 public class AdminFilter implements Filter {
 
     /**
@@ -51,7 +51,7 @@ public class AdminFilter implements Filter {
         res.setDateHeader("Expires", 0);
 		
 		HttpSession session=req.getSession(false); 
-		if(session==null) {
+		if(session==null || session.getAttribute("user")==null) {
 			res.sendRedirect("index.jsp");
 		}else {
 			UserBean u = (UserBean)session.getAttribute("user");

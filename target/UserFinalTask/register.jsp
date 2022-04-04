@@ -18,7 +18,7 @@
 	<!-- Bootstrap JavaScript -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	
-	<!-- plugin -->
+	<!-- address plugin -->
 	<script src="lib/plugin/cloneData.js"></script>
 		
 	<!-- address plugin javascript -->
@@ -34,13 +34,13 @@
 				<div>
 					<h1 class="heading text-center">Registration Page</h1>
 				</div>
-				<form enctype="multipart/form-data" method="post" action="RegisterServlet">
+				<form id="submitform" enctype="multipart/form-data" method="post" action="RegisterServlet">
 			</c:when>
 			<c:otherwise>
 				<div>
 					<h1 class="heading text-center">Edit Page</h1>
 				</div>
-				<form enctype="multipart/form-data" method="post" action="UpdateServlet?email=${requestScope.user.email}&uid=${requestScope.user.uid}">
+				<form id="submitform" enctype="multipart/form-data" method="post" action="UpdateServlet?email=${requestScope.user.email}&uid=${requestScope.user.uid}">
 			</c:otherwise>
 		</c:choose>
 			<div class="formpart">
@@ -77,6 +77,7 @@
 										<span class="input-group-addon" id="basic-addon1">@</span>
 										<input type="email" name="email" class="form-control" id="email" placeholder="name@example.com" aria-describedby="basic-addon1" required>
 									</div>
+									<div id="msg"></div>
 								</c:otherwise>
 							</c:choose>
 						</div>
@@ -394,7 +395,7 @@
 			
 			<div class="button-group">
 				<button type="reset" class="btn btn-default">Reset</button>
-				<button type="submit" class="btn btn-success">Submit</button>
+				<button type="submit" id="submit-btn" class="btn btn-success">Submit</button>
 			</div>
 		</form>
 		

@@ -4,7 +4,37 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-  <!-- <filter>
+  <!-- <servlet>
+  	<servlet-name>AuthEmailServlet</servlet-name>
+  	<display-name>AuthEmailServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.inexture.Servlets.AuthEmailServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AuthEmailServlet</servlet-name>
+  	<url-pattern>/AuthEmailServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>ResetPasswordServlet</servlet-name>
+  	<display-name>ResetPasswordServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.inexture.Servlets.ResetPasswordServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>NewPasswordServlet</servlet-name>
+  	<display-name>NewPasswordServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.inexture.Servlets.NewPasswordServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ResetPasswordServlet</servlet-name>
+  	<url-pattern>/ResetPasswordServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>NewPasswordServlet</servlet-name>
+  	<url-pattern>/NewPasswordServlet</url-pattern>
+  </servlet-mapping>
+  <filter>
   	<filter-name>AdminFilter</filter-name>
   	<display-name>AdminFilter</display-name>
   	<description></description>

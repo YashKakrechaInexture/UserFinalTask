@@ -19,6 +19,6 @@ $(document).ready(function(){
 		  // Remove alert notification
 		  removeConfirm: true, 
 		  removeConfirmMessage: 'Are you sure want to delete?'
-
+		  
 	});
 });

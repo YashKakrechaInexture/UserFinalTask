@@ -5,9 +5,8 @@ import com.inexture.DAO.DaoMethods;
 
 public class FindUserService implements FindUserInterface{
 	@Override
-	public int FindUser(UserBean u) {
+	public boolean FindUser(UserBean u) {
 		DaoMethods dm = new DaoMethods();
-		
-		return 0;
+		return dm.FindUser(u);
 	}
 }

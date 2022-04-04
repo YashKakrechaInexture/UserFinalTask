@@ -1,1 +1,16 @@
 @charset "ISO-8859-1";
+
+html,body{
+	margin: 0px;
+	padding: 0px;
+	background-color: antiquewhite;
+}
+table.dataTable tbody tr{
+	background-color: antiquewhite;
+}
+table.dataTable tbody tr.even{
+	background-color: honeydew;
+}
+thead{
+	background-color: honeydew;
+}

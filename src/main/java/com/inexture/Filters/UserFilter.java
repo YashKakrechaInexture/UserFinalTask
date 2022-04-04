@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class UserFilter
  */
-//@WebFilter(urlPatterns = {"/homepage.jsp","/EditServlet","/UpdateServlet"})
+@WebFilter(urlPatterns = {"/homepage.jsp","/EditServlet","/UpdateServlet","/AdminServlet"})
 public class UserFilter implements Filter {
 
     /**
@@ -47,8 +47,8 @@ public class UserFilter implements Filter {
         res.setDateHeader("Expires", 0);
 		
 		HttpSession session=req.getSession(false);  
-		if(session==null) {
-			res.sendRedirect("index.html");
+		if(session==null || session.getAttribute("user")==null) {
+			res.sendRedirect("index.jsp");
 		}else {
 			res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 	        res.setHeader("Pragma", "no-cache"); // HTTP 1.0.

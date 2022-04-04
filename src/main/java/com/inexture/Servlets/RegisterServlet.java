@@ -19,6 +19,7 @@ import javax.servlet.http.Part;
 import com.inexture.Beans.AddressBean;
 import com.inexture.Beans.UserBean;
 import com.inexture.Services.RegisterService;
+import com.inexture.Utilities.Validation;
 
 /**
  * Servlet implementation class RegisterServlet
@@ -80,33 +81,20 @@ public class RegisterServlet extends HttpServlet {
 		
 		RequestDispatcher rd = null;
 		
-		if(fname=="" || lname=="" || email=="" || phone==0 || password1=="" || password2=="" || !(password1.equals(password2)) || gender=="" || birthdate=="" || hobby=="" || que1=="" || que2=="" || que3=="" || home.length==0 || city.length==0 || state.length==0 || country.length==0 || pincode.length==0) {
-			out.print("Input Field is empty");
+		UserBean u = new UserBean(fname,lname,email,phone,password1,gender,birthdate,hobby,que1,que2,que3,address,inputStream);
+		
+		if(!Validation.validate(u)) {
+			out.print("<p>Input Field is empty or too large.</p>");
 			rd = request.getRequestDispatcher("register.jsp");
 			rd.include(request, response);
-		}else {
-			
-			UserBean u = new UserBean(fname,lname,email,phone,password1,gender,birthdate,hobby,que1,que2,que3,address,inputStream);
+		}else if(!password1.equals(password2)) {
+			out.print("<p>Password not matched</p>");
+			rd = request.getRequestDispatcher("register.jsp");
+			rd.include(request, response);
+		}else {	
 			
 			HttpSession session=request.getSession(false);  
 			
-//			if(session==null || session.getAttribute("email")==null) {
-//				
-//				RegisterService rs = new RegisterService();
-//				rs.RegisterUser(u);
-//				
-//				rd = request.getRequestDispatcher("index.jsp");
-//				rd.forward(request, response);
-//				
-//				//response.sendRedirect("index.jsp");
-//				
-//			}else {
-//				
-//				rd = request.getRequestDispatcher("register.jsp");
-//				rd.forward(request, response);
-//				
-//				//response.sendRedirect("register.jsp");
-//			}
 			RegisterService rs = new RegisterService();
 			rs.RegisterUser(u);
 			
@@ -117,6 +105,8 @@ public class RegisterServlet extends HttpServlet {
 				}else {
 					response.sendRedirect("register.jsp");
 				}
+			}else {
+				response.sendRedirect("index.jsp");
 			}
 			
 		}

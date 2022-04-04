@@ -498,4 +498,72 @@ public class DaoMethods implements DaoInterface{
 			}
 		}
 	}
+	@Override
+	public boolean FindUser(UserBean u) {
+		Connection conn = DaoConnectionClass.getConnection();
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			
+			st = conn.prepareStatement("select uid from users where email=? and birthdate=? and ans1=? and ans2=? and ans3=?");
+			
+			st.setString(1, u.getEmail());
+			st.setString(2, u.getBirthdate());
+			st.setString(3, u.getQue1());
+			st.setString(4, u.getQue2());
+			st.setString(5, u.getQue3());
+			
+			rs = st.executeQuery();
+			
+			System.out.println("Submitted data in table");
+			
+			if(rs.next()) {
+				return true;
+			}else {
+				return false;
+			}
+			
+		}catch(Exception e) {
+			System.out.println("Exception : "+e);
+		}finally {
+			try{
+				if(rs != null) {
+					rs.close();
+				}
+				if(st != null){
+					st.close();
+				}
+			}catch(Exception ep){
+				System.out.println("Exception2 : "+ep);
+			}
+		}
+		
+		return false;
+	}
+	@Override
+	public void ChangePassword(String email,String Password) {
+		Connection conn = DaoConnectionClass.getConnection();
+		PreparedStatement st = null;
+
+		try {
+
+			st = conn.prepareStatement("update users set password=? where email=?");
+			
+			st.setString(1, Password);
+			st.setString(2, email);
+			
+			st.executeUpdate();
+
+		}catch(Exception e) {
+			System.out.println("Exception : "+e);
+		}finally {
+			try{
+				if(st != null){
+					st.close();
+				}
+			}catch(Exception ep){
+				System.out.println("Exception2 : "+ep);
+			}
+		}
+	}
 }

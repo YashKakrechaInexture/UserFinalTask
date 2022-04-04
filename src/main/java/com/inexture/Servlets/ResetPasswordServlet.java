@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import com.inexture.Services.FindUserService;
 /**
  * Servlet implementation class ResetPasswordServlet
  */
+@WebServlet("/ResetPasswordServlet")
 public class ResetPasswordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -36,14 +38,13 @@ public class ResetPasswordServlet extends HttpServlet {
 		UserBean u = new UserBean(email,birthdate,que1,que2,que3);
 		
 		FindUserService fu = new FindUserService();
-		int uid = fu.FindUser(u);
-		if(uid == 0) {
-			out.print("No user found");
-			request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
+		if(fu.FindUser(u)) {
+			request.setAttribute("email", email);
+			request.getRequestDispatcher("newPassword.jsp").forward(request, response);
 		}else {
-			request.getRequestDispatcher("newPassword.jsp").include(request, response);
+			out.print("No user found");
+			request.getRequestDispatcher("resetPassword.jsp").include(request, response);
 		}
-		
 	}
 
 	/**

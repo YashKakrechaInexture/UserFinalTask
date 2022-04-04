@@ -42,7 +42,7 @@
 									<span class="input-group-addon" id="basic-addon2">
 										<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
 									</span>
-									<input type="password" name="password" class="form-control" id="password" placeholder="JohnDoe@123" aria-describedby="basic-addon2" required>
+									<input type="password" name="password" class="form-control" id="password" placeholder="JohnDoe@123" autocomplete="on" aria-describedby="basic-addon2" required>
 								</div>
 							</div>
 							<div class="btn-groups">
