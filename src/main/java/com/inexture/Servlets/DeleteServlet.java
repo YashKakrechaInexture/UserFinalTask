@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.inexture.Services.DeleteService;
+import com.inexture.Services.UserService;
 
 /**
  * Servlet implementation class DeleteServlet
@@ -32,7 +32,7 @@ public class DeleteServlet extends HttpServlet {
 		
 		log.debug("User deleting service calling.");
 		
-		DeleteService ds = new DeleteService();
+		UserService ds = new UserService();
 		ds.DeleteUser(uid);
 		
 		log.debug("User deleted, redirecting to admin servlet.");

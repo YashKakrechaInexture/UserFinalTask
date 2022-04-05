@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
 
 import com.inexture.Beans.AddressBean;
 import com.inexture.Beans.UserBean;
-import com.inexture.Services.RegisterService;
+import com.inexture.Services.UserService;
 import com.inexture.Utilities.Validation;
 
 /**
@@ -112,7 +112,7 @@ public class RegisterServlet extends HttpServlet {
 			
 			HttpSession session=request.getSession(false);  
 			
-			RegisterService rs = new RegisterService();
+			UserService rs = new UserService();
 			rs.RegisterUser(u);
 			
 			log.debug("User created.");

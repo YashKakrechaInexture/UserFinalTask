@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.inexture.Services.ResetPasswordService;
+import com.inexture.Services.UserService;
 
 /**
  * Servlet implementation class NewPasswordServlet
@@ -40,7 +40,7 @@ public class NewPasswordServlet extends HttpServlet {
 			
 			log.debug("Password is same, reseting password.");
 			
-			ResetPasswordService rps = new ResetPasswordService();
+			UserService rps = new UserService();
 			rps.ResetPass(email, password1);
 			
 			out.print("<p>Password changed.</p>");

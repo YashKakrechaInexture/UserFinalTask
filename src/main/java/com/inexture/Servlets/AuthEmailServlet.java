@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.inexture.Services.AuthEmailService;
+import com.inexture.Services.UserService;
 
 /**
  * Servlet implementation class AuthEmailServlet
@@ -32,7 +32,7 @@ public class AuthEmailServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		PrintWriter out = response.getWriter();
 		
-		AuthEmailService aes = new AuthEmailService();
+		UserService aes = new UserService();
 		if(!aes.CheckEmail(email)) {
 			log.info("Email exist in table.");
 			out.print("<span style=\"color:red;\">Email Already Taken.</span>");

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.inexture.Beans.UserBean;
-import com.inexture.Services.FindUserService;
+import com.inexture.Services.UserService;
 
 /**
  * Servlet implementation class ResetPasswordServlet
@@ -44,7 +44,7 @@ public class ResetPasswordServlet extends HttpServlet {
 		
 		log.debug("Got data and set in userbean.");
 		
-		FindUserService fu = new FindUserService();
+		UserService fu = new UserService();
 		
 		if(fu.FindUser(u)) {
 			log.debug("User found, redirecting to new password page.");

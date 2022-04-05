@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
 
 import com.inexture.Beans.AddressBean;
 import com.inexture.Beans.UserBean;
-import com.inexture.Services.UpdateService;
+import com.inexture.Services.UserService;
 import com.inexture.Utilities.Validation;
 
 /**
@@ -116,7 +116,7 @@ public class UpdateServlet extends HttpServlet {
 				log.debug("Session is not null, updating user.");
 				
 				u.setUid(uid);
-				UpdateService us = new UpdateService();
+				UserService us = new UserService();
 				
 				us.updateUser(u,fileName);
 				

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.inexture.Beans.UserBean;
-import com.inexture.Services.LoginService;
+import com.inexture.Services.UserService;
 
 /**
  * Servlet implementation class LoginServlet
@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
 		
 		log.info("Got email and password from login page");
 		
-		LoginService ls = new LoginService();
+		UserService ls = new UserService();
 		UserBean u = ls.checkUser(email,password);
 		
 		log.debug("Inside LoginServlet : Email and password has been checked.");
