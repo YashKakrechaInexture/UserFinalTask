@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import com.inexture.Beans.UserBean;
 
 /**
@@ -19,7 +21,7 @@ import com.inexture.Beans.UserBean;
  */
 @WebFilter(urlPatterns = {"/admin.jsp","/AdminServlet","/DeleteServlet"})
 public class AdminFilter implements Filter {
-
+	static Logger log = Logger.getLogger(AdminFilter.class);
     /**
      * Default constructor. 
      */
@@ -39,9 +41,8 @@ public class AdminFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// TODO Auto-generated method stub
-		// place your code here
 
-		// pass the request along the filter chain
+		log.debug("Inside Admin Filter.");
 		
 		HttpServletResponse res = (HttpServletResponse) response;
 		HttpServletRequest req = (HttpServletRequest) request;
@@ -52,20 +53,21 @@ public class AdminFilter implements Filter {
 		
 		HttpSession session=req.getSession(false); 
 		if(session==null || session.getAttribute("user")==null) {
+			log.debug("Session is not created, redirecting to login page.");
 			res.sendRedirect("index.jsp");
 		}else {
 			UserBean u = (UserBean)session.getAttribute("user");
 			if(u.getType().equals("admin")) {
-				
+				log.debug("Session is active, and admin is verified, let him pass.");
 				chain.doFilter(request, response);
 			}else if(u.getType().equals("user")) {
+				log.debug("Session is active, and user is trying to access AdminServlet, redirecting to Homepage.");
 				res.sendRedirect("homepage.jsp");
 			}else {
+				log.error("Session is active, but its not admin or user. Redirecting to login page.");
 				res.sendRedirect("index.jsp");
 			}
 		}
-		
-		//chain.doFilter(request, response);
 	}
 
 	/**

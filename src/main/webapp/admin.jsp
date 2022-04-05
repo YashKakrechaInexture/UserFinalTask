@@ -43,8 +43,6 @@
 	
 	<h4>Welcome Admin, ${sessionScope.email}.</h4>
 	
-	<a href="LogoutServlet" class="btn btn-danger" id="logout-btn">Logout</a><br>
-	
 	<h2>User Data</h2>
 	
 	<table id="usertable">
@@ -87,6 +85,9 @@
 	<div>
 		<a class="btn btn-success" id="add-btn" href="register.jsp" role="button">Add User</a>
 	</div>
+	<br><br>
+	<div class="foot"></div>
+	<jsp:include page="footer.jsp"></jsp:include>
 	
 	<!-- custom js -->
 	<script type="text/javascript" src="lib/js/DataTablePlugin.js"></script>

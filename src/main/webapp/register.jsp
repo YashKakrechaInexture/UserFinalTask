@@ -242,11 +242,11 @@
 							<label for="profilepic">Profile Pic</label>
 							<c:choose>
 								<c:when test="${empty requestScope.user}">
-									<input type="file" id="profilepic" name="profilepic" required>
+									<input type="file" id="profilepic" name="profilepic" accept="image/*" required>
 									<img src="" id="imgPreview" width="200" height="200"/>
 								</c:when>
 								<c:otherwise>
-									<input type="file" id="profilepic" name="profilepic" value="${requestScope.user.inputStream}">
+									<input type="file" id="profilepic" name="profilepic" accept="image/*" value="${requestScope.user.inputStream}">
 									<img src="data:image/jpg;base64,${requestScope.user.base64Image}" id="imgPreview" width="200" height="200"/>
 								</c:otherwise>
 							</c:choose>

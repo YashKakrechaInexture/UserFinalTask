@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.inexture.Beans.UserBean;
 import com.inexture.Services.FindUserService;
 
@@ -18,13 +20,16 @@ import com.inexture.Services.FindUserService;
 @WebServlet("/ResetPasswordServlet")
 public class ResetPasswordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	static Logger log = Logger.getLogger(ResetPasswordServlet.class);
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		log.debug("Inside Reset Password Servlet.");
+		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		
@@ -37,11 +42,16 @@ public class ResetPasswordServlet extends HttpServlet {
 		
 		UserBean u = new UserBean(email,birthdate,que1,que2,que3);
 		
+		log.debug("Got data and set in userbean.");
+		
 		FindUserService fu = new FindUserService();
+		
 		if(fu.FindUser(u)) {
+			log.debug("User found, redirecting to new password page.");
 			request.setAttribute("email", email);
 			request.getRequestDispatcher("newPassword.jsp").forward(request, response);
 		}else {
+			log.debug("No user found, redirecting to reset password page.");
 			out.print("No user found");
 			request.getRequestDispatcher("resetPassword.jsp").include(request, response);
 		}

@@ -17,9 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import org.apache.log4j.Logger;
+
 import com.inexture.Beans.AddressBean;
 import com.inexture.Beans.UserBean;
 import com.inexture.Services.UpdateService;
+import com.inexture.Utilities.Validation;
 
 /**
  * Servlet implementation class UpdateServlet
@@ -28,13 +31,16 @@ import com.inexture.Services.UpdateService;
 @WebServlet("/UpdateServlet")
 public class UpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	static Logger log = Logger.getLogger(UpdateServlet.class);
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		log.debug("Inside Update Servlet.");
+		
 		PrintWriter out = response.getWriter();
 		
 		response.setContentType("text/html");
@@ -54,6 +60,7 @@ public class UpdateServlet extends HttpServlet {
 			out.print("phone : "+sphone);
 			out.print("phone : "+phone);
 			out.print("Exception : "+e);
+			log.warn("Phone is not a number");
 		}
 		String password = "";
 		String gender = request.getParameter("gender");
@@ -70,7 +77,7 @@ public class UpdateServlet extends HttpServlet {
 				inputStream = filePart.getInputStream();
 			}
 		}catch(Exception e) {
-			
+			log.error("Something went wrong! Exception : "+e);
 		}
 		
 		String que1 = request.getParameter("que1");
@@ -91,30 +98,45 @@ public class UpdateServlet extends HttpServlet {
 		
 		RequestDispatcher rd = null;
 		
-		if(fname=="" || lname=="" || phone==0 || gender=="" || birthdate=="" || hobby=="" || que1=="" || que2=="" || que3=="" || address.size()==0) {
+		UserBean u = new UserBean(fname,lname,email,phone,password,gender,birthdate,hobby,que1,que2,que3,address,inputStream);
+		
+		if(!Validation.validate(u)) {
+			log.debug("Validation failed.");
 			out.print("Input Field is empty");
 			rd = request.getRequestDispatcher("register.jsp");
 			rd.include(request, response);
 		}else {
 			
+			log.debug("Validation passed, updating User data.");
+			
 			HttpSession session=request.getSession(false);  
 			
-			UserBean u = new UserBean(fname,lname,email,phone,password,gender,birthdate,hobby,que1,que2,que3,address,inputStream);
-			u.setUid(uid);
-			UpdateService us = new UpdateService();
-			
-			us.updateUser(u,fileName);
-			
-			out.print("Updated Successfully");
-			
-			UserBean user = (UserBean)session.getAttribute("user");
-			
-			if(user.getType().equals("user")) {
-				response.sendRedirect("homepage.jsp");
-	        }else if(user.getType().equals("admin")){
-	        	response.sendRedirect("AdminServlet");
-	        }
-			
+			if(session!=null) {
+				
+				log.debug("Session is not null, updating user.");
+				
+				u.setUid(uid);
+				UpdateService us = new UpdateService();
+				
+				us.updateUser(u,fileName);
+				
+				out.print("Updated Successfully");
+				
+				UserBean user = (UserBean)session.getAttribute("user");
+				
+				if(user.getType().equals("user")) {
+					log.debug("Session is active and type is user. Redirecting to homepage.");
+					response.sendRedirect("homepage.jsp");
+		        }else if(user.getType().equals("admin")){
+		        	log.debug("Session is active and type is admin. Redirecting to admin servlet.");
+					response.sendRedirect("AdminServlet");
+		        }else {
+		        	log.error("Session is active but no user or admin found.");
+		        }
+			}else {
+				log.warn("Session is null, redirecting to login page.");
+				response.sendRedirect("index.jsp");
+			}
 		}
 	}
 

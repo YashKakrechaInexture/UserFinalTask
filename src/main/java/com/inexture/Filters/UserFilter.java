@@ -12,12 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 /**
  * Servlet Filter implementation class UserFilter
  */
 @WebFilter(urlPatterns = {"/homepage.jsp","/EditServlet","/UpdateServlet","/AdminServlet"})
 public class UserFilter implements Filter {
-
+	static Logger log = Logger.getLogger(UserFilter.class);
     /**
      * Default constructor. 
      */
@@ -37,7 +39,8 @@ public class UserFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// TODO Auto-generated method stub
-		// place your code here
+		
+		log.debug("Inside Login Filter.");
 
 		HttpServletResponse res = (HttpServletResponse) response;
 		HttpServletRequest req = (HttpServletRequest) request;
@@ -48,12 +51,14 @@ public class UserFilter implements Filter {
 		
 		HttpSession session=req.getSession(false);  
 		if(session==null || session.getAttribute("user")==null) {
+			log.debug("Session is not active, redirecting to login page.");
 			res.sendRedirect("index.jsp");
 		}else {
-			res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+			log.debug("Session is active, let him pass.");
+	        res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 	        res.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 	        res.setDateHeader("Expires", 0);
-			chain.doFilter(request, response);
+	        chain.doFilter(request, response);
 		}
 	}
 

@@ -18,7 +18,7 @@ public interface DaoInterface {
 	public void UpdateUserDetail(UserBean u);
 	public List<Integer> GetAid(int uid);
 	public void UpdateAddress(AddressBean a,int aid);
-	public void DeleteAddress(int aid);
+	public void DeleteAddress(int uid,int length);
 	public void DeleteUser(int uid);
 	public boolean FindUser(UserBean u);
 	public void ChangePassword(String email,String Password);

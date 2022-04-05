@@ -18,7 +18,18 @@ $(document).ready(function(){
 		  
 		  // Remove alert notification
 		  removeConfirm: true, 
-		  removeConfirmMessage: 'Are you sure want to delete?'
+		  removeConfirmMessage: 'Are you sure want to delete?',
+		  
+		  //removing remove button
+		  afterRemove: function(){
+			var buttons = document.querySelectorAll('.remove-item');
+			console.log(buttons.length);
+			if(buttons.length <2){
+				$(".remove-item").hide();
+			}else{
+				$(".remove-item").show();
+			}
+		}
 		  
 	});
 });

@@ -32,10 +32,11 @@
 				<h4>Welcome, ${sessionScope.email}.</h4>
 				
 				<a href="EditServlet?email=${sessionScope.email}" class="btn btn-default">Edit</a>
-							
+				
 			</div>
 		</div>		
 	</div>
 	
+	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

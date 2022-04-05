@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.inexture.Services.DeleteService;
 
 /**
@@ -15,18 +17,25 @@ import com.inexture.Services.DeleteService;
 @WebServlet("/DeleteServlet")
 public class DeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	static Logger log = Logger.getLogger(DeleteServlet.class);
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		log.debug("Inside Delete Servlet.");
+		
 		String suid = request.getParameter("uid");
 		int uid = Integer.parseInt(suid);
 		
+		log.debug("User deleting service calling.");
+		
 		DeleteService ds = new DeleteService();
 		ds.DeleteUser(uid);
+		
+		log.debug("User deleted, redirecting to admin servlet.");
 		
 		response.sendRedirect("AdminServlet");
 	}

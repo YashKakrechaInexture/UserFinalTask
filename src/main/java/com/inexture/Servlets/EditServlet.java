@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import com.inexture.Beans.UserBean;
 import com.inexture.Services.EditService;
 
@@ -18,7 +20,7 @@ import com.inexture.Services.EditService;
 @WebServlet("/EditServlet")
 public class EditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	static Logger log = Logger.getLogger(EditServlet.class);
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -26,34 +28,34 @@ public class EditServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
+		log.debug("Inside Edit Servlet.");
+		
 		HttpSession session = request.getSession(false);  
 		
 		if(session != null) {
 			
+			log.debug("Session not null.");
 			
 			String email = request.getParameter("email");
+			
+			log.debug("Get email.");
 			
 			UserBean u = new UserBean(email);
 			
 			EditService es = new EditService();
 			es.EditProfile(u);
 			
-			
-			//ArrayList<AddressBean> address = new ArrayList<AddressBean>();
-			
+			log.debug("Setting user bean to request attribute.");
 			
 	        request.setAttribute("user", u);
+	        
+	        log.debug("Redirecting to edit jsp page.");
 			
 	        request.getRequestDispatcher("register.jsp").forward(request, response);
 	        
-	        
-//	        if(session.getAttribute("admin").equals("true")) {
-//	        	
-//	        }else {
-//	        	
-//	        }
-			
 		}else {
+			log.debug("Session is null, redirecting to login page.");
+			
 			response.sendRedirect("index.html");
 		}
 	}

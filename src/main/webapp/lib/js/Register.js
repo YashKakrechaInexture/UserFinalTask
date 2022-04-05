@@ -33,10 +33,6 @@ $(document).ready(function(){
 		hideButton();
 	});
 	
-	$(".remove-item").on("click",function(){
-		hideButton();
-	});
-	
 	
 	  
 	$('#msg').hide();
