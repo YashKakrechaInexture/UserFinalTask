@@ -26,7 +26,7 @@
 		<form action="ResetPasswordServlet" method="post">
 			<div class="outer-box login-box">
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-xs-12 col-sm-12 col-md-6">
 						<div class="form-group">
 							<label for="email">Email Address</label>
 							<div class="input-group">
@@ -35,7 +35,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-xs-12 col-sm-12 col-md-6">
 						<div class="form-group">
 							<label for="birthdate">Birthdate</label>
 							<input type="date" class="form-control" name="birthdate" id="birthdate" required>
@@ -44,33 +44,36 @@
 				</div>
 				<div class="ques">
 					<h4>Security Questions</h4>
+					<br>
 					<div class="row">
 						<div class="form-group questionbox">
-							<div class="col-md-4">
+							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 								<label for="que1">1. In What City Were You Born?</label>
 							</div>
-							<div class="col-md-4">
-								<input type="text" name="que1" class="form-control" id="que1" placeholder="Ex. Ahmedabad" required>
+							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+								<input type="text" name="que1" class="form-control ans" id="que1" placeholder="Ex. Ahmedabad" required>
 							</div>
 						</div>
 					</div>
+					<br>
 					<div class="row">
 						<div class="form-group questionbox">
-							<div class="col-md-4">
+							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 								<label for="que2">2. What Is The Name Of Your Favourite Pet?</label>
 							</div>
-							<div class="col-md-4">
-								<input type="text" name="que2" class="form-control" id="que2" placeholder="Ex. Dog" required>
+							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+								<input type="text" name="que2" class="form-control ans" id="que2" placeholder="Ex. Dog" required>
 							</div>
 						</div>
 					</div>
+					<br>
 					<div class="row">
 						<div class="form-group questionbox">
-							<div class="col-md-4">
+							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 								<label for="que3">3. What Is The Name Of Your First School?</label>
 							</div>
-							<div class="col-md-4">
-								<input type="text" name="que3" class="form-control" id="que3" placeholder="Ex. Hogwarts School" required>
+							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+								<input type="text" name="que3" class="form-control ans" id="que3" placeholder="Ex. Hogwarts School" required>
 							</div>
 						</div>
 					</div>

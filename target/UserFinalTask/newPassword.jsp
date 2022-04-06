@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page isELIgnored="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,37 +26,44 @@
 		<div>
 			<h1 class="heading text-center">Reset Password</h1>
 		</div>
-		<form action="NewPasswordServlet?email=${requestScope.email}" method="post">
-			<div class="outer-box">
-				<div class="row">
-					<div class="col-md-4 col-md-offset-4">
-						<div class="login-box">
-							<div class="form-group">
-								<label for="password1">New Password</label>
-								<div class="input-group">
-									<span class="input-group-addon" id="basic-addon1">
-										<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
-									</span>
-									<input type="password" name="password1" class="form-control" id="password1" placeholder="JohnDoe@123" aria-describedby="basic-addon1" required>
+		<c:choose>
+			<c:when test="${empty requestScope.email}">
+				<c:redirect url = "resetPassword.jsp"/>
+			</c:when>
+			<c:otherwise>
+				<form action="NewPasswordServlet?email=${requestScope.email}" method="post">
+					<div class="outer-box">
+						<div class="row">
+							<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
+								<div class="login-box">
+									<div class="form-group">
+										<label for="password1">New Password</label>
+										<div class="input-group">
+											<span class="input-group-addon" id="basic-addon1">
+												<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+											</span>
+											<input type="password" name="password1" class="form-control" id="password1" placeholder="JohnDoe@123" aria-describedby="basic-addon1" required>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="password2">Confirm Password</label>
+										<div class="input-group">
+											<span class="input-group-addon" id="basic-addon2">
+												<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+											</span>
+											<input type="password" name="password2" class="form-control" id="password2" placeholder="JohnDoe@123" aria-describedby="basic-addon2" required>
+										</div>
+									</div>
+									<div class="btn-groups">
+										<button type="submit" class="btn btn-success form-control login-btn">Update Password</button>
+									</div>
 								</div>
-							</div>
-							<div class="form-group">
-								<label for="password2">Confirm Password</label>
-								<div class="input-group">
-									<span class="input-group-addon" id="basic-addon2">
-										<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
-									</span>
-									<input type="password" name="password2" class="form-control" id="password2" placeholder="JohnDoe@123" aria-describedby="basic-addon2" required>
-								</div>
-							</div>
-							<div class="btn-groups">
-								<button type="submit" class="btn btn-success form-control login-btn">Update Password</button>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-		</form>
+				</form>
+			</c:otherwise>
+		</c:choose>
 	</div>
 </body>
 </html>

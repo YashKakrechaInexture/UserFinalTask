@@ -36,23 +36,27 @@ public class NewPasswordServlet extends HttpServlet {
 		String password1 = request.getParameter("password1");
 		String password2 = request.getParameter("password2");
 		
-		if(password1.equals(password2)) {
-			
-			log.debug("Password is same, reseting password.");
-			
-			UserService rps = new UserService();
-			rps.ResetPass(email, password1);
-			
-			out.print("<p>Password changed.</p>");
-			
-			log.debug("Redirecting to login page.");
-			request.getRequestDispatcher("index.jsp").include(request, response);
+		if(password1==null || password2==null || password1.equals(null) || password2.equals(null) || password1.equals("") || password2.equals("")) {
+			out.print("<p>Password empty.</p>");
+			request.getRequestDispatcher("resetPassword.jsp").include(request, response);
 		}else {
-			log.debug("Password not matched, redirecting to new password page.");
-			out.print("<p>Password not matched.</p>");
-			request.getRequestDispatcher("newPassword.jsp").include(request, response);
+			if(password1.equals(password2)) {
+				
+				log.debug("Password is same, reseting password.");
+				
+				UserService rps = new UserService();
+				rps.ResetPass(email, password1);
+				
+				out.print("<p>Password changed.</p>");
+				
+				log.debug("Redirecting to login page.");
+				request.getRequestDispatcher("index.jsp").include(request, response);
+			}else {
+				log.debug("Password not matched, redirecting to new password page.");
+				out.print("<p>Password not matched.</p>");
+				request.getRequestDispatcher("newPassword.jsp").include(request, response);
+			}
 		}
-		
 	}
 
 	/**
