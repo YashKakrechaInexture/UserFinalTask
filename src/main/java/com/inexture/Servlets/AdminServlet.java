@@ -11,10 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.inexture.Services.AdminService;
+import com.inexture.Services.UserService;
 
 /**
- * Servlet implementation class AdminServlet
+ * Admin servlet class. It gets the all of the user's data by calling service method 
+ * and sets in request attribute and redirects to admin jsp page.
+ * @author Yash
+ *
  */
 @WebServlet("/AdminServlet")
 public class AdminServlet extends HttpServlet {
@@ -29,7 +32,7 @@ public class AdminServlet extends HttpServlet {
 		
 		log.info("Inside Admin Servlet.");
 		
-		AdminService as = new AdminService();
+		UserService as = new UserService();
 		
 		log.debug("Adding User list to request attribute.");
 		

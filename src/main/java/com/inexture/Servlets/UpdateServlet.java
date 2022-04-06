@@ -25,7 +25,9 @@ import com.inexture.Services.UserService;
 import com.inexture.Utilities.Validation;
 
 /**
- * Servlet implementation class UpdateServlet
+ * It updates the user details from given inputs from register jsp page.
+ * @author Yash
+ *
  */
 @MultipartConfig
 @WebServlet("/UpdateServlet")

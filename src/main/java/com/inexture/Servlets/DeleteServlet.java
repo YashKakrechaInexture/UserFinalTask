@@ -12,7 +12,9 @@ import org.apache.log4j.Logger;
 import com.inexture.Services.UserService;
 
 /**
- * Servlet implementation class DeleteServlet
+ * It deletes the user based on user id clicked button by admin.
+ * @author Yash
+ *
  */
 @WebServlet("/DeleteServlet")
 public class DeleteServlet extends HttpServlet {

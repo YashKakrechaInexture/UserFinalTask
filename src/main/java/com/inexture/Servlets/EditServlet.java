@@ -14,8 +14,11 @@ import org.apache.log4j.Logger;
 import com.inexture.Beans.UserBean;
 import com.inexture.Services.UserService;
 
+
 /**
- * Servlet implementation class EditServlet
+ * It fetches all the data of user based on email address when user or admin clicks edit profile.
+ * @author Yash
+ *
  */
 @WebServlet("/EditServlet")
 public class EditServlet extends HttpServlet {

@@ -5,9 +5,28 @@ import java.sql.DriverManager;
 
 import org.apache.log4j.Logger;
 
+
+/**
+ * Dao connection singleton class. Returns single instance of the database connection.
+ * @author Yash
+ *
+ */
 public class DaoConnectionClass {
+	
+	
+	/**
+	 * Stores Connection of database
+	 */
 	private static Connection conn = null;
+	
+	/**
+	 * Private constructor, to avoid creating object.
+	 */
 	private DaoConnectionClass() {}
+	
+	/**
+	 * Logger
+	 */
 	static Logger log = Logger.getLogger(DaoConnectionClass.class);
 	
 	static {
@@ -28,6 +47,11 @@ public class DaoConnectionClass {
 		}
 	}
 	
+	
+	/**
+	 * Returns a single instance of the mysql database 
+	 * @return conn - Stores Connection of database
+	 */
 	public static Connection getConnection() {
 		log.debug("Returned Database connection");
 		return conn;

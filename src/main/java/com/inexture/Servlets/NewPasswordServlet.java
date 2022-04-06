@@ -13,8 +13,11 @@ import org.apache.log4j.Logger;
 
 import com.inexture.Services.UserService;
 
+
 /**
- * Servlet implementation class NewPasswordServlet
+ * It changes new password based on given email address for forgot password page.
+ * @author Yash
+ *
  */
 @WebServlet("/NewPasswordServlet")
 public class NewPasswordServlet extends HttpServlet {

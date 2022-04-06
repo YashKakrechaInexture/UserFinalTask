@@ -14,7 +14,9 @@ import org.apache.log4j.Logger;
 import com.inexture.Services.UserService;
 
 /**
- * Servlet implementation class AuthEmailServlet
+ * This is called by ajax in registration page to check if email is already taken or not.
+ * @author Yash
+ *
  */
 @WebServlet("/AuthEmailServlet")
 public class AuthEmailServlet extends HttpServlet {

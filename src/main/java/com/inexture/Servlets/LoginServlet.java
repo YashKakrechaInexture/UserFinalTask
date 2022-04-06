@@ -16,8 +16,12 @@ import org.apache.log4j.Logger;
 import com.inexture.Beans.UserBean;
 import com.inexture.Services.UserService;
 
+
 /**
- * Servlet implementation class LoginServlet
+ * It fetches the email and password from the database table and checks if this is user or admin,
+ * and redirects them to their respective page.
+ * @author Yash
+ *
  */
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {

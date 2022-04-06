@@ -24,7 +24,9 @@ import com.inexture.Services.UserService;
 import com.inexture.Utilities.Validation;
 
 /**
- * Servlet implementation class RegisterServlet
+ * It registers the new user after checking the validation and redirects them to admin/login page based on session.
+ * @author Yash
+ *
  */
 @MultipartConfig
 @WebServlet("/RegisterServlet")
@@ -95,6 +97,7 @@ public class RegisterServlet extends HttpServlet {
 		if(!Validation.validate(u)) {
 			
 			log.debug("Validation failed.");
+			request.setAttribute("failuser", u);
 			out.print("<p>Input Field is empty or too large.</p>");
 			rd = request.getRequestDispatcher("register.jsp");
 			rd.include(request, response);
@@ -102,6 +105,7 @@ public class RegisterServlet extends HttpServlet {
 		}else if(!password1.equals(password2)) {
 			
 			log.debug("Password not matched.");
+			request.setAttribute("failuser", u);
 			out.print("<p>Password not matched</p>");
 			rd = request.getRequestDispatcher("register.jsp");
 			rd.include(request, response);

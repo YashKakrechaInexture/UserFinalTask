@@ -11,8 +11,11 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+
 /**
- * Servlet implementation class LogoutServlet
+ * It invalidates the session, so user/admin cannot access their details or functionalities.
+ * @author Yash
+ *
  */
 @WebServlet("/LogoutServlet")
 public class LogoutServlet extends HttpServlet {

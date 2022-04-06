@@ -50,7 +50,7 @@
 							<label for="fname">First Name</label>
 							<div class="input-group">
 								<span class="input-group-addon" id="basic-addon4">Ab</span>
-								<input type="text" name="fname" class="form-control" id="fname" placeholder="John" aria-describedby="basic-addon4" value="${requestScope.user.fname}" required>
+								<input type="text" name="fname" class="form-control" id="fname" placeholder="John" aria-describedby="basic-addon4" value="${requestScope.user.fname}${requestScope.failuser.fname}" required>
 							</div>
 						</div>
 					</div>
@@ -59,7 +59,7 @@
 							<label for="lname">Last Name</label>
 							<div class="input-group">
 								<span class="input-group-addon" id="basic-addon5">Ab</span>
-								<input type="text" name="lname" class="form-control" id="lname" placeholder="Doe" aria-describedby="basic-addon5" value="${requestScope.user.lname}" required>
+								<input type="text" name="lname" class="form-control" id="lname" placeholder="Doe" aria-describedby="basic-addon5" value="${requestScope.user.lname}${requestScope.failuser.lname}" required>
 							</div>
 						</div>
 					</div>
@@ -75,7 +75,7 @@
 								<c:otherwise>
 									<div class="input-group">
 										<span class="input-group-addon" id="basic-addon1">@</span>
-										<input type="email" name="email" class="form-control" id="email" placeholder="name@example.com" aria-describedby="basic-addon1" required>
+										<input type="email" name="email" class="form-control" id="email" placeholder="name@example.com" aria-describedby="basic-addon1" value="${requestScope.failuser.email}" required>
 									</div>
 									<div id="msg"></div>
 								</c:otherwise>
@@ -89,7 +89,7 @@
 								<span class="input-group-addon" id="basic-addon0">
 									<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
 								</span>
-								<input type="number" name="phone" class="form-control" id="phone" placeholder="1234567890" aria-describedby="basic-addon0" value="${requestScope.user.phone}" required>
+								<input type="number" name="phone" class="form-control" id="phone" placeholder="1234567890" aria-describedby="basic-addon0" value="${requestScope.user.phone}${requestScope.failuser.phone}" required>
 							</div>
 						</div>
 					</div>
@@ -126,14 +126,52 @@
 							<label>Gender</label>
 							<c:choose>
 								<c:when test="${empty requestScope.user}">
-									<div class="gender-group">
-										<input type="radio" name="gender" id="male" value="male" required>
-										<label for="male">Male</label>
-										<input type="radio" name="gender" id="female" value="female">
-										<label for="female">Female</label>
-										<input type="radio" name="gender" id="other" value="other">
-										<label for="other">Other</label>
-									</div>
+									<c:choose>
+										<c:when test="${empty requestScope.failuser}">
+											<div class="gender-group">
+												<input type="radio" name="gender" id="male" value="male" required>
+												<label for="male">Male</label>
+												<input type="radio" name="gender" id="female" value="female">
+												<label for="female">Female</label>
+												<input type="radio" name="gender" id="other" value="other">
+												<label for="other">Other</label>
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div class="gender-group">
+												<c:choose>
+													<c:when test="${'male' eq requestScope.failuser.gender}">
+														<input type="radio" name="gender" id="male" value="male" checked required>
+														<label for="male">Male</label>
+													</c:when>
+													<c:otherwise>
+														<input type="radio" name="gender" id="male" value="male" required>
+														<label for="male">Male</label>
+													</c:otherwise>
+												</c:choose>
+												<c:choose>
+													<c:when test="${'female' eq requestScope.failuser.gender}">
+														<input type="radio" name="gender" id="female" checked value="female">
+														<label for="female">Female</label>
+													</c:when>
+													<c:otherwise>
+														<input type="radio" name="gender" id="female" value="female">
+														<label for="female">Female</label>
+													</c:otherwise>
+												</c:choose>
+												<c:choose>
+													<c:when test="${'other' eq requestScope.failuser.gender}">
+														<input type="radio" name="gender" id="other" checked value="other">
+														<label for="other">Other</label>
+													</c:when>
+													<c:otherwise>
+														<input type="radio" name="gender" id="other" value="other">
+														<label for="other">Other</label>
+													</c:otherwise>
+												</c:choose>
+											</div>
+										</c:otherwise>
+									</c:choose>
 								</c:when>
 								<c:otherwise>
 									<div class="gender-group">
@@ -159,8 +197,8 @@
 										</c:choose>
 										<c:choose>
 											<c:when test="${'other' eq requestScope.user.gender}">
-												<input type="radio" name="gender" id="other" checked value="other">
-												<label for="other">Other</label>
+												<input type="radio" name="gender" id="female" checked value="female">
+												<label for="female">Female</label>
 											</c:when>
 											<c:otherwise>
 												<input type="radio" name="gender" id="other" value="other">
@@ -175,7 +213,7 @@
 					<div class="col-md-6">
 						<div class="form-group">
 							<label for="birthdate">Birthdate</label>
-							<input type="date" class="form-control" name="birthdate" id="birthdate" value="${requestScope.user.birthdate}" required>
+							<input type="date" class="form-control" name="birthdate" id="birthdate" value="${requestScope.user.birthdate}${requestScope.failuser.birthdate}" required>
 						</div>
 					</div>
 				</div>
@@ -189,6 +227,10 @@
 										<input type="checkbox" id="Movies" name="hobby" class="hobby" checked value="Movies">
 										<label for="Movies">Movies </label>
 									</c:when>
+									<c:when test="${fn:contains(requestScope.failuser.hobby,'Movies')}">
+										<input type="checkbox" id="Movies" name="hobby" class="hobby" checked value="Movies">
+										<label for="Movies">Movies </label>
+									</c:when>
 									<c:otherwise>
 										<input type="checkbox" id="Movies" name="hobby" class="hobby" value="Movies">
 										<label for="Movies">Movies </label>
@@ -196,6 +238,10 @@
 								</c:choose>
 								<c:choose>
 									<c:when test="${fn:contains(requestScope.user.hobby,'Cricket')}">
+										<input type="checkbox" id="Cricket" name="hobby" class="hobby" checked value="Cricket">
+										<label for="Cricket">Cricket </label>
+									</c:when>
+									<c:when test="${fn:contains(requestScope.failuser.hobby,'Cricket')}">
 										<input type="checkbox" id="Cricket" name="hobby" class="hobby" checked value="Cricket">
 										<label for="Cricket">Cricket </label>
 									</c:when>
@@ -209,6 +255,10 @@
 										<input type="checkbox" id="VideoGame" name="hobby" class="hobby" checked value="VideoGame">
 										<label for="VideoGame">VideoGame </label>
 									</c:when>
+									<c:when test="${fn:contains(requestScope.failuser.hobby,'VideoGame')}">
+										<input type="checkbox" id="VideoGame" name="hobby" class="hobby" checked value="VideoGame">
+										<label for="VideoGame">VideoGame </label>
+									</c:when>
 									<c:otherwise>
 										<input type="checkbox" id="VideoGame" name="hobby" class="hobby" value="VideoGame">
 										<label for="VideoGame">VideoGame </label>
@@ -219,6 +269,10 @@
 										<input type="checkbox" id="Song" name="hobby" class="hobby" checked value="Song">
 										<label for="Song">Song </label>
 									</c:when>
+									<c:when test="${fn:contains(requestScope.failuser.hobby,'Song')}">
+										<input type="checkbox" id="Song" name="hobby" class="hobby" checked value="Song">
+										<label for="Song">Song </label>
+									</c:when>
 									<c:otherwise>
 										<input type="checkbox" id="Song" name="hobby" class="hobby" value="Song">
 										<label for="Song">Song </label>
@@ -226,6 +280,10 @@
 								</c:choose>
 								<c:choose>
 									<c:when test="${fn:contains(requestScope.user.hobby,'Dance')}">
+										<input type="checkbox" id="Dance" name="hobby" class="hobby" checked value="Dance">
+										<label for="Dance">Dance </label>
+									</c:when>
+									<c:when test="${fn:contains(requestScope.failuser.hobby,'Dance')}">
 										<input type="checkbox" id="Dance" name="hobby" class="hobby" checked value="Dance">
 										<label for="Dance">Dance </label>
 									</c:when>
@@ -242,8 +300,8 @@
 							<label for="profilepic">Profile Pic</label>
 							<c:choose>
 								<c:when test="${empty requestScope.user}">
-									<input type="file" id="profilepic" name="profilepic" accept="image/*" required>
-									<img src="" id="imgPreview" width="200" height="200"/>
+									<input type="file" id="profilepic" name="profilepic" accept="image/*" value="${requestScope.failuser.inputStream}" required>
+									<img src="data:image/jpg;base64,${requestScope.failuser.base64Image}" id="imgPreview" width="200" height="200"/>
 								</c:when>
 								<c:otherwise>
 									<input type="file" id="profilepic" name="profilepic" accept="image/*" value="${requestScope.user.inputStream}">
@@ -262,7 +320,7 @@
 							<label for="que1">1. In What City Were You Born?</label>
 						</div>
 						<div class="col-md-4">
-							<input type="text" name="que1" class="form-control" id="que1" placeholder="Ex. Ahmedabad" value="${requestScope.user.que1}" required>
+							<input type="text" name="que1" class="form-control" id="que1" placeholder="Ex. Ahmedabad" value="${requestScope.user.que1}${requestScope.failuser.que1}" required>
 						</div>
 					</div>
 				</div>
@@ -272,7 +330,7 @@
 							<label for="que2">2. What Is The Name Of Your Favourite Pet?</label>
 						</div>
 						<div class="col-md-4">
-							<input type="text" name="que2" class="form-control" id="que2" placeholder="Ex. Dog" value="${requestScope.user.que2}" required>
+							<input type="text" name="que2" class="form-control" id="que2" placeholder="Ex. Dog" value="${requestScope.user.que2}${requestScope.failuser.que2}" required>
 						</div>
 					</div>
 				</div>
@@ -282,7 +340,7 @@
 							<label for="que3">3. What Is The Name Of Your First School?</label>
 						</div>
 						<div class="col-md-4">
-							<input type="text" name="que3" class="form-control" id="que3" placeholder="Ex. Hogwarts School" value="${requestScope.user.que3}" required>
+							<input type="text" name="que3" class="form-control" id="que3" placeholder="Ex. Hogwarts School" value="${requestScope.user.que3}${requestScope.failuser.que3}" required>
 						</div>
 					</div>
 				</div>
@@ -291,52 +349,106 @@
 				<div id="main-container">
 					<c:choose>
 						<c:when test="${empty requestScope.user}">
-							<div class="container-item card">
-								<h4>Address Fields</h4>
-								<div class="form-group address-group">
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group">
-												<label for="home">Home Address</label>
-												<input type="text" name="home" class="form-control" id="home" placeholder="123B, ABC Street" required>
+							<c:choose>
+								<c:when test="${empty requestScope.failuser}">
+									<div class="container-item card">
+										<h4>Address Fields</h4>
+										<div class="form-group address-group">
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group">
+														<label for="home">Home Address</label>
+														<input type="text" name="home" class="form-control" id="home" placeholder="123B, ABC Street" required>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label for="city">City</label>
+														<input type="text" name="city" class="form-control" id="city" placeholder="Ahmedabad" required>
+													</div>
+												</div>
 											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label for="city">City</label>
-												<input type="text" name="city" class="form-control" id="city" placeholder="Ahmedabad" required>
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group">
+														<label for="state">State</label>
+														<input type="text" name="state" class="form-control" id="state" placeholder="Gujarat" required>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label for="country">Country</label>
+														<input type="text" name="country" class="form-control" id="country" placeholder="India" required>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group">
+														<label for="pincode">Pincode</label>
+														<input type="text" name="pincode" class="form-control" id="pincode" placeholder="123456" required>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6">
+													<a href="javascript:void(0)" class="remove-item btn btn-danger">Remove</a>
+												</div>
 											</div>
 										</div>
 									</div>
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group">
-												<label for="state">State</label>
-												<input type="text" name="state" class="form-control" id="state" placeholder="Gujarat" required>
+								</c:when>
+								<c:otherwise>
+									<c:forEach items="${requestScope.failuser.address}" var="address">
+										<div class="container-item card">
+											<h4>Address Fields</h4>
+											<div class="form-group address-group">
+												<div class="row">
+													<div class="col-md-6">
+														<div class="form-group">
+															<label for="home">Home Address</label>
+															<input type="text" name="home" class="form-control" id="home" placeholder="123B, ABC Street" value="${address.home}" required>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<label for="city">City</label>
+															<input type="text" name="city" class="form-control" id="city" placeholder="Ahmedabad" value="${address.city}" required>
+														</div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-6">
+														<div class="form-group">
+															<label for="state">State</label>
+															<input type="text" name="state" class="form-control" id="state" placeholder="Gujarat" value="${address.state}" required>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<label for="country">Country</label>
+															<input type="text" name="country" class="form-control" id="country" placeholder="India" value="${address.country}" required>
+														</div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-6">
+														<div class="form-group">
+															<label for="pincode">Pincode</label>
+															<input type="text" name="pincode" class="form-control" id="pincode" placeholder="123456" value="${address.pincode}" required>
+														</div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-6">
+														<a href="javascript:void(0)" class="remove-item btn btn-danger">Remove</a>
+													</div>
+												</div>
 											</div>
 										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label for="country">Country</label>
-												<input type="text" name="country" class="form-control" id="country" placeholder="India" required>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group">
-												<label for="pincode">Pincode</label>
-												<input type="text" name="pincode" class="form-control" id="pincode" placeholder="123456" required>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6">
-											<a href="javascript:void(0)" class="remove-item btn btn-danger">Remove</a>
-										</div>
-									</div>
-								</div>
-							</div>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
 						</c:when>
 						<c:otherwise>
 							<c:forEach items="${requestScope.user.address}" var="address">

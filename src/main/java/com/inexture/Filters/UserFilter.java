@@ -15,7 +15,10 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 /**
- * Servlet Filter implementation class UserFilter
+ * It checks if session is active or not. If session is not active and user is trying to
+ * go to the homepage then it will redirect to the login page.
+ * @author Yash
+ *
  */
 @WebFilter(urlPatterns = {"/homepage.jsp","/EditServlet","/UpdateServlet","/AdminServlet"})
 public class UserFilter implements Filter {

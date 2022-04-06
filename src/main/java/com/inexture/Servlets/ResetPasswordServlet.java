@@ -15,7 +15,10 @@ import com.inexture.Beans.UserBean;
 import com.inexture.Services.UserService;
 
 /**
- * Servlet implementation class ResetPasswordServlet
+ * It finds the user based on given email, birthdate and security answers from reset password page.
+ * If user found then redirects to new password input page. 
+ * @author Yash
+ *
  */
 @WebServlet("/ResetPasswordServlet")
 public class ResetPasswordServlet extends HttpServlet {

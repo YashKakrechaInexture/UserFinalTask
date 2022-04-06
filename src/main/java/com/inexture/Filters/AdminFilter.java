@@ -16,8 +16,12 @@ import org.apache.log4j.Logger;
 
 import com.inexture.Beans.UserBean;
 
+
 /**
- * Servlet Filter implementation class AdminFilter
+ * It checks if session is active and session type is of admin type (hence admin is logged in)
+ * and if it is admin type, it lets pass to servlet, else it will redirect to homepage or login page based on session.
+ * @author Yash
+ *
  */
 @WebFilter(urlPatterns = {"/admin.jsp","/AdminServlet","/DeleteServlet"})
 public class AdminFilter implements Filter {
