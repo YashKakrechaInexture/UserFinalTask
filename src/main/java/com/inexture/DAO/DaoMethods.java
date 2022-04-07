@@ -18,7 +18,7 @@ public class DaoMethods implements DaoInterface{
 	static Logger log = Logger.getLogger(DaoMethods.class);
 	
 	@Override
-	public boolean CheckUser(String email) {
+	public boolean checkUser(String email) {
 		
 		log.debug("Inside Dao. Checking email exist or not.");
 		
@@ -65,7 +65,7 @@ public class DaoMethods implements DaoInterface{
 	}
 	
 	@Override
-	public void Register(UserBean u) {
+	public void register(UserBean u) {
 		
 		log.debug("Inside Dao. Registering User.");
 		
@@ -109,7 +109,7 @@ public class DaoMethods implements DaoInterface{
 	}
 	
 	@Override
-	public int GetUid(String email) {
+	public int getUid(String email) {
 		
 		log.debug("Inside Dao. Getting Uid from email.");
 		
@@ -160,7 +160,7 @@ public class DaoMethods implements DaoInterface{
 	}
 	
 	@Override
-	public UserBean AuthUser(String email,String password){
+	public UserBean authUser(String email,String password){
 		
 		log.debug("Inside Dao. Authorizing user.");
 		
@@ -266,7 +266,7 @@ public class DaoMethods implements DaoInterface{
 	}
 	
 	@Override
-	public void GetUserInfo(UserBean u) {
+	public void getUserInfo(UserBean u) {
 		
 		log.debug("Inside Dao. Getting User Detail from email.");
 		
@@ -320,7 +320,7 @@ public class DaoMethods implements DaoInterface{
 	}
 	
 	@Override
-	public void UpdateImage(UserBean u) {
+	public void updateImage(UserBean u) {
 		
 		log.debug("Inside Dao. Updating Image.");
 		
@@ -353,7 +353,7 @@ public class DaoMethods implements DaoInterface{
 	}
 	
 	@Override
-	public void UpdateUserDetail(UserBean u) {
+	public void updateUserDetail(UserBean u) {
 		
 		log.debug("Inside Dao. Updating user details.");
 		
@@ -395,7 +395,7 @@ public class DaoMethods implements DaoInterface{
 	}
 	
 	@Override
-	public void DeleteUser(int uid) {
+	public void deleteUser(int uid) {
 		
 		log.debug("Inside Dao. Deleting user.");
 		
@@ -427,7 +427,7 @@ public class DaoMethods implements DaoInterface{
 	}
 	
 	@Override
-	public boolean FindUser(UserBean u) {
+	public boolean findUser(UserBean u) {
 		
 		log.debug("Inside Dao. Finding user for forgot password.");
 		
@@ -475,7 +475,7 @@ public class DaoMethods implements DaoInterface{
 	}
 	
 	@Override
-	public void ChangePassword(String email,String Password) {
+	public void changePassword(String email,String Password) {
 		
 		log.debug("Inside Dao. Changing password.");
 		

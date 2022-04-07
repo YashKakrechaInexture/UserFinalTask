@@ -39,7 +39,7 @@ public class NewPasswordServlet extends HttpServlet {
 		String password1 = request.getParameter("password1");
 		String password2 = request.getParameter("password2");
 		
-		if(password1==null || password2==null || password1.equals(null) || password2.equals(null) || password1.equals("") || password2.equals("")) {
+		if(password1==null || password2==null || password1.equals("") || password2.equals("")) {
 			out.print("<p>Password empty.</p>");
 			request.getRequestDispatcher("resetPassword.jsp").include(request, response);
 		}else {
@@ -48,7 +48,7 @@ public class NewPasswordServlet extends HttpServlet {
 				log.debug("Password is same, reseting password.");
 				
 				UserService rps = new UserService();
-				rps.ResetPass(email, password1);
+				rps.resetPass(email, password1);
 				
 				out.print("<p>Password changed.</p>");
 				

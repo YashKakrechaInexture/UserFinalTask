@@ -35,7 +35,7 @@ public class DeleteServlet extends HttpServlet {
 		log.debug("User deleting service calling.");
 		
 		UserService ds = new UserService();
-		ds.DeleteUser(uid);
+		ds.deleteUser(uid);
 		
 		log.debug("User deleted, redirecting to admin servlet.");
 		

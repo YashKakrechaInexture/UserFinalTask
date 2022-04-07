@@ -72,7 +72,9 @@
 					<td>${user.birthdate}</td>
 					<td>${user.hobby}</td>
 					<td>
-						<a class="btn btn-primary" id="edit-btn" href="EditServlet?email=${user.email}" role="button">Edit</a>
+						<form action="EditServlet?email=${user.email}" method="post">
+							<button class="btn btn-primary" id="edit-btn" role="button">Edit</button>
+						</form>
 					</td>
 					<td>
 						<a class="btn btn-danger" id="delete-btn" href="DeleteServlet?uid=${user.uid}" role="button">Delete</a>

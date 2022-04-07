@@ -70,19 +70,19 @@ public class Validation {
 				String country = a.getCountry();
 				String pincode = a.getPincode();
 				
-				if(home.equals(null) || home.length()>255) {
+				if(home.equals("") || home.length()>255) {
 					log.debug("Validation failed for home.");
 					return false;
-				}else if(city.equals(null) || city.length()>255) {
+				}else if(city.equals("") || city.length()>255) {
 					log.debug("Validation failed for city.");
 					return false;
-				}else if(state.equals(null) || state.length()>255) {
+				}else if(state.equals("") || state.length()>255) {
 					log.debug("Validation failed for state.");
 					return false;
-				}else if(country.equals(null) || country.length()>255) {
+				}else if(country.equals("") || country.length()>255) {
 					log.debug("Validation failed for country.");
 					return false;
-				}else if(pincode.equals(null) || pincode.length()>255) {
+				}else if(pincode.equals("") || pincode.length()>255) {
 					log.debug("Validation failed for pincode.");
 					return false;
 				}

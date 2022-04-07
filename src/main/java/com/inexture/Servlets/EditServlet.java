@@ -31,6 +31,19 @@ public class EditServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
+		HttpSession session = request.getSession(false);  
+		
+		if(session==null || session.getAttribute("email")==null || !session.getAttribute("email").equals(request.getAttribute("email"))) {
+			response.sendRedirect("homepage.jsp");
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+//		doGet(request, response);
 		log.debug("Inside Edit Servlet.");
 		
 		HttpSession session = request.getSession(false);  
@@ -46,7 +59,7 @@ public class EditServlet extends HttpServlet {
 			UserBean u = new UserBean(email);
 			
 			UserService es = new UserService();
-			es.EditProfile(u);
+			es.editProfile(u);
 			
 			log.debug("Setting user bean to request attribute.");
 			
@@ -54,21 +67,13 @@ public class EditServlet extends HttpServlet {
 	        
 	        log.debug("Redirecting to edit jsp page.");
 			
-	        request.getRequestDispatcher("register.jsp").forward(request, response);
+	        request.getRequestDispatcher("register.jsp").include(request, response);
 	        
 		}else {
 			log.debug("Session is null, redirecting to login page.");
 			
 			response.sendRedirect("index.html");
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

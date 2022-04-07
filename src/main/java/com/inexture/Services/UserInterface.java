@@ -23,7 +23,7 @@ public interface UserInterface {
 	 * It calls the register dao method and registers user in database table.
 	 * @param u - user bean object
 	 */
-	public void RegisterUser(UserBean u);
+	public void registerUser(UserBean u);
 	
 	/**
 	 * It encrypts the password and calls the reset password method from dao and resets the 
@@ -31,7 +31,7 @@ public interface UserInterface {
 	 * @param email - email address of the user
 	 * @param password - password of user
 	 */
-	public void ResetPass(String email,String password);
+	public void resetPass(String email,String password);
 	
 	/**
 	 * It calls the update user, update image, update address method of dao and it updates the
@@ -45,7 +45,7 @@ public interface UserInterface {
 	 * It calls the delete user dao method and it delets the user based on given user id.
 	 * @param uid - user id from database table
 	 */
-	public void DeleteUser(int uid);
+	public void deleteUser(int uid);
 	
 	/**
 	 * It checks the email and password exist in database table by calling dao method. It returns whatever returned by dao.
@@ -61,7 +61,7 @@ public interface UserInterface {
 	 * It gets the all the user data and address data from dao, if you set the email in userbean object.
 	 * @param u - user bean object
 	 */
-	public void EditProfile(UserBean u);
+	public void editProfile(UserBean u);
 	
 	/**
 	 * It checks if email is already exist in the database table or not.
@@ -69,7 +69,7 @@ public interface UserInterface {
 	 * @return true - If no user found in mysql database table.<br>
 	 * 		   false - If user found in mysql database table.
 	 */
-	public boolean CheckEmail(String email);
+	public boolean checkEmail(String email);
 	
 	/**
 	 * It finds the user with given email, birthdate and security answers from dao for forgot password.
@@ -77,5 +77,7 @@ public interface UserInterface {
 	 * @return false - If user found in database table.<br>
 	 * 		   true - If no user found with given information in database table.
 	 */
-	public boolean FindUser(UserBean u);
+	public boolean findUser(UserBean u);
+	
+	public void convertToBase64Image(UserBean u);
 }

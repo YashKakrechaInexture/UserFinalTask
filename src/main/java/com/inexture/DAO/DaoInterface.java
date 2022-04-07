@@ -18,13 +18,13 @@ public interface DaoInterface {
 	 * @return true - If no user found in mysql database table.<br>
 	 * 		   false - If user found in mysql database table.
 	 */
-	public boolean CheckUser(String email);
+	public boolean checkUser(String email);
 	
 	/**
 	 * This method registers all the details accept address in the database table
 	 * @param u - User bean object
 	 */
-	public void Register(UserBean u);
+	public void register(UserBean u);
 	
 	/**
 	 * It returns user id from the table related to the email given, if no user found then returns 0.
@@ -32,7 +32,7 @@ public interface DaoInterface {
 	 * @return uid - User id from user database table<br>
 	 * 		   0 - If no user is found with the given email
 	 */
-	public int GetUid(String email);
+	public int getUid(String email);
 	
 	/**
 	 * This method checks if user is present in database table or not based on given email, password. 
@@ -43,7 +43,7 @@ public interface DaoInterface {
 	 * @return u - User bean object
 	 * 		   null - if no user found in table
 	 */
-	public UserBean AuthUser(String email,String password);
+	public UserBean authUser(String email,String password);
 	
 	/**
 	 * It accepts empty arraylist and type of user and fills the arraylist with user bean objects from database table based on given type of user. 
@@ -56,25 +56,25 @@ public interface DaoInterface {
 	 * It accepts empty userbean, with one email variable filled. and it fills the data from table based on given email.
 	 * @param u - user bean object
 	 */
-	public void GetUserInfo(UserBean u);
+	public void getUserInfo(UserBean u);
 	
 	/**
 	 * It accepts userbean with image inputstream and email filled. and this method fills image input stream to the given email in table.
 	 * @param u - user bean object
 	 */
-	public void UpdateImage(UserBean u);
+	public void updateImage(UserBean u);
 	
 	/**
 	 * This method updates all the user data accept image and address.
 	 * @param u - user bean object
 	 */
-	public void UpdateUserDetail(UserBean u);
+	public void updateUserDetail(UserBean u);
 	
 	/**
 	 * It deletes the user from database table, based on given user id
 	 * @param uid - user id in table
 	 */
-	public void DeleteUser(int uid);
+	public void deleteUser(int uid);
 	
 	/**
 	 * This method finds user based on given email, birthdate and security answers in forgot password.
@@ -82,12 +82,12 @@ public interface DaoInterface {
 	 * @return false - If user found in database table.<br>
 	 * 		   true - If no user found with given information in database table.
 	 */
-	public boolean FindUser(UserBean u);
+	public boolean findUser(UserBean u);
 	
 	/**
 	 * This method changes password to the provided email address in database table.
 	 * @param email - email of the user
 	 * @param Password - new password of the user
 	 */
-	public void ChangePassword(String email,String Password);
+	public void changePassword(String email,String Password);
 }

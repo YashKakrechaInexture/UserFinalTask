@@ -35,7 +35,7 @@ public class AuthEmailServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		UserService aes = new UserService();
-		if(!aes.CheckEmail(email)) {
+		if(!aes.checkEmail(email)) {
 			log.info("Email exist in table.");
 			out.print("<span style=\"color:red;\">Email Already Taken.</span>");
 		}else {

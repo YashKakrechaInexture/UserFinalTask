@@ -3,7 +3,7 @@ package com.inexture.Servlets;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -54,9 +54,7 @@ public class RegisterServlet extends HttpServlet {
 		try {
 			phone = Integer.parseInt(sphone);
 		}catch(Exception e) {
-			out.print("phone : "+sphone);
-			out.print("phone : "+phone);
-			out.print("Exception : "+e);
+			out.print("Phone is not a number.");
 			
 			log.warn("Phone is not a number.");
 		}
@@ -66,11 +64,21 @@ public class RegisterServlet extends HttpServlet {
 		String birthdate = request.getParameter("birthdate");
 		String hobbyArray[] = request.getParameterValues("hobby");
 		String hobby = String.join(",", hobbyArray);
-		Part filePart = request.getPart("profilepic");
+		Part filePart = null;
 		InputStream inputStream = null;
-		if(filePart != null) {
-			inputStream = filePart.getInputStream();
+		String fileName = null;
+		try {
+			filePart = request.getPart("profilepic");
+			if(filePart!=null && filePart.getSize()!=0) {
+				fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); 
+			}
+			if(fileName!=null && !fileName.equals("")){
+				inputStream = filePart.getInputStream();
+			}
+		}catch(Exception e) {
+			log.error("Something went wrong! Exception : "+e);
 		}
+		
 		String que1 = request.getParameter("que1");
 		String que2 = request.getParameter("que2");
 		String que3 = request.getParameter("que3");
@@ -94,11 +102,21 @@ public class RegisterServlet extends HttpServlet {
 		
 		UserBean u = new UserBean(fname,lname,email,phone,password1,gender,birthdate,hobby,que1,que2,que3,address,inputStream);
 		
-		if(!Validation.validate(u)) {
+		UserService rs = new UserService();
+		
+		if(fileName==null || fileName.equals("")){
+
+			log.debug("Image empty.");
+			request.setAttribute("failuser", u);
+			out.print("<p>Image is empty.</p>");
+			rd = request.getRequestDispatcher("register.jsp");
+			rd.include(request, response);
+			
+		}else if(!Validation.validate(u)) {
 			
 			log.debug("Validation failed.");
 			request.setAttribute("failuser", u);
-			out.print("<p>Input Field is empty or too large.</p>");
+			out.print("<p>Input Field is empty or too large or type mismatch.</p>");
 			rd = request.getRequestDispatcher("register.jsp");
 			rd.include(request, response);
 			
@@ -116,12 +134,11 @@ public class RegisterServlet extends HttpServlet {
 			
 			HttpSession session=request.getSession(false);  
 			
-			UserService rs = new UserService();
-			rs.RegisterUser(u);
+			rs.registerUser(u);
 			
 			log.debug("User created.");
 			
-			if(session!=null){
+			if(session!=null && session.getAttribute("user")!=null){
 				
 				log.debug("Session is not null");
 				

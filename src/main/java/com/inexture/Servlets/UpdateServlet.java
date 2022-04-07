@@ -59,9 +59,8 @@ public class UpdateServlet extends HttpServlet {
 			phone = Integer.parseInt(sphone);
 			
 		}catch(Exception e) {
-			out.print("phone : "+sphone);
-			out.print("phone : "+phone);
-			out.print("Exception : "+e);
+			out.print("Phone is not a number.");
+			
 			log.warn("Phone is not a number");
 		}
 		String password = "";
@@ -74,8 +73,10 @@ public class UpdateServlet extends HttpServlet {
 		String fileName = null;
 		try {
 			filePart = request.getPart("profilepic");
-			fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); 
-			if(!fileName.equals("")){
+			if(filePart != null && filePart.getSize()!=0) {
+				fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); 
+			}
+			if(fileName!=null && !fileName.equals("")){
 				inputStream = filePart.getInputStream();
 			}
 		}catch(Exception e) {
@@ -102,10 +103,12 @@ public class UpdateServlet extends HttpServlet {
 		
 		UserBean u = new UserBean(fname,lname,email,phone,password,gender,birthdate,hobby,que1,que2,que3,address,inputStream);
 		
+		UserService us = new UserService();
+		
 		if(!Validation.validate(u)) {
 			log.debug("Validation failed.");
 			out.print("Input Field is empty");
-			rd = request.getRequestDispatcher("register.jsp");
+			rd = request.getRequestDispatcher("EditServlet?email="+email);
 			rd.include(request, response);
 		}else {
 			
@@ -118,7 +121,6 @@ public class UpdateServlet extends HttpServlet {
 				log.debug("Session is not null, updating user.");
 				
 				u.setUid(uid);
-				UserService us = new UserService();
 				
 				us.updateUser(u,fileName);
 				

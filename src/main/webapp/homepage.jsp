@@ -31,8 +31,9 @@
 				
 				<h4>Welcome, ${sessionScope.email}.</h4>
 				
-				<a href="EditServlet?email=${sessionScope.email}" class="btn btn-default">Edit</a>
-				
+				<form action="EditServlet?email=${sessionScope.email}" method="post">
+					<button type="submit" class="btn btn-default">Edit</button>
+				</form>
 			</div>
 		</div>		
 	</div>

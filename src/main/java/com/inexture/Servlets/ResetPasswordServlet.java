@@ -49,7 +49,7 @@ public class ResetPasswordServlet extends HttpServlet {
 		
 		UserService fu = new UserService();
 		
-		if(fu.FindUser(u)) {
+		if(fu.findUser(u)) {
 			log.debug("User found, redirecting to new password page.");
 			request.setAttribute("email", email);
 			request.getRequestDispatcher("newPassword.jsp").forward(request, response);

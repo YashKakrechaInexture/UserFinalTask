@@ -20,7 +20,7 @@ public class AddressDaoMethods implements AddressDaoInterface{
 	static Logger log = Logger.getLogger(DaoMethods.class);
 	
 	@Override
-	public void AddAddress(AddressBean a,int uid) {
+	public void addAddress(AddressBean a,int uid) {
 		
 		log.debug("Inside Dao. Storing Address in database.");
 		
@@ -56,7 +56,7 @@ public class AddressDaoMethods implements AddressDaoInterface{
 	}
 	
 	@Override
-	public void GetAddressInfo(UserBean u) {
+	public void getAddressInfo(UserBean u) {
 		
 		log.debug("Inside Dao. Getting Address list using user id.");
 		
@@ -103,7 +103,7 @@ public class AddressDaoMethods implements AddressDaoInterface{
 	}
 	
 	@Override
-	public List<Integer> GetAid(int uid) {
+	public List<Integer> getAid(int uid) {
 		
 		log.debug("Inside Dao. Getting address id list using user's id.");
 		
@@ -151,7 +151,7 @@ public class AddressDaoMethods implements AddressDaoInterface{
 	}
 	
 	@Override
-	public void UpdateAddress(AddressBean a,int aid) {
+	public void updateAddress(AddressBean a,int aid) {
 		
 		log.debug("Inside Dao. Updating Address.");
 		
@@ -188,7 +188,7 @@ public class AddressDaoMethods implements AddressDaoInterface{
 	}
 	
 	@Override
-	public void DeleteAddress(int uid,int length) {
+	public void deleteAddress(int uid,int length) {
 		
 		log.debug("Inside Dao. Deleting Address.");
 		

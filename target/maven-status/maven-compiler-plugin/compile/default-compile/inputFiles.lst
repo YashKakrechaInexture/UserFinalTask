@@ -5,9 +5,10 @@ C:\Users\Yash\eclipse-workspace2\UserFinalTask\src\main\java\com\inexture\Servic
 C:\Users\Yash\eclipse-workspace2\UserFinalTask\src\main\java\com\inexture\Servlets\DeleteServlet.java
 C:\Users\Yash\eclipse-workspace2\UserFinalTask\src\main\java\com\inexture\Filters\AdminFilter.java
 C:\Users\Yash\eclipse-workspace2\UserFinalTask\src\main\java\com\inexture\Servlets\ResetPasswordServlet.java
+C:\Users\Yash\eclipse-workspace2\UserFinalTask\src\main\java\com\inexture\DAO\AddressDaoMethods.java
 C:\Users\Yash\eclipse-workspace2\UserFinalTask\src\main\java\com\inexture\DAO\DaoMethods.java
+C:\Users\Yash\eclipse-workspace2\UserFinalTask\src\main\java\com\inexture\DAO\AddressDaoInterface.java
 C:\Users\Yash\eclipse-workspace2\UserFinalTask\src\main\java\com\inexture\Services\UserInterface.java
-C:\Users\Yash\eclipse-workspace2\UserFinalTask\src\main\java\com\inexture\Services\AdminService.java
 C:\Users\Yash\eclipse-workspace2\UserFinalTask\src\main\java\com\inexture\DAO\DaoInterface.java
 C:\Users\Yash\eclipse-workspace2\UserFinalTask\src\main\java\com\inexture\Servlets\EditServlet.java
 C:\Users\Yash\eclipse-workspace2\UserFinalTask\src\main\java\com\inexture\Servlets\RegisterServlet.java
@@ -17,7 +18,6 @@ C:\Users\Yash\eclipse-workspace2\UserFinalTask\src\main\java\com\inexture\Beans\
 C:\Users\Yash\eclipse-workspace2\UserFinalTask\src\main\java\com\inexture\DAO\DaoConnectionClass.java
 C:\Users\Yash\eclipse-workspace2\UserFinalTask\src\main\java\com\inexture\Servlets\AdminServlet.java
 C:\Users\Yash\eclipse-workspace2\UserFinalTask\src\main\java\com\inexture\Servlets\AuthEmailServlet.java
-C:\Users\Yash\eclipse-workspace2\UserFinalTask\src\main\java\com\inexture\Services\AdminInterface.java
 C:\Users\Yash\eclipse-workspace2\UserFinalTask\src\main\java\com\inexture\Beans\UserBean.java
 C:\Users\Yash\eclipse-workspace2\UserFinalTask\src\main\java\com\inexture\Servlets\NewPasswordServlet.java
 C:\Users\Yash\eclipse-workspace2\UserFinalTask\src\main\java\com\inexture\Servlets\LoginServlet.java
