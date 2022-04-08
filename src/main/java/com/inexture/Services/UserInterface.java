@@ -79,5 +79,9 @@ public interface UserInterface {
 	 */
 	public boolean findUser(UserBean u);
 	
+	/**
+	 * This method converts input stream image to base64 image. It accepts UserBean object with input stream variable filled.
+	 * @param u - User Bean object
+	 */
 	public void convertToBase64Image(UserBean u);
 }

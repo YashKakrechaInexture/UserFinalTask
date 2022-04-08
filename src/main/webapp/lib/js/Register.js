@@ -1,5 +1,13 @@
 $(document).ready(function(){
-	
+	$('#submit-btn').click(function() {
+      checked = $("input[type=checkbox]:checked").length;
+
+      if(!checked) {
+        alert("Please select one checkbox to submit.");
+        return false;
+      }
+
+    });
 	$('#profilepic').change(function(){
 		
 		const file = this.files[0];
@@ -34,7 +42,6 @@ $(document).ready(function(){
 	});
 	
 	
-	  
 	$('#msg').hide();
 	$('#email').on("keyup",function(){
 		$.ajax({

@@ -506,7 +506,7 @@
 			</div>
 			
 			<div class="button-group">
-				<button type="reset" class="btn btn-default">Reset</button>
+				<button type="reset" id="reset-btn" class="btn btn-default">Reset</button>
 				<button type="submit" id="submit-btn" class="btn btn-success">Submit</button>
 			</div>
 		</form>

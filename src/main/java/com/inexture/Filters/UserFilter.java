@@ -43,7 +43,7 @@ public class UserFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		
-		log.debug("Inside Login Filter.");
+		log.debug("Inside User Login Filter.");
 
 		HttpServletResponse res = (HttpServletResponse) response;
 		HttpServletRequest req = (HttpServletRequest) request;

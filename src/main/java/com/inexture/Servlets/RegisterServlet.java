@@ -69,7 +69,7 @@ public class RegisterServlet extends HttpServlet {
 		String fileName = null;
 		try {
 			filePart = request.getPart("profilepic");
-			if(filePart!=null && filePart.getSize()!=0) {
+			if(null!=filePart && filePart.getSize()!=0) {
 				fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); 
 			}
 			if(fileName!=null && !fileName.equals("")){

@@ -7,10 +7,22 @@ import org.apache.log4j.Logger;
 import com.inexture.Beans.AddressBean;
 import com.inexture.Beans.UserBean;
 
+/**
+ * This is validation class. It contains static method to validate all user input is empty or exceeds 255 length.
+ * @author Yash
+ *
+ */
 public class Validation {
 	
 	static Logger log = Logger.getLogger(Validation.class);
 	
+	/**
+	 * This method checks validation of firstname, lastname, email, phone, gender, birthdate, hobby, que1, que2, que3, address list
+	 * of user bean object. If it is null or length exceeds 255.
+	 * @param u - User bean object
+	 * @return false - If validation failed.<br>
+	 * 		   true - If all validation is passed.
+	 */
 	public static boolean validate(UserBean u) {
 		
 		String fname = u.getFname();

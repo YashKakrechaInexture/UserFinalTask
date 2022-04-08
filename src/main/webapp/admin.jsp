@@ -40,55 +40,73 @@
 <body>
 	
 	<jsp:include page="header.jsp"></jsp:include>
-	
-	<h4>Welcome Admin, ${sessionScope.email}.</h4>
-	
-	<h2>User Data</h2>
-	
-	<table id="usertable">
-		<thead>
-			<tr>
-				<th>Uid</th>
-				<th>First Name</th>
-				<th>Last Name</th>
-				<th>Email</th>
-				<th>Phone No.</th>
-				<th>Gender</th>
-				<th>Birthdate</th>
-				<th>Hobby</th>
-				<th>Edit User</th>
-				<th>Delete User</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${requestScope.data}" var="user">
+	<div class="container">
+		<br>
+		<h4>Welcome Admin, ${sessionScope.email}.</h4>
+		
+		<div class="table-title">
+			<div class="row">
+				<div class="col-md-5">
+					<h2>User Data <b>Management</b></h2>
+				</div>
+			</div>
+		</div>
+		<table id="usertable" class="table table-striped table-hover">
+			<thead>
 				<tr>
-					<td>${user.uid}</td>
-					<td>${user.fname}</td>
-					<td>${user.lname}</td>
-					<td>${user.email}</td>
-					<td>${user.phone}</td>
-					<td>${user.gender}</td>
-					<td>${user.birthdate}</td>
-					<td>${user.hobby}</td>
-					<td>
-						<form action="EditServlet?email=${user.email}" method="post">
-							<button class="btn btn-primary" id="edit-btn" role="button">Edit</button>
-						</form>
-					</td>
-					<td>
-						<a class="btn btn-danger" id="delete-btn" href="DeleteServlet?uid=${user.uid}" role="button">Delete</a>
-					</td>
+					<th>Uid</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Email</th>
+					<th>Phone No.</th>
+					<th>Gender</th>
+					<th>Birthdate</th>
+					<th>Hobby</th>
+					<th>Actions</th>
 				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-	
-	<div>
-		<a class="btn btn-success" id="add-btn" href="register.jsp" role="button">Add User</a>
+			</thead>
+			<tbody>
+				<c:forEach items="${requestScope.data}" var="user">
+					<tr>
+						<td>${user.uid}</td>
+						<td>${user.fname}</td>
+						<td>${user.lname}</td>
+						<td>${user.email}</td>
+						<td>${user.phone}</td>
+						<td>${user.gender}</td>
+						<td>${user.birthdate}</td>
+						<td>${user.hobby}</td>
+						<td>
+							<div class="forms">
+								<form action="EditServlet?email=${user.email}" method="post" id="edit-form">
+									<button class="span-btn" id="edit-btn" role="button">
+										<span class="glyphicon glyphicon-cog span-blue-icon" aria-hidden="true"></span>
+									</button>
+								</form>
+								
+								<form action="DeleteServlet?uid=${user.uid}" method="post">
+									<button class="span-btn" id="delete-btn" role="button">
+										<span class="glyphicon glyphicon-remove-circle span-red-icon" aria-hidden="true"></span>
+									</button>
+								</form>
+							</div>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		
+		
+		<div>
+			<a class="btn btn-success" id="add-btn" href="register.jsp" role="button">Add User</a>
+		</div>
+		
+		<br><br>
+		
 	</div>
-	<br><br>
+	
 	<div class="foot"></div>
+	
 	<jsp:include page="footer.jsp"></jsp:include>
 	
 	<!-- custom js -->
