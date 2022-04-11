@@ -89,5 +89,5 @@ public interface DaoInterface {
 	 * @param email - email of the user
 	 * @param Password - new password of the user
 	 */
-	public void changePassword(String email,String Password);
+	public void changePassword(String email,String password);
 }

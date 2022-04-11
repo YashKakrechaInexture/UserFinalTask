@@ -26,26 +26,24 @@ import com.inexture.Services.UserService;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static Logger log = Logger.getLogger(LoginServlet.class);
+	static final Logger LOG = Logger.getLogger(LoginServlet.class);
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		log.debug("Inside LoginServlet");
+		LOG.debug("Inside LoginServlet");
 		
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		log.info("Got email and password from login page");
+		LOG.info("Got email and password from login page");
 		
 		UserService ls = new UserService();
 		UserBean u = ls.checkUser(email,password);
 		
-		log.debug("Inside LoginServlet : Email and password has been checked.");
+		LOG.debug("Inside LoginServlet : Email and password has been checked.");
 		
 		RequestDispatcher rd = null;
 		
@@ -59,29 +57,29 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("email",u.getEmail());  
 			session.setAttribute("user", u);
 			
-			log.debug("Session created and UserBean set to attribute.");
+			LOG.debug("Session created and UserBean set to attribute.");
 			
 			if(u.getType().equals("admin")) {
 				
-				log.info("User is admin, redirecting to admin page.");
+				LOG.info("User is admin, redirecting to admin page.");
 				session.setAttribute("admin","true");
 				response.sendRedirect("AdminServlet");
 				
 			}else if (u.getType().equals("user")){
 				
-				log.info("User is normal user, redirecting to user home page.");
+				LOG.info("User is normal user, redirecting to user home page.");
 				response.sendRedirect("homepage.jsp");
 				
 			}else {
 				
-				log.error("User found but its not user or admin");
+				LOG.error("User found but its not user or admin");
 				response.sendRedirect("index.jsp");
 				
 			}
 			
 		}else{
 			
-			log.info("No user found with given email and password, redirecting to login page.");
+			LOG.info("No user found with given email and password, redirecting to login page.");
 			out.print("Enter Correct Details");
 			rd = request.getRequestDispatcher("index.jsp");
 			rd.include(request, response);
@@ -92,7 +90,6 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

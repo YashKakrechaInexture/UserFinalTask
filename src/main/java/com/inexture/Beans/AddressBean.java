@@ -1,12 +1,16 @@
 package com.inexture.Beans;
 
+import java.io.Serializable;
+
 /**
 * 
 * Address bean, which stores the 1 address of User
 * @author Yash
 */
-public class AddressBean {
+public class AddressBean implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Stores address id from database table
 	 */

@@ -23,17 +23,16 @@ import com.inexture.Services.UserService;
 @WebServlet("/EditServlet")
 public class EditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static Logger log = Logger.getLogger(EditServlet.class);
+	static final Logger LOG = Logger.getLogger(EditServlet.class);
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 		HttpSession session = request.getSession(false);  
 		
-		if(session==null || session.getAttribute("email")==null || !session.getAttribute("email").equals(request.getAttribute("email"))) {
+		if(session==null || session.getAttribute("email")==null) {
 			response.sendRedirect("homepage.jsp");
 		}
 	}
@@ -42,35 +41,34 @@ public class EditServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		doGet(request, response);
-		log.debug("Inside Edit Servlet.");
+		
+		LOG.debug("Inside Edit Servlet.");
 		
 		HttpSession session = request.getSession(false);  
 		
 		if(session != null) {
 			
-			log.debug("Session not null.");
+			LOG.debug("Session not null.");
 			
 			String email = request.getParameter("email");
 			
-			log.debug("Get email.");
+			LOG.debug("Get email.");
 			
 			UserBean u = new UserBean(email);
 			
 			UserService es = new UserService();
 			es.editProfile(u);
 			
-			log.debug("Setting user bean to request attribute.");
+			LOG.debug("Setting user bean to request attribute.");
 			
 	        request.setAttribute("user", u);
 	        
-	        log.debug("Redirecting to edit jsp page.");
+	        LOG.debug("Redirecting to edit jsp page.");
 			
 	        request.getRequestDispatcher("register.jsp").include(request, response);
 	        
 		}else {
-			log.debug("Session is null, redirecting to login page.");
+			LOG.debug("Session is null, redirecting to login page.");
 			
 			response.sendRedirect("index.html");
 		}

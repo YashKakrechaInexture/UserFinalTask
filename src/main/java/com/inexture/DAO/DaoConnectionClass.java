@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
  * @author Yash
  *
  */
-public class DaoConnectionClass {
+public final class DaoConnectionClass {
 	
 	
 	/**
@@ -27,7 +27,7 @@ public class DaoConnectionClass {
 	/**
 	 * Logger
 	 */
-	static Logger log = Logger.getLogger(DaoConnectionClass.class);
+	static final Logger LOG = Logger.getLogger(DaoConnectionClass.class);
 	
 	static {
 		try {
@@ -37,13 +37,11 @@ public class DaoConnectionClass {
 			String url = "jdbc:mysql://localhost:3306/userfinaltask";
 			
 			conn = DriverManager.getConnection(url,user,pass);
-			System.out.println("Connection Created");
 			
-			log.info("Database connection initialized.");
+			LOG.info("Database connection initialized.");
 			
 		}catch(Exception e) {
-			log.fatal("Cannot create Database connection. Exception : "+e);
-			System.out.println("Exception : "+e);
+			LOG.fatal("Cannot create Database connection. Exception : "+e);
 		}
 	}
 	
@@ -53,7 +51,7 @@ public class DaoConnectionClass {
 	 * @return conn - Stores Connection of database
 	 */
 	public static Connection getConnection() {
-		log.debug("Returned Database connection");
+		LOG.debug("Returned Database connection");
 		return conn;
 	}
 }

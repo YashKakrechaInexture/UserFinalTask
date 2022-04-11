@@ -3,6 +3,7 @@ package com.inexture.Servlets;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
@@ -33,15 +34,14 @@ import com.inexture.Utilities.Validation;
 @WebServlet("/UpdateServlet")
 public class UpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static Logger log = Logger.getLogger(UpdateServlet.class);
+	static final Logger LOG = Logger.getLogger(UpdateServlet.class);
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		log.debug("Inside Update Servlet.");
+		LOG.debug("Inside Update Servlet.");
 		
 		PrintWriter out = response.getWriter();
 		
@@ -61,7 +61,7 @@ public class UpdateServlet extends HttpServlet {
 		}catch(Exception e) {
 			out.print("Phone is not a number.");
 			
-			log.warn("Phone is not a number");
+			LOG.warn("Phone is not a number");
 		}
 		String password = "";
 		String gender = request.getParameter("gender");
@@ -74,13 +74,16 @@ public class UpdateServlet extends HttpServlet {
 		try {
 			filePart = request.getPart("profilepic");
 			if(filePart != null && filePart.getSize()!=0) {
-				fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); 
+				String fileurl = filePart.getSubmittedFileName();
+				Path path = fileurl==null ? null : Paths.get(fileurl);
+				Path filen = path==null? null : path.getFileName();
+				fileName = path==null? null : filen.toString();
 			}
 			if(fileName!=null && !fileName.equals("")){
 				inputStream = filePart.getInputStream();
 			}
 		}catch(Exception e) {
-			log.error("Something went wrong! Exception : "+e);
+			LOG.error("Something went wrong! Exception : {}",e);
 		}
 		
 		String que1 = request.getParameter("que1");
@@ -106,19 +109,19 @@ public class UpdateServlet extends HttpServlet {
 		UserService us = new UserService();
 		
 		if(!Validation.validate(u)) {
-			log.debug("Validation failed.");
+			LOG.debug("Validation failed.");
 			out.print("Input Field is empty");
 			rd = request.getRequestDispatcher("EditServlet?email="+email);
 			rd.include(request, response);
 		}else {
 			
-			log.debug("Validation passed, updating User data.");
+			LOG.debug("Validation passed, updating User data.");
 			
 			HttpSession session=request.getSession(false);  
 			
 			if(session!=null) {
 				
-				log.debug("Session is not null, updating user.");
+				LOG.debug("Session is not null, updating user.");
 				
 				u.setUid(uid);
 				
@@ -129,16 +132,16 @@ public class UpdateServlet extends HttpServlet {
 				UserBean user = (UserBean)session.getAttribute("user");
 				
 				if(user.getType().equals("user")) {
-					log.debug("Session is active and type is user. Redirecting to homepage.");
+					LOG.debug("Session is active and type is user. Redirecting to homepage.");
 					response.sendRedirect("homepage.jsp");
 		        }else if(user.getType().equals("admin")){
-		        	log.debug("Session is active and type is admin. Redirecting to admin servlet.");
+		        	LOG.debug("Session is active and type is admin. Redirecting to admin servlet.");
 					response.sendRedirect("AdminServlet");
 		        }else {
-		        	log.error("Session is active but no user or admin found.");
+		        	LOG.error("Session is active but no user or admin found.");
 		        }
 			}else {
-				log.warn("Session is null, redirecting to login page.");
+				LOG.warn("Session is null, redirecting to login page.");
 				response.sendRedirect("index.jsp");
 			}
 		}
@@ -148,7 +151,6 @@ public class UpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

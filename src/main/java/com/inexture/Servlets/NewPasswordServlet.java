@@ -22,15 +22,14 @@ import com.inexture.Services.UserService;
 @WebServlet("/NewPasswordServlet")
 public class NewPasswordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static Logger log = Logger.getLogger(NewPasswordServlet.class);
+	static final Logger LOG = Logger.getLogger(NewPasswordServlet.class);
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		log.debug("Inside New Password Servlet.");
+		LOG.debug("Inside New Password Servlet.");
 		
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
@@ -45,17 +44,17 @@ public class NewPasswordServlet extends HttpServlet {
 		}else {
 			if(password1.equals(password2)) {
 				
-				log.debug("Password is same, reseting password.");
+				LOG.debug("Password is same, reseting password.");
 				
 				UserService rps = new UserService();
 				rps.resetPass(email, password1);
 				
 				out.print("<p>Password changed.</p>");
 				
-				log.debug("Redirecting to login page.");
+				LOG.debug("Redirecting to login page.");
 				request.getRequestDispatcher("index.jsp").include(request, response);
 			}else {
-				log.debug("Password not matched, redirecting to new password page.");
+				LOG.debug("Password not matched, redirecting to new password page.");
 				out.print("<p>Password not matched.</p>");
 				request.getRequestDispatcher("newPassword.jsp").include(request, response);
 			}
@@ -66,7 +65,6 @@ public class NewPasswordServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

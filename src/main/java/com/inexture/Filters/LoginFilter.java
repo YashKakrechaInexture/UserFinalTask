@@ -24,28 +24,31 @@ import com.inexture.Beans.UserBean;
  */
 @WebFilter(urlPatterns = {"/index.jsp"})
 public class LoginFilter implements Filter {
-	static Logger log = Logger.getLogger(UserFilter.class);
+	/**
+	 * Logger
+	 */
+	static final Logger LOG = Logger.getLogger(UserFilter.class);
     
     /**
      * Default constructor. 
      */
     public LoginFilter() {
-        // TODO Auto-generated constructor stub
+        
     }
 
 	/**
 	 * @see Filter#destroy()
 	 */
 	public void destroy() {
-		// TODO Auto-generated method stub
+		
 	}
 
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		log.debug("Inside Login Filter.");
+		
+		LOG.debug("Inside Login Filter.");
 
 		HttpServletResponse res = (HttpServletResponse) response;
 		HttpServletRequest req = (HttpServletRequest) request;
@@ -56,7 +59,7 @@ public class LoginFilter implements Filter {
 		
 		HttpSession session=req.getSession(false);  
 		if(session==null || session.getAttribute("user")==null) {
-			log.debug("Session is not active, chaining to login page.");
+			LOG.debug("Session is not active, chaining to login page.");
 			chain.doFilter(request, response);
 		}else {
 			res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
@@ -65,17 +68,17 @@ public class LoginFilter implements Filter {
 	        UserBean u = (UserBean)session.getAttribute("user");
 	        if(u!=null) {
 	        	if( ("user").equals(u.getType()) ) {
-	        		log.debug("Session is active and its type user, redirecting to homepage.jsp.");
+	        		LOG.debug("Session is active and its type user, redirecting to homepage.jsp.");
 	        		res.sendRedirect("homepage.jsp");
 	        	}else if( ("admin").equals(u.getType()) ) {
-	        		log.debug("Session is active and its type admin, redirecting to AdminServlet.");
+	        		LOG.debug("Session is active and its type admin, redirecting to AdminServlet.");
 	        		res.sendRedirect("AdminServlet");
 	        	}else {
-	        		log.error("Session is active but not user or admin found.");
+	        		LOG.error("Session is active but not user or admin found.");
 		        	chain.doFilter(request, response);
 	        	}
 	        }else {
-	        	log.error("In if condition session was active but in else condition session is null.");
+	        	LOG.error("In if condition session was active but in else condition session is null.");
 	        	chain.doFilter(request, response);
 	        }
 		}
@@ -85,7 +88,7 @@ public class LoginFilter implements Filter {
 	 * @see Filter#init(FilterConfig)
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
+		
 	}
 
 }

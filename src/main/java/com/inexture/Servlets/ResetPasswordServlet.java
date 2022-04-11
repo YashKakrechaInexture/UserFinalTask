@@ -23,15 +23,14 @@ import com.inexture.Services.UserService;
 @WebServlet("/ResetPasswordServlet")
 public class ResetPasswordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static Logger log = Logger.getLogger(ResetPasswordServlet.class);
+	static final Logger LOG = Logger.getLogger(ResetPasswordServlet.class);
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		log.debug("Inside Reset Password Servlet.");
+		LOG.debug("Inside Reset Password Servlet.");
 		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
@@ -45,16 +44,16 @@ public class ResetPasswordServlet extends HttpServlet {
 		
 		UserBean u = new UserBean(email,birthdate,que1,que2,que3);
 		
-		log.debug("Got data and set in userbean.");
+		LOG.debug("Got data and set in userbean.");
 		
 		UserService fu = new UserService();
 		
 		if(fu.findUser(u)) {
-			log.debug("User found, redirecting to new password page.");
+			LOG.debug("User found, redirecting to new password page.");
 			request.setAttribute("email", email);
 			request.getRequestDispatcher("newPassword.jsp").forward(request, response);
 		}else {
-			log.debug("No user found, redirecting to reset password page.");
+			LOG.debug("No user found, redirecting to reset password page.");
 			out.print("No user found");
 			request.getRequestDispatcher("resetPassword.jsp").include(request, response);
 		}
@@ -64,7 +63,6 @@ public class ResetPasswordServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

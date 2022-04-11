@@ -24,30 +24,28 @@ import com.inexture.Beans.UserBean;
  */
 @WebFilter(urlPatterns = {"/homepage.jsp"})
 public class HomepageFilter implements Filter {
-	static Logger log = Logger.getLogger(UserFilter.class);
+	static final Logger LOG = Logger.getLogger(UserFilter.class);
     
     /**
      * Default constructor. 
      */
     public HomepageFilter() {
-        // TODO Auto-generated constructor stub
+        
     }
 
 	/**
 	 * @see Filter#destroy()
 	 */
 	public void destroy() {
-		// TODO Auto-generated method stub
+		
 	}
 
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		// place your code here
-
-		log.debug("Inside Homepage Filter.");
+		
+		LOG.debug("Inside Homepage Filter.");
 
 		HttpServletResponse res = (HttpServletResponse) response;
 		HttpServletRequest req = (HttpServletRequest) request;
@@ -58,15 +56,15 @@ public class HomepageFilter implements Filter {
 		
 		HttpSession session=req.getSession(false);  
 		if(session==null || session.getAttribute("user")==null) {
-			log.debug("Session is not created, redirecting to login page.");
+			LOG.debug("Session is not created, redirecting to login page.");
 			res.sendRedirect("index.jsp");
 		}else {
 			UserBean u = (UserBean)session.getAttribute("user");
 			if(u.getType().equals("admin")) {
-				log.debug("Session is active, and type is admin, redirecting to admin servlet.");
+				LOG.debug("Session is active, and type is admin, redirecting to admin servlet.");
 				res.sendRedirect("AdminServlet");
 			}else {
-				log.error("Session is active, and type user, let him pass.");
+				LOG.error("Session is active, and type user, let him pass.");
 				chain.doFilter(request, response);
 			}
 		}
@@ -76,7 +74,7 @@ public class HomepageFilter implements Filter {
 	 * @see Filter#init(FilterConfig)
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
+		
 	}
 
 }

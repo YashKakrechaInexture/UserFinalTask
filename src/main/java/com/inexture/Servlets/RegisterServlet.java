@@ -3,6 +3,7 @@ package com.inexture.Servlets;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ import com.inexture.Services.UserService;
 import com.inexture.Utilities.Validation;
 
 /**
- * It registers the new user after checking the validation and redirects them to admin/login page based on session.
+ * It registers the new user after checking the validation & redirects them to admin/login page based on session.
  * @author Yash
  *
  */
@@ -32,15 +33,14 @@ import com.inexture.Utilities.Validation;
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static Logger log = Logger.getLogger(RegisterServlet.class);
+	static final Logger LOG = Logger.getLogger(RegisterServlet.class);
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		log.debug("Inside Register Servlet.");
+		LOG.debug("Inside Register Servlet.");
 		
 		PrintWriter out = response.getWriter();
 		
@@ -56,7 +56,7 @@ public class RegisterServlet extends HttpServlet {
 		}catch(Exception e) {
 			out.print("Phone is not a number.");
 			
-			log.warn("Phone is not a number.");
+			LOG.warn("Phone is not a number.");
 		}
 		String password1 = request.getParameter("password1");
 		String password2 = request.getParameter("password2");
@@ -70,13 +70,16 @@ public class RegisterServlet extends HttpServlet {
 		try {
 			filePart = request.getPart("profilepic");
 			if(null!=filePart && filePart.getSize()!=0) {
-				fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); 
+				String fileurl = filePart.getSubmittedFileName();
+				Path path = fileurl==null ? null : Paths.get(fileurl);
+				Path filen = path==null? null : path.getFileName();
+				fileName = path==null? null : filen.toString();
 			}
 			if(fileName!=null && !fileName.equals("")){
 				inputStream = filePart.getInputStream();
 			}
 		}catch(Exception e) {
-			log.error("Something went wrong! Exception : "+e);
+			LOG.error("Something went wrong! Exception : {}",e);
 		}
 		
 		String que1 = request.getParameter("que1");
@@ -96,7 +99,7 @@ public class RegisterServlet extends HttpServlet {
 			address.add(a);
 		}
 		
-		log.debug("Got all the data from register page.");
+		LOG.debug("Got all the data from register page.");
 		
 		RequestDispatcher rd = null;
 		
@@ -106,7 +109,7 @@ public class RegisterServlet extends HttpServlet {
 		
 		if(fileName==null || fileName.equals("")){
 
-			log.debug("Image empty.");
+			LOG.debug("Image empty.");
 			request.setAttribute("failuser", u);
 			out.print("<p>Image is empty.</p>");
 			rd = request.getRequestDispatcher("register.jsp");
@@ -114,7 +117,7 @@ public class RegisterServlet extends HttpServlet {
 			
 		}else if(!Validation.validate(u)) {
 			
-			log.debug("Validation failed.");
+			LOG.debug("Validation failed.");
 			request.setAttribute("failuser", u);
 			out.print("<p>Input Field is empty or too large or type mismatch.</p>");
 			rd = request.getRequestDispatcher("register.jsp");
@@ -122,7 +125,7 @@ public class RegisterServlet extends HttpServlet {
 			
 		}else if(!password1.equals(password2)) {
 			
-			log.debug("Password not matched.");
+			LOG.debug("Password not matched.");
 			request.setAttribute("failuser", u);
 			out.print("<p>Password not matched</p>");
 			rd = request.getRequestDispatcher("register.jsp");
@@ -130,31 +133,31 @@ public class RegisterServlet extends HttpServlet {
 			
 		}else {	
 			
-			log.debug("Validation passed, creating user.");
+			LOG.debug("Validation passed, creating user.");
 			
 			HttpSession session=request.getSession(false);  
 			
 			rs.registerUser(u);
 			
-			log.debug("User created.");
+			LOG.debug("User created.");
 			
 			if(session!=null && session.getAttribute("user")!=null){
 				
-				log.debug("Session is not null");
+				LOG.debug("Session is not null");
 				
 				UserBean user = (UserBean)session.getAttribute("user");
 				if(user.getType().equals("admin")) {
-					log.debug("Admin is true, redirecting to admin servlet.");
+					LOG.debug("Admin is true, redirecting to admin servlet.");
 					response.sendRedirect("AdminServlet");
 				}else if(user.getType().equals("user")) {
-					log.debug("User session is active, redirecting to homepage.");
+					LOG.debug("User session is active, redirecting to homepage.");
 					response.sendRedirect("homepage.jsp");
 				}else {
-					log.error("Session is active but not user or admin found.");
+					LOG.error("Session is active but not user or admin found.");
 					response.sendRedirect("register.jsp");
 				}
 			}else {
-				log.debug("Session is null, redirecting to login page.");
+				LOG.debug("Session is null, redirecting to login page.");
 				response.sendRedirect("index.jsp");
 			}
 			
@@ -165,7 +168,6 @@ public class RegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

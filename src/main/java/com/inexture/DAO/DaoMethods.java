@@ -15,12 +15,12 @@ import com.inexture.Beans.UserBean;
  *
  */
 public class DaoMethods implements DaoInterface{
-	static Logger log = Logger.getLogger(DaoMethods.class);
+	static final Logger LOG = Logger.getLogger(DaoMethods.class);
 	
 	@Override
 	public boolean checkUser(String email) {
 		
-		log.debug("Inside Dao. Checking email exist or not.");
+		LOG.debug("Inside Dao. Checking email exist or not.");
 		
 		Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
@@ -33,31 +33,31 @@ public class DaoMethods implements DaoInterface{
 			
 			rs = st.executeQuery();
 			
-			log.info("Query executed successfully.");
+			LOG.info("Query executed successfully.");
 			
 			if(rs.next()) {
-				log.debug("User found in table.");
+				LOG.debug("User found in table.");
 				return false;
 			}else {
-				log.debug("No User found in table.");
+				LOG.debug("No User found in table.");
 				return true;
 			}
 			
 		}catch(Exception e) {
-			log.fatal("Something went wrong! Exception : "+e);
+			LOG.fatal("Something went wrong! Exception : "+e);
 		}finally {
-			log.debug("Started closing PreparedStatement and ResultSet.");
+			LOG.debug("Started closing PreparedStatement and ResultSet.");
 			try{
 				if(rs != null) {
 					rs.close();
-					log.info("ResultSet Closed.");
+					LOG.info("ResultSet Closed.");
 				}
 				if(st != null){
 					st.close();
-					log.info("PreparedStatement Closed.");
+					LOG.info("PreparedStatement Closed.");
 				}
 			}catch(Exception ep){
-				log.fatal("Something went wrong! Exception : "+ep);
+				LOG.fatal("Something went wrong! Exception : "+ep);
 			}
 		}
 		
@@ -67,7 +67,7 @@ public class DaoMethods implements DaoInterface{
 	@Override
 	public void register(UserBean u) {
 		
-		log.debug("Inside Dao. Registering User.");
+		LOG.debug("Inside Dao. Registering User.");
 		
 		Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
@@ -92,18 +92,18 @@ public class DaoMethods implements DaoInterface{
 			
 			st.executeUpdate();
 			
-			log.info("User stored in database.");
+			LOG.info("User stored in database.");
 			
 		}catch(Exception e) {
-			log.fatal("Something went wrong! Exception : "+e);
+			LOG.fatal("Something went wrong! Exception : "+e);
 		}finally {
 			try{
 				if(st != null){
 					st.close();
-					log.info("PreparedStatement Closed.");
+					LOG.info("PreparedStatement Closed.");
 				}
 			}catch(Exception ep){
-				log.fatal("Something went wrong! Exception : "+ep);
+				LOG.fatal("Something went wrong! Exception : "+ep);
 			}
 		}
 	}
@@ -111,7 +111,7 @@ public class DaoMethods implements DaoInterface{
 	@Override
 	public int getUid(String email) {
 		
-		log.debug("Inside Dao. Getting Uid from email.");
+		LOG.debug("Inside Dao. Getting Uid from email.");
 		
 		Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
@@ -124,35 +124,35 @@ public class DaoMethods implements DaoInterface{
 			
 			rs = st.executeQuery();
 			
-			log.info("Query executed successfully.");
+			LOG.info("Query executed successfully.");
 			
 			if(rs.next()) {
 				
-				log.debug("Uid found.");
+				LOG.debug("Uid found.");
 				
 				return rs.getInt(1);
 				
 			}else {
 				
-				log.fatal("Uid not found for given email.");
+				LOG.fatal("Uid not found for given email.");
 				
 				return 0;
 			}
 			
 		}catch(Exception e) {
-			log.fatal("Something went wrong! Exception : "+e);
+			LOG.fatal("Something went wrong! Exception : "+e);
 		}finally {
 			try{
 				if(rs != null) {
 					rs.close();
-					log.info("ResultSet Closed.");
+					LOG.info("ResultSet Closed.");
 				}
 				if(st != null){
 					st.close();
-					log.info("PreparedStatement Closed.");
+					LOG.info("PreparedStatement Closed.");
 				}
 			}catch(Exception ep){
-				log.fatal("Something went wrong! Exception : "+ep);
+				LOG.fatal("Something went wrong! Exception : "+ep);
 			}
 		}
 		
@@ -162,7 +162,7 @@ public class DaoMethods implements DaoInterface{
 	@Override
 	public UserBean authUser(String email,String password){
 		
-		log.debug("Inside Dao. Authorizing user.");
+		LOG.debug("Inside Dao. Authorizing user.");
 		
 		Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
@@ -176,7 +176,7 @@ public class DaoMethods implements DaoInterface{
 			
 			rs = st.executeQuery();
 			
-			log.info("Query executed successfully.");
+			LOG.info("Query executed successfully.");
 			
 			if(rs.next()) {
 				UserBean u = new UserBean(email);
@@ -194,30 +194,30 @@ public class DaoMethods implements DaoInterface{
 				u.setType(rs.getString("type"));
 				u.setInputStream(rs.getBlob("image").getBinaryStream());
 				
-				log.debug("User data stored in bean.");
+				LOG.debug("User data stored in bean.");
 				
 				return u;
 			}else {
 				
-				log.debug("No user found in database, returning null.");
+				LOG.debug("No user found in database, returning null.");
 				
 				return null;
 			}
 			
 		}catch(Exception e) {
-			log.fatal("Something went wrong! Exception : "+e);
+			LOG.fatal("Something went wrong! Exception : "+e);
 		}finally {
 			try{
 				if(rs != null) {
 					rs.close();
-					log.info("ResultSet Closed.");
+					LOG.info("ResultSet Closed.");
 				}
 				if(st != null){
 					st.close();
-					log.info("PreparedStatement Closed.");
+					LOG.info("PreparedStatement Closed.");
 				}
 			}catch(Exception ep){
-				log.fatal("Something went wrong! Exception : "+ep);
+				LOG.fatal("Something went wrong! Exception : "+ep);
 			}
 		}
 		return null;
@@ -226,7 +226,7 @@ public class DaoMethods implements DaoInterface{
 	@Override
 	public void showUserData(List<UserBean> list,String type) {
 		
-		log.debug("Inside Dao. Creating Users List.");
+		LOG.debug("Inside Dao. Creating Users List.");
 		
 		Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
@@ -239,28 +239,28 @@ public class DaoMethods implements DaoInterface{
 
 			rs = st.executeQuery();
 			
-			log.info("Query executed successfully.");
+			LOG.info("Query executed successfully.");
 			
 			while(rs.next()) {
 				list.add( new UserBean(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getString(8)) );
 			}
 			
-			log.debug("User data stored in list.");
+			LOG.debug("User data stored in list.");
 			
 		}catch(Exception e) {
-			log.fatal("Something went wrong! Exception : "+e);
+			LOG.fatal("Something went wrong! Exception : "+e);
 		}finally {
 			try{
 				if(rs != null) {
 					rs.close();
-					log.info("ResultSet Closed.");
+					LOG.info("ResultSet Closed.");
 				}
 				if(st != null){
 					st.close();
-					log.info("PreparedStatement Closed.");
+					LOG.info("PreparedStatement Closed.");
 				}
 			}catch(Exception ep){
-				log.fatal("Something went wrong! Exception : "+ep);
+				LOG.fatal("Something went wrong! Exception : "+ep);
 			}
 		}
 	}
@@ -268,7 +268,7 @@ public class DaoMethods implements DaoInterface{
 	@Override
 	public void getUserInfo(UserBean u) {
 		
-		log.debug("Inside Dao. Getting User Detail from email.");
+		LOG.debug("Inside Dao. Getting User Detail from email.");
 		
 		Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
@@ -282,7 +282,7 @@ public class DaoMethods implements DaoInterface{
 
 			rs = st.executeQuery();
 			
-			log.info("Query executed successfully.");
+			LOG.info("Query executed successfully.");
 			
 			if(rs.next()) {
 				u.setUid(rs.getInt("uid"));
@@ -297,24 +297,24 @@ public class DaoMethods implements DaoInterface{
 				u.setQue3(rs.getString("ans3"));
 				u.setInputStream(rs.getBlob("image").getBinaryStream());
 				
-				log.debug("User data stored in bean.");
+				LOG.debug("User data stored in bean.");
 				
 			}
 			
 		}catch(Exception e) {
-			log.fatal("Something went wrong! Exception : "+e);
+			LOG.fatal("Something went wrong! Exception : "+e);
 		}finally {
 			try{
 				if(rs != null) {
 					rs.close();
-					log.info("ResultSet Closed.");
+					LOG.info("ResultSet Closed.");
 				}
 				if(st != null){
 					st.close();
-					log.info("PreparedStatement Closed.");
+					LOG.info("PreparedStatement Closed.");
 				}
 			}catch(Exception ep){
-				log.fatal("Something went wrong! Exception : "+ep);
+				LOG.fatal("Something went wrong! Exception : "+ep);
 			}
 		}
 	}
@@ -322,7 +322,7 @@ public class DaoMethods implements DaoInterface{
 	@Override
 	public void updateImage(UserBean u) {
 		
-		log.debug("Inside Dao. Updating Image.");
+		LOG.debug("Inside Dao. Updating Image.");
 		
 		Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
@@ -336,18 +336,18 @@ public class DaoMethods implements DaoInterface{
 			
 			st.executeUpdate();
 			
-			log.info("Query executed successfully.");
+			LOG.info("Query executed successfully.");
 			
 		}catch(Exception e) {
-			log.fatal("Something went wrong! Exception : "+e);
+			LOG.fatal("Something went wrong! Exception : "+e);
 		}finally {
 			try{
 				if(st != null){
 					st.close();
-					log.info("PreparedStatement Closed.");
+					LOG.info("PreparedStatement Closed.");
 				}
 			}catch(Exception ep){
-				log.fatal("Something went wrong! Exception : "+ep);
+				LOG.fatal("Something went wrong! Exception : "+ep);
 			}
 		}
 	}
@@ -355,7 +355,7 @@ public class DaoMethods implements DaoInterface{
 	@Override
 	public void updateUserDetail(UserBean u) {
 		
-		log.debug("Inside Dao. Updating user details.");
+		LOG.debug("Inside Dao. Updating user details.");
 		
 		Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
@@ -378,18 +378,18 @@ public class DaoMethods implements DaoInterface{
 
 			st.executeUpdate();
 
-			log.info("Query executed successfully.");
+			LOG.info("Query executed successfully.");
 			
 		}catch(Exception e) {
-			log.fatal("Something went wrong! Exception : "+e);
+			LOG.fatal("Something went wrong! Exception : "+e);
 		}finally {
 			try{
 				if(st != null){
 					st.close();
-					log.info("PreparedStatement Closed.");
+					LOG.info("PreparedStatement Closed.");
 				}
 			}catch(Exception ep){
-				log.fatal("Something went wrong! Exception : "+ep);
+				LOG.fatal("Something went wrong! Exception : "+ep);
 			}
 		}
 	}
@@ -397,7 +397,7 @@ public class DaoMethods implements DaoInterface{
 	@Override
 	public void deleteUser(int uid) {
 		
-		log.debug("Inside Dao. Deleting user.");
+		LOG.debug("Inside Dao. Deleting user.");
 		
 		Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
@@ -410,18 +410,18 @@ public class DaoMethods implements DaoInterface{
 
 			st.executeUpdate();
 
-			log.info("Query executed successfully.");
+			LOG.info("Query executed successfully.");
 			
 		}catch(Exception e) {
-			log.fatal("Something went wrong! Exception : "+e);
+			LOG.fatal("Something went wrong! Exception : "+e);
 		}finally {
 			try{
 				if(st != null){
 					st.close();
-					log.info("PreparedStatement Closed.");
+					LOG.info("PreparedStatement Closed.");
 				}
 			}catch(Exception ep){
-				log.fatal("Something went wrong! Exception : "+ep);
+				LOG.fatal("Something went wrong! Exception : "+ep);
 			}
 		}
 	}
@@ -429,7 +429,7 @@ public class DaoMethods implements DaoInterface{
 	@Override
 	public boolean findUser(UserBean u) {
 		
-		log.debug("Inside Dao. Finding user for forgot password.");
+		LOG.debug("Inside Dao. Finding user for forgot password.");
 		
 		Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
@@ -446,7 +446,7 @@ public class DaoMethods implements DaoInterface{
 			
 			rs = st.executeQuery();
 			
-			log.info("Query executed successfully.");
+			LOG.info("Query executed successfully.");
 			
 			if(rs.next()) {
 				return true;
@@ -455,19 +455,19 @@ public class DaoMethods implements DaoInterface{
 			}
 			
 		}catch(Exception e) {
-			log.fatal("Something went wrong! Exception : "+e);
+			LOG.fatal("Something went wrong! Exception : "+e);
 		}finally {
 			try{
 				if(rs != null) {
 					rs.close();
-					log.info("ResultSet Closed.");
+					LOG.info("ResultSet Closed.");
 				}
 				if(st != null){
 					st.close();
-					log.info("PreparedStatement Closed.");
+					LOG.info("PreparedStatement Closed.");
 				}
 			}catch(Exception ep){
-				log.fatal("Something went wrong! Exception : "+ep);
+				LOG.fatal("Something went wrong! Exception : "+ep);
 			}
 		}
 		
@@ -475,9 +475,9 @@ public class DaoMethods implements DaoInterface{
 	}
 	
 	@Override
-	public void changePassword(String email,String Password) {
+	public void changePassword(String email,String password) {
 		
-		log.debug("Inside Dao. Changing password.");
+		LOG.debug("Inside Dao. Changing password.");
 		
 		Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
@@ -486,23 +486,23 @@ public class DaoMethods implements DaoInterface{
 
 			st = conn.prepareStatement("update users set password=? where email=?");
 			
-			st.setString(1, Password);
+			st.setString(1, password);
 			st.setString(2, email);
 			
 			st.executeUpdate();
 
-			log.info("Query executed successfully.");
+			LOG.info("Query executed successfully.");
 			
 		}catch(Exception e) {
-			log.fatal("Something went wrong! Exception : "+e);
+			LOG.fatal("Something went wrong! Exception : "+e);
 		}finally {
 			try{
 				if(st != null){
 					st.close();
-					log.info("PreparedStatement Closed.");
+					LOG.info("PreparedStatement Closed.");
 				}
 			}catch(Exception ep){
-				log.fatal("Something went wrong! Exception : "+ep);
+				LOG.fatal("Something went wrong! Exception : "+ep);
 			}
 		}
 	}

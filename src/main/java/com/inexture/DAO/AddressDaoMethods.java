@@ -17,48 +17,51 @@ import com.inexture.Beans.UserBean;
  *
  */
 public class AddressDaoMethods implements AddressDaoInterface{
-	static Logger log = Logger.getLogger(DaoMethods.class);
+	/**
+	 * Logger
+	 */
+	static final Logger LOG = Logger.getLogger(DaoMethods.class);
 	
 	@Override
-	public void addAddress(AddressBean a,int uid) {
+	public void addAddress(AddressBean address,int uid) {
 		
-		log.debug("Inside Dao. Storing Address in database.");
+		LOG.debug("Inside Dao. Storing Address in database.");
 		
-		Connection conn = DaoConnectionClass.getConnection();
+		final Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
 		try {
 			
 			st = conn.prepareStatement("insert into addresses (uid,home,city,state,country,pincode) values (?,?,?,?,?,?);");
 			
 			st.setInt(1, uid);
-			st.setString(2, a.getHome());
-			st.setString(3, a.getCity());
-			st.setString(4, a.getState());
-			st.setString(5, a.getCountry());
-			st.setString(6, a.getPincode());
+			st.setString(2, address.getHome());
+			st.setString(3, address.getCity());
+			st.setString(4, address.getState());
+			st.setString(5, address.getCountry());
+			st.setString(6, address.getPincode());
 			
 			st.executeUpdate();
 			
-			log.info("Query executed successfully.");
+			LOG.info("Query executed successfully.");
 			
 		}catch(Exception e) {
-			log.fatal("Something went wrong! Exception : "+e);
+			LOG.fatal("Something went wrong! Exception : "+e);
 		}finally {
 			try{
 				if(st != null){
 					st.close();
-					log.info("PreparedStatement Closed.");
+					LOG.info("PreparedStatement Closed.");
 				}
 			}catch(Exception ep){
-				log.fatal("Something went wrong! Exception : "+ep);
+				LOG.fatal("Something went wrong! Exception : "+ep);
 			}
 		}
 	}
 	
 	@Override
-	public void getAddressInfo(UserBean u) {
+	public void getAddressInfo(UserBean user) {
 		
-		log.debug("Inside Dao. Getting Address list using user id.");
+		LOG.debug("Inside Dao. Getting Address list using user id.");
 		
 		Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
@@ -68,92 +71,92 @@ public class AddressDaoMethods implements AddressDaoInterface{
 			
 			st = conn.prepareStatement("select aid,home,city,state,country,pincode from addresses where uid=?;");
 			
-			st.setInt(1, u.getUid());
+			st.setInt(1, user.getUid());
 
 			rs = st.executeQuery();
 			
-			log.info("Query executed successfully.");
+			LOG.info("Query executed successfully.");
 			
-			ArrayList<AddressBean> list = new ArrayList<AddressBean>();
+			final ArrayList<AddressBean> list = new ArrayList<>();
 			
 			while(rs.next()) {
 				list.add( new AddressBean( rs.getInt("aid"),rs.getString("home"),rs.getString("city"),rs.getString("state"),rs.getString("country"),rs.getString("pincode") ) );
 			}
 			
-			log.debug("Addresses stored in list.");
+			LOG.debug("Addresses stored in list.");
 			
-			u.setAddress(list);
+			user.setAddress(list);
 			
 		}catch(Exception e) {
-			log.fatal("Something went wrong! Exception : "+e);
+			LOG.fatal("Something went wrong! Exception : {}",e);
 		}finally {
 			try{
 				if(rs != null) {
 					rs.close();
-					log.info("ResultSet Closed.");
+					LOG.info("ResultSet Closed.");
 				}
 				if(st != null){
 					st.close();
-					log.info("PreparedStatement Closed.");
+					LOG.info("PreparedStatement Closed.");
 				}
 			}catch(Exception ep){
-				System.out.println("Exception2 : "+ep);
+				LOG.fatal("Something went wrong! Exception : {}",ep);
 			}
 		}
 	}
 	
 	@Override
-	public List<Integer> getAid(int uid) {
+	public List<Integer> getAid(final int uid) {
 		
-		log.debug("Inside Dao. Getting address id list using user's id.");
+		LOG.debug("Inside Dao. Getting address id list using user's id.");
 		
-		Connection conn = DaoConnectionClass.getConnection();
-		PreparedStatement st = null;
-		ResultSet rs = null;
+		final Connection conn = DaoConnectionClass.getConnection();
+		PreparedStatement statement = null;
+		ResultSet resultset = null;
+		
+		final List<Integer> list = new ArrayList<>();
 		
 		try {
 			
-			st = conn.prepareStatement("select aid from addresses where uid=?;");
+			statement = conn.prepareStatement("select aid from addresses where uid=?;");
 			
-			st.setInt(1, uid);
+			statement.setInt(1, uid);
 
-			rs = st.executeQuery();
+			resultset = statement.executeQuery();
 			
-			log.info("Query executed successfully.");
+			LOG.info("Query executed successfully.");
 			
-			List<Integer> list = new ArrayList<Integer>();
-			
-			while(rs.next()) {
-				list.add( rs.getInt("aid") );
+			while(resultset.next()) {
+				list.add( resultset.getInt("aid") );
 			}
 			
-			log.debug("Aid stored in list.");
+			LOG.debug("Aid stored in list.");
 			
 			return list;
 			
 		}catch(Exception e) {
-			log.fatal("Something went wrong! Exception : "+e);
+			LOG.fatal("Something went wrong! Exception : "+e);
 		}finally {
 			try{
-				if(rs != null) {
-					rs.close();
-					log.info("ResultSet Closed.");
+				if(resultset != null) {
+					resultset.close();
+					LOG.info("ResultSet Closed.");
 				}
-				if(st != null){
-					st.close();
-					log.info("PreparedStatement Closed.");
+				if(statement != null){
+					statement.close();
+					LOG.info("PreparedStatement Closed.");
 				}
 			}catch(Exception ep){
-				log.fatal("Something went wrong! Exception : "+ep);
+				LOG.fatal("Something went wrong! Exception : "+ep);
 			}
 		}
-		return null;
+		return list;
 	}
 	
 	@Override
-	public void updateAddress(AddressBean a,int aid) {
+	public void updateAddress(AddressBean address,int aid) {
 		
-		log.debug("Inside Dao. Updating Address.");
+		LOG.debug("Inside Dao. Updating Address.");
 		
 		Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
@@ -162,27 +165,27 @@ public class AddressDaoMethods implements AddressDaoInterface{
 			
 			st = conn.prepareStatement("update addresses set home=?,city=?,state=?,country=?,pincode=? where aid=?;");
 			
-			st.setString(1, a.getHome());
-			st.setString(2, a.getCity());
-			st.setString(3, a.getState());
-			st.setString(4, a.getCountry());
-			st.setString(5, a.getPincode());
+			st.setString(1, address.getHome());
+			st.setString(2, address.getCity());
+			st.setString(3, address.getState());
+			st.setString(4, address.getCountry());
+			st.setString(5, address.getPincode());
 			st.setInt(6, aid);
 			
 			st.executeUpdate();
 			
-			log.info("Query executed successfully.");
+			LOG.info("Query executed successfully.");
 			
 		}catch(Exception e) {
-			log.fatal("Something went wrong! Exception : "+e);
+			LOG.fatal("Something went wrong! Exception : "+e);
 		}finally {
 			try{
 				if(st != null){
 					st.close();
-					log.info("PreparedStatement Closed.");
+					LOG.info("PreparedStatement Closed.");
 				}
 			}catch(Exception ep){
-				log.fatal("Something went wrong! Exception : "+ep);
+				LOG.fatal("Something went wrong! Exception : "+ep);
 			}
 		}
 	}
@@ -190,7 +193,7 @@ public class AddressDaoMethods implements AddressDaoInterface{
 	@Override
 	public void deleteAddress(int uid,int length) {
 		
-		log.debug("Inside Dao. Deleting Address.");
+		LOG.debug("Inside Dao. Deleting Address.");
 		
 		Connection conn = DaoConnectionClass.getConnection();
 		PreparedStatement st = null;
@@ -204,18 +207,18 @@ public class AddressDaoMethods implements AddressDaoInterface{
 
 			st.executeUpdate();
 
-			log.info("Query executed successfully.");
+			LOG.info("Query executed successfully.");
 			
 		}catch(Exception e) {
-			log.fatal("Something went wrong! Exception : "+e);
+			LOG.fatal("Something went wrong! Exception : "+e);
 		}finally {
 			try{
 				if(st != null){
 					st.close();
-					log.info("PreparedStatement Closed.");
+					LOG.info("PreparedStatement Closed.");
 				}
 			}catch(Exception ep){
-				log.fatal("Something went wrong! Exception : "+ep);
+				LOG.fatal("Something went wrong! Exception : "+ep);
 			}
 		}
 	}

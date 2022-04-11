@@ -22,28 +22,27 @@ import org.apache.log4j.Logger;
  */
 @WebFilter(urlPatterns = {"/homepage.jsp","/EditServlet","/UpdateServlet","/AdminServlet"})
 public class UserFilter implements Filter {
-	static Logger log = Logger.getLogger(UserFilter.class);
+	static final Logger LOG = Logger.getLogger(UserFilter.class);
     /**
      * Default constructor. 
      */
     public UserFilter() {
-        // TODO Auto-generated constructor stub
+        
     }
 
 	/**
 	 * @see Filter#destroy()
 	 */
 	public void destroy() {
-		// TODO Auto-generated method stub
+		
 	}
 
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
 		
-		log.debug("Inside User Login Filter.");
+		LOG.debug("Inside User Login Filter.");
 
 		HttpServletResponse res = (HttpServletResponse) response;
 		HttpServletRequest req = (HttpServletRequest) request;
@@ -54,10 +53,10 @@ public class UserFilter implements Filter {
 		
 		HttpSession session=req.getSession(false);  
 		if(session==null || session.getAttribute("user")==null) {
-			log.debug("Session is not active, redirecting to login page.");
+			LOG.debug("Session is not active, redirecting to login page.");
 			res.sendRedirect("index.jsp");
 		}else {
-			log.debug("Session is active, let him pass.");
+			LOG.debug("Session is active, let him pass.");
 	        res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 	        res.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 	        res.setDateHeader("Expires", 0);
@@ -69,7 +68,7 @@ public class UserFilter implements Filter {
 	 * @see Filter#init(FilterConfig)
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
+		
 	}
 
 }

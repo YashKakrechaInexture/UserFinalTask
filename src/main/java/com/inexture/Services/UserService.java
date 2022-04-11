@@ -20,18 +20,18 @@ import com.inexture.Utilities.ShaEncryption;
  *
  */
 public class UserService implements UserInterface{
-	static Logger log = Logger.getLogger(UserService.class);
+	static final Logger LOG = Logger.getLogger(UserService.class);
 	
 	@Override
 	public List<UserBean> showUsers(String type) {
 		
-		log.debug("Inside ShowUser service.");
-		List<UserBean> list = new ArrayList<UserBean>();
+		LOG.debug("Inside ShowUser service.");
+		List<UserBean> list = new ArrayList<>();
 		
 		DaoMethods dm = new DaoMethods();
 		dm.showUserData(list,type);
 		
-		log.debug("List is returning to Servlet.");
+		LOG.debug("List is returning to Servlet.");
 		
 		return list;
 	}
@@ -39,7 +39,7 @@ public class UserService implements UserInterface{
 	@Override
 	public void deleteUser(int uid) {
 		
-		log.debug("Inside Delete User Service");
+		LOG.debug("Inside Delete User Service");
 		
 		DaoMethods dm = new DaoMethods();
 		dm.deleteUser(uid);
@@ -49,15 +49,15 @@ public class UserService implements UserInterface{
 	@Override
 	public void updateUser(UserBean u,String fileName) {
 		
-		log.debug("Inside Update Service.");
+		LOG.debug("Inside Update Service.");
 		
 		DaoMethods dm = new DaoMethods();
 		dm.updateUserDetail(u);
 		
-		log.debug("User updated.");
+		LOG.debug("User updated.");
 		
 		if(fileName!=null && !fileName.equals("")) {
-			log.debug("Updating image.");
+			LOG.debug("Updating image.");
 			dm.updateImage(u);
 		}	
 		
@@ -69,22 +69,22 @@ public class UserService implements UserInterface{
 		
 		if(aid.size()<=address.size()) {
 			for(Integer i : aid) {
-				log.debug("Updating addresses.");
+				LOG.debug("Updating addresses.");
 				am.updateAddress(address.get(0), i);
 				address.remove(0);
 			}
 			for(AddressBean a : address) {
-				log.debug("Adding new addresses.");
+				LOG.debug("Adding new addresses.");
 				am.addAddress(a, u.getUid());
 			}
 		}else {
 			for(AddressBean a : address) {
-				log.debug("Updating addresses.");
+				LOG.debug("Updating addresses.");
 				am.updateAddress(a, aid.get(0));
 				aid.remove(0);
 			}
 			
-			log.debug("Deleting extra addresses.");
+			LOG.debug("Deleting extra addresses.");
 			am.deleteAddress(u.getUid(), aid.size());
 			
 		}
@@ -94,25 +94,25 @@ public class UserService implements UserInterface{
 	@Override
 	public void registerUser(UserBean u) {
 		
-		log.debug("Inside Register Service.");
+		LOG.debug("Inside Register Service.");
 		
 		DaoMethods dm = new DaoMethods();
 		AddressDaoMethods am = new AddressDaoMethods();
 		//checking if user already exist
 		if(dm.checkUser(u.getEmail())) {
 			
-			log.debug("No email found, registering to database.");
+			LOG.debug("No email found, registering to database.");
 			
 			//encrypting password
 			ShaEncryption sha = new ShaEncryption();
 			u.setPassword( sha.passwordEncryption( u.getPassword() ) );
 			
-			log.info("Password Encrypted.");
+			LOG.info("Password Encrypted.");
 			
 			//adding user details in table
 			dm.register(u);
 			
-			log.debug("User Registered.");
+			LOG.debug("User Registered.");
 			
 			//getting uid
 			int uid = dm.getUid(u.getEmail());
@@ -120,7 +120,7 @@ public class UserService implements UserInterface{
 			//adding address in table
 			if(uid>0) {
 
-				log.debug("Adding all address in database.");
+				LOG.debug("Adding all address in database.");
 				
 				//adding all addresses in table
 				for(AddressBean a : u.getAddress()) {
@@ -133,18 +133,18 @@ public class UserService implements UserInterface{
 	@Override
 	public void resetPass(String email,String password) {
 		
-		log.debug("Inside Reset Password Service.");
+		LOG.debug("Inside Reset Password Service.");
 		
 		//encrypting password
 		ShaEncryption sha = new ShaEncryption();
-		password = sha.passwordEncryption(password);
+		String encryptedPassword = sha.passwordEncryption(password);
 		
-		log.info("Password Incrypted.");
+		LOG.info("Password Incrypted.");
 		
 		DaoMethods dm = new DaoMethods();
-		dm.changePassword(email, password);
+		dm.changePassword(email, encryptedPassword);
 		
-		log.info("Password changed");
+		LOG.info("Password changed");
 	}
 	
 	@Override
@@ -152,15 +152,15 @@ public class UserService implements UserInterface{
 		
 		//encrypting password
 		ShaEncryption sha = new ShaEncryption();
-		password = sha.passwordEncryption(password);
+		String encryptedPassword = sha.passwordEncryption(password);
 		
-		log.info("Password Encrypted.");
+		LOG.info("Password Encrypted.");
 		
 		//checking if user/admin exist
 		DaoMethods dm = new DaoMethods();
-		UserBean u = dm.authUser(email,password);
+		UserBean u = dm.authUser(email,encryptedPassword);
 		
-		log.debug("Checked User in Dao.");
+		LOG.debug("Checked User in Dao.");
 		
 		return u;
 		
@@ -169,7 +169,7 @@ public class UserService implements UserInterface{
 	@Override
 	public void editProfile(UserBean u) {
 		
-		log.debug("Inside Edit profile service");
+		LOG.debug("Inside Edit profile service");
 		
 		DaoMethods dm = new DaoMethods();
 		dm.getUserInfo(u);
@@ -182,7 +182,7 @@ public class UserService implements UserInterface{
 	
 	@Override
 	public boolean checkEmail(String email) {
-		log.debug("Inside AuthEmail Service.");
+		LOG.debug("Inside AuthEmail Service.");
 		
 		DaoMethods dm = new DaoMethods();
 		
@@ -192,7 +192,7 @@ public class UserService implements UserInterface{
 	
 	@Override
 	public boolean findUser(UserBean u) {
-		log.debug("Inside FindUser Service.");
+		LOG.debug("Inside FindUser Service.");
 		DaoMethods dm = new DaoMethods();
 		return dm.findUser(u);
 	}
@@ -216,25 +216,25 @@ public class UserService implements UserInterface{
 	        
 	        u.setBase64Image(base64Image);
 	        
-	        log.debug("Converted image to base64image");
+	        LOG.debug("Converted image to base64image");
 	        
 		}catch(Exception e) {
-			log.fatal("Something went wrong! Exception : "+e);
+			LOG.fatal("Something went wrong! Exception : "+e);
 		}finally {
 			
 			try {
 				
 				if(inputStream != null) {
-					log.debug("InputStream closed.");
+					LOG.debug("InputStream closed.");
 					inputStream.close();    
 				}
 				if(outputStream != null) {
-					log.debug("OutputStream closed.");
+					LOG.debug("OutputStream closed.");
 					outputStream.close();    
 				}
 
 			}catch(Exception ex) {
-				log.fatal("Something went wrong! Exception : "+ex);
+				LOG.fatal("Something went wrong! Exception : "+ex);
 			}
 		}
 	}

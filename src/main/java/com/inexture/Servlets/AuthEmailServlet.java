@@ -21,25 +21,23 @@ import com.inexture.Services.UserService;
 @WebServlet("/AuthEmailServlet")
 public class AuthEmailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static Logger log = Logger.getLogger(AuthEmailServlet.class);
+	static final Logger LOG = Logger.getLogger(AuthEmailServlet.class);
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		log.debug("Inside Auth email servlet.");
+		LOG.debug("Inside Auth email servlet.");
 		
 		String email = request.getParameter("email");
 		PrintWriter out = response.getWriter();
 		
 		UserService aes = new UserService();
 		if(!aes.checkEmail(email)) {
-			log.info("Email exist in table.");
+			LOG.info("Email exist in table.");
 			out.print("<span style=\"color:red;\">Email Already Taken.</span>");
 		}else {
-			log.info("Email does not exist in table.");
+			LOG.info("Email does not exist in table.");
 			out.print("<span style=\"color:green;\">Email Available.</span>");
 		}
 	}
@@ -48,7 +46,6 @@ public class AuthEmailServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

@@ -14,7 +14,10 @@ import com.inexture.Beans.UserBean;
  */
 public class Validation {
 	
-	static Logger log = Logger.getLogger(Validation.class);
+	/**
+	 * Logger
+	 */
+	static final Logger LOG = Logger.getLogger(Validation.class);
 	
 	/**
 	 * This method checks validation of firstname, lastname, email, phone, gender, birthdate, hobby, que1, que2, que3, address list
@@ -37,40 +40,40 @@ public class Validation {
 		String que3 = u.getQue3();
 		ArrayList<AddressBean> address = u.getAddress();
 		
-		log.debug("Inside Validation class.");
+		LOG.debug("Inside Validation class.");
 		
 		if(fname.equals("") || fname.length()>255) {
-			log.debug("Validation failed for fname.");
+			LOG.debug("Validation failed for fname.");
 			return false;
 		}else if(lname.equals("") || lname.length()>255) {
-			log.debug("Validation failed for lname.");
+			LOG.debug("Validation failed for lname.");
 			return false;
 		}else if(email.equals("") || email.length()>255) {
-			log.debug("Validation failed for email.");
+			LOG.debug("Validation failed for email.");
 			return false;
 		}else if(phone == 0) {
-			log.debug("Validation failed for phone.");
+			LOG.debug("Validation failed for phone.");
 			return false;
 		}else if(gender.equals("") || gender.length()>255) {
-			log.debug("Validation failed for gender.");
+			LOG.debug("Validation failed for gender.");
 			return false;
 		}else if(birthdate.equals("") || birthdate.length()>255) {
-			log.debug("Validation failed for birthdate.");
+			LOG.debug("Validation failed for birthdate.");
 			return false;
 		}else if(hobby.equals("") || hobby.length()>255) {
-			log.debug("Validation failed for hobby.");
+			LOG.debug("Validation failed for hobby.");
 			return false;
 		}else if(que1.equals("") || que1.length()>255) {
-			log.debug("Validation failed for que1.");
+			LOG.debug("Validation failed for que1.");
 			return false;
 		}else if(que2.equals("") || que2.length()>255) {
-			log.debug("Validation failed for que2.");
+			LOG.debug("Validation failed for que2.");
 			return false;
 		}else if(que3.equals("") || que3.length()>255) {
-			log.debug("Validation failed for que3.");
+			LOG.debug("Validation failed for que3.");
 			return false;
 		}else if(address.size()<1) {
-			log.debug("Validation failed for address size.");
+			LOG.debug("Validation failed for address size.");
 			return false;
 		}
 		else {
@@ -83,24 +86,24 @@ public class Validation {
 				String pincode = a.getPincode();
 				
 				if(home.equals("") || home.length()>255) {
-					log.debug("Validation failed for home.");
+					LOG.debug("Validation failed for home.");
 					return false;
 				}else if(city.equals("") || city.length()>255) {
-					log.debug("Validation failed for city.");
+					LOG.debug("Validation failed for city.");
 					return false;
 				}else if(state.equals("") || state.length()>255) {
-					log.debug("Validation failed for state.");
+					LOG.debug("Validation failed for state.");
 					return false;
 				}else if(country.equals("") || country.length()>255) {
-					log.debug("Validation failed for country.");
+					LOG.debug("Validation failed for country.");
 					return false;
 				}else if(pincode.equals("") || pincode.length()>255) {
-					log.debug("Validation failed for pincode.");
+					LOG.debug("Validation failed for pincode.");
 					return false;
 				}
 			}
 			
-			log.debug("All validation true.");
+			LOG.debug("All validation true.");
 			return true;
 			
 		}

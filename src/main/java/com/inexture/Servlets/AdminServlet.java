@@ -22,23 +22,23 @@ import com.inexture.Services.UserService;
 @WebServlet("/AdminServlet")
 public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static Logger log = Logger.getLogger(AdminServlet.class);
+	static final Logger LOG = Logger.getLogger(AdminServlet.class);
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		log.info("Inside Admin Servlet.");
+		LOG.info("Inside Admin Servlet.");
 		
 		UserService as = new UserService();
 		
-		log.debug("Adding User list to request attribute.");
+		LOG.debug("Adding User list to request attribute.");
 		
 		request.setAttribute("data", as.showUsers("user"));
 		
-		log.debug("Redirecting to Admin page.");
+		LOG.debug("Redirecting to Admin page.");
 		
 		RequestDispatcher rd = request.getRequestDispatcher("admin.jsp");
 		rd.forward(request, response);
@@ -48,7 +48,6 @@ public class AdminServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

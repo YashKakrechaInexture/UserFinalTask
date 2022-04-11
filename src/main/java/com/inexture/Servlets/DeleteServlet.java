@@ -19,25 +19,24 @@ import com.inexture.Services.UserService;
 @WebServlet("/DeleteServlet")
 public class DeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static Logger log = Logger.getLogger(DeleteServlet.class);
+	static final Logger LOG = Logger.getLogger(DeleteServlet.class);
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		log.debug("Inside Delete Servlet.");
+		LOG.debug("Inside Delete Servlet.");
 		
 		String suid = request.getParameter("uid");
 		int uid = Integer.parseInt(suid);
 		
-		log.debug("User deleting service calling.");
+		LOG.debug("User deleting service calling.");
 		
 		UserService ds = new UserService();
 		ds.deleteUser(uid);
 		
-		log.debug("User deleted, redirecting to admin servlet.");
+		LOG.debug("User deleted, redirecting to admin servlet.");
 		
 		response.sendRedirect("AdminServlet");
 	}
@@ -46,7 +45,6 @@ public class DeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

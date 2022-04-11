@@ -1,6 +1,7 @@
 package com.inexture.Beans;
 
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -9,9 +10,10 @@ import java.util.ArrayList;
  * @author Yash
  *
  */
-public class UserBean {
+public class UserBean implements Serializable{
 	
-	
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Store user id from user database table
 	 */

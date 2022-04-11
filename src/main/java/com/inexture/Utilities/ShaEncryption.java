@@ -16,7 +16,7 @@ import com.inexture.Servlets.AdminServlet;
  *
  */
 public class ShaEncryption {
-	static Logger log = Logger.getLogger(AdminServlet.class);
+	static final Logger LOG = Logger.getLogger(AdminServlet.class);
 	
 	/**
 	 * This method converts not encrypted password to sha256 encrypted password.
@@ -24,12 +24,12 @@ public class ShaEncryption {
 	 * @return password - SHA256 encrypted password
 	 */
 	public String passwordEncryption(String pass) {
-		log.debug("Inside Password Encryptor.");
+		LOG.debug("Inside Password Encryptor.");
 		try {
 			//returns encrypted password
 			return toHexString(getSHA(pass));
 		}catch(NoSuchAlgorithmException e) {
-			log.error("Something went wrong! Exception : "+e);
+			LOG.error("Something went wrong! Exception : {}",e);
 			return pass;
 		}
 	}
