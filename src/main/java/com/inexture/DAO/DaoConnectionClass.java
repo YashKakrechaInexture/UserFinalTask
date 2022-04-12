@@ -1,7 +1,9 @@
 package com.inexture.DAO;
 
+import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
@@ -30,13 +32,20 @@ public final class DaoConnectionClass {
 	static final Logger LOG = Logger.getLogger(DaoConnectionClass.class);
 	
 	static {
+		FileReader reader = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			String user = "root";
-			String pass = "Yash@1234";
-			String url = "jdbc:mysql://localhost:3306/userfinaltask";
 			
-			conn = DriverManager.getConnection(url,user,pass);
+			reader = new FileReader("C:\\Users\\Yash\\Documents\\Password\\db.properties");
+			
+			Properties properties = new Properties();  
+		    properties.load(reader);  
+		    
+		    String url = properties.getProperty("url");	
+			String user = properties.getProperty("user");
+			String password = properties.getProperty("password");
+			
+			conn = DriverManager.getConnection(url,user,password);
 			
 			LOG.info("Database connection initialized.");
 			
