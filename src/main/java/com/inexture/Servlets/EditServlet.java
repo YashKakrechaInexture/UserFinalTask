@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.inexture.Beans.UserBean;
+import com.inexture.Services.UserInterface;
 import com.inexture.Services.UserService;
 
 
@@ -56,7 +57,7 @@ public class EditServlet extends HttpServlet {
 			
 			UserBean u = new UserBean(email);
 			
-			UserService es = new UserService();
+			UserInterface es = new UserService();
 			es.editProfile(u);
 			
 			LOG.debug("Setting user bean to request attribute.");

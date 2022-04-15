@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
 
 import com.inexture.Beans.AddressBean;
 import com.inexture.Beans.UserBean;
+import com.inexture.Services.UserInterface;
 import com.inexture.Services.UserService;
 import com.inexture.Utilities.Validation;
 
@@ -105,7 +106,7 @@ public class RegisterServlet extends HttpServlet {
 		
 		UserBean u = new UserBean(fname,lname,email,phone,password1,gender,birthdate,hobby,que1,que2,que3,address,inputStream);
 		
-		UserService rs = new UserService();
+		UserInterface rs = new UserService();
 		
 		if(fileName==null || fileName.equals("")){
 

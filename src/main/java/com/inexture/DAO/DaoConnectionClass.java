@@ -64,6 +64,6 @@ public final class DaoConnectionClass {
 	 */
 	public static Connection getConnection() {
 		LOG.debug("Returned Database connection");
-		return conn;
+		return conn; 
 	}
 }

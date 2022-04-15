@@ -10,7 +10,9 @@ import org.apache.log4j.Logger;
 
 import com.inexture.Beans.AddressBean;
 import com.inexture.Beans.UserBean;
+import com.inexture.DAO.AddressDaoInterface;
 import com.inexture.DAO.AddressDaoMethods;
+import com.inexture.DAO.DaoInterface;
 import com.inexture.DAO.DaoMethods;
 import com.inexture.Utilities.ShaEncryption;
 
@@ -28,7 +30,7 @@ public class UserService implements UserInterface{
 		LOG.debug("Inside ShowUser service.");
 		List<UserBean> list = new ArrayList<>();
 		
-		DaoMethods dm = new DaoMethods();
+		DaoInterface dm = new DaoMethods();
 		dm.showUserData(list,type);
 		
 		LOG.debug("List is returning to Servlet.");
@@ -51,7 +53,7 @@ public class UserService implements UserInterface{
 		
 		LOG.debug("Inside Update Service.");
 		
-		DaoMethods dm = new DaoMethods();
+		DaoInterface dm = new DaoMethods();
 		dm.updateUserDetail(u);
 		
 		LOG.debug("User updated.");
@@ -61,7 +63,7 @@ public class UserService implements UserInterface{
 			dm.updateImage(u);
 		}	
 		
-		AddressDaoMethods am = new AddressDaoMethods();
+		AddressDaoInterface am = new AddressDaoMethods();
 		
 		List<Integer> aid = am.getAid(u.getUid());
 		
@@ -96,8 +98,8 @@ public class UserService implements UserInterface{
 		
 		LOG.debug("Inside Register Service.");
 		
-		DaoMethods dm = new DaoMethods();
-		AddressDaoMethods am = new AddressDaoMethods();
+		DaoInterface dm = new DaoMethods();
+		AddressDaoInterface am = new AddressDaoMethods();
 		//checking if user already exist
 		if(dm.checkUser(u.getEmail())) {
 			
@@ -141,7 +143,7 @@ public class UserService implements UserInterface{
 		
 		LOG.info("Password Incrypted.");
 		
-		DaoMethods dm = new DaoMethods();
+		DaoInterface dm = new DaoMethods();
 		dm.changePassword(email, encryptedPassword);
 		
 		LOG.info("Password changed");
@@ -157,7 +159,7 @@ public class UserService implements UserInterface{
 		LOG.info("Password Encrypted.");
 		
 		//checking if user/admin exist
-		DaoMethods dm = new DaoMethods();
+		DaoInterface dm = new DaoMethods();
 		UserBean u = dm.authUser(email,encryptedPassword);
 		
 		LOG.debug("Checked User in Dao.");
@@ -171,10 +173,10 @@ public class UserService implements UserInterface{
 		
 		LOG.debug("Inside Edit profile service");
 		
-		DaoMethods dm = new DaoMethods();
+		DaoInterface dm = new DaoMethods();
 		dm.getUserInfo(u);
 		
-		AddressDaoMethods am = new AddressDaoMethods();
+		AddressDaoInterface am = new AddressDaoMethods();
 		am.getAddressInfo(u);
 		
 		this.convertToBase64Image(u);
@@ -184,7 +186,7 @@ public class UserService implements UserInterface{
 	public boolean checkEmail(String email) {
 		LOG.debug("Inside AuthEmail Service.");
 		
-		DaoMethods dm = new DaoMethods();
+		DaoInterface dm = new DaoMethods();
 		
 		return dm.checkUser(email);
 		
@@ -193,7 +195,7 @@ public class UserService implements UserInterface{
 	@Override
 	public boolean findUser(UserBean u) {
 		LOG.debug("Inside FindUser Service.");
-		DaoMethods dm = new DaoMethods();
+		DaoInterface dm = new DaoMethods();
 		return dm.findUser(u);
 	}
 	

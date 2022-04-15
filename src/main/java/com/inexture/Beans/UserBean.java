@@ -82,7 +82,7 @@ public class UserBean implements Serializable{
 	/**
 	 * Stores profile pic's inputstream of user
 	 */
-	private InputStream inputStream;
+	private transient InputStream inputStream;
 	
 	/**
 	 * Stores base64image of profile pic
@@ -123,7 +123,7 @@ public class UserBean implements Serializable{
 		this.que1 = que1;
 		this.que2 = que2;
 		this.que3 = que3;
-		this.address = address;
+		this.address = new ArrayList<AddressBean>(address);
 		this.inputStream = inputStream;
 	}
 	
@@ -284,7 +284,7 @@ public class UserBean implements Serializable{
 	 * @param address - Stores all addresses of user in arraylist
 	 */
 	public void setAddress(ArrayList<AddressBean> address) {
-		this.address = address;
+		this.address = new ArrayList<AddressBean>(address);
 	}
 	
 	/**
@@ -413,7 +413,7 @@ public class UserBean implements Serializable{
 	 * @return address - Stores all addresses of user in arraylist
 	 */
 	public ArrayList<AddressBean> getAddress() {
-		return this.address;
+		return new ArrayList<AddressBean>(this.address);
 	}
 	
 	/**

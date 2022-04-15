@@ -87,14 +87,15 @@ public class AddressDaoMethods implements AddressDaoInterface{
 			
 			user.setAddress(list);
 			
+			if(rs != null) {
+				rs.close();
+				LOG.info("ResultSet Closed.");
+			}
+			
 		}catch(Exception e) {
 			LOG.fatal("Something went wrong! Exception : {}",e);
 		}finally {
-			try{
-				if(rs != null) {
-					rs.close();
-					LOG.info("ResultSet Closed.");
-				}
+			try {
 				if(st != null){
 					st.close();
 					LOG.info("PreparedStatement Closed.");
@@ -132,16 +133,17 @@ public class AddressDaoMethods implements AddressDaoInterface{
 			
 			LOG.debug("Aid stored in list.");
 			
+			if(resultset != null) {
+				resultset.close();
+				LOG.info("ResultSet Closed.");
+			}
+			
 			return list;
 			
 		}catch(Exception e) {
 			LOG.fatal("Something went wrong! Exception : "+e);
 		}finally {
 			try{
-				if(resultset != null) {
-					resultset.close();
-					LOG.info("ResultSet Closed.");
-				}
 				if(statement != null){
 					statement.close();
 					LOG.info("PreparedStatement Closed.");

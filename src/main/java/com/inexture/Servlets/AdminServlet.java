@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import com.inexture.Services.UserInterface;
 import com.inexture.Services.UserService;
 
 /**
@@ -32,7 +33,7 @@ public class AdminServlet extends HttpServlet {
 		
 		LOG.info("Inside Admin Servlet.");
 		
-		UserService as = new UserService();
+		UserInterface as = new UserService();
 		
 		LOG.debug("Adding User list to request attribute.");
 		

@@ -22,6 +22,7 @@ import org.apache.log4j.Logger;
 
 import com.inexture.Beans.AddressBean;
 import com.inexture.Beans.UserBean;
+import com.inexture.Services.UserInterface;
 import com.inexture.Services.UserService;
 import com.inexture.Utilities.Validation;
 
@@ -106,7 +107,7 @@ public class UpdateServlet extends HttpServlet {
 		
 		UserBean u = new UserBean(fname,lname,email,phone,password,gender,birthdate,hobby,que1,que2,que3,address,inputStream);
 		
-		UserService us = new UserService();
+		UserInterface us = new UserService();
 		
 		if(!Validation.validate(u)) {
 			LOG.debug("Validation failed.");
