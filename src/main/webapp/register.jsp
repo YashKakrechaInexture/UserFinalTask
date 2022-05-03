@@ -197,8 +197,8 @@
 										</c:choose>
 										<c:choose>
 											<c:when test="${'other' eq requestScope.user.gender}">
-												<input type="radio" name="gender" id="female" checked value="female">
-												<label for="female">Female</label>
+												<input type="radio" name="gender" id="other" checked value="other">
+												<label for="other">Female</label>
 											</c:when>
 											<c:otherwise>
 												<input type="radio" name="gender" id="other" value="other">
