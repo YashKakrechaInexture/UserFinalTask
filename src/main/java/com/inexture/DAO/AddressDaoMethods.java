@@ -20,7 +20,7 @@ public class AddressDaoMethods implements AddressDaoInterface{
 	/**
 	 * Logger
 	 */
-	static final Logger LOG = Logger.getLogger(DaoMethods.class);
+	static final Logger LOG = Logger.getLogger(AddressDaoMethods.class);
 	
 	@Override
 	public void addAddress(AddressBean address,int uid) {
